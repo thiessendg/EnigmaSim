@@ -29,7 +29,7 @@ import java.util.Properties;
 
 /**
  * Diese Klasse wird zum Debugging verwendet. Die Einstellungen dazu sind in der
- * Datei 'ressources/enigma.properties' zu finden.
+ * Datei 'resources/enigma.properties' zu finden.
  *
  * @author Mathias Kub <br />
  * <br />
@@ -78,7 +78,7 @@ public class Debug {
     }
 
     /**
-     * ACHTUNG: Der Dateinamenpfad ist relativ zum 'ressources'-Ordner.
+     * ACHTUNG: Der Dateinamenpfad ist relativ zum 'resources'-Ordner.
      *
      * @param filename der Dateiname
      */
@@ -87,7 +87,7 @@ public class Debug {
     }
 
     /**
-     * ACHTUNG: Der Dateinamenpfad ist relativ zum 'ressources'-Ordner.
+     * ACHTUNG: Der Dateinamenpfad ist relativ zum 'resources'-Ordner.
      *
      * @return der Dateiname
      */
@@ -126,10 +126,10 @@ public class Debug {
     private static BufferedReader getBufferedReader(String fileName) {
         BufferedReader in = null;
         try {
-            return new BufferedReader(new InputStreamReader(new FileInputStream("ressources/" + fileName), "UTF-8"));
+            return new BufferedReader(new InputStreamReader(new FileInputStream("resources/" + fileName), "UTF-8"));
         } catch (Exception e) {
             try {
-                return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/ressources/" + fileName), "UTF-8"));
+                return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/resources/" + fileName), "UTF-8"));
             } catch (Exception e1) {
                 e1.printStackTrace();
                 System.exit(-1);

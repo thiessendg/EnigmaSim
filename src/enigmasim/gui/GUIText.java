@@ -146,12 +146,12 @@ class GUIText {
 		BufferedReader in = null;
 		try {
 			in = new BufferedReader(new InputStreamReader(
-					new FileInputStream("ressources/" + fileName), "UTF-8")
+					new FileInputStream("resources/" + fileName), "UTF-8")
 			);
 		} catch (Exception e) {
 			try {
 				in = new BufferedReader(new InputStreamReader(
-						Object.class.getResourceAsStream("/ressources/"+fileName), "UTF-8"));
+						Object.class.getResourceAsStream("/resources/"+fileName), "UTF-8"));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				System.exit(-1);

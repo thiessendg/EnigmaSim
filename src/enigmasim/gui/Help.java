@@ -66,11 +66,11 @@ public class Help extends JFrame {
 	 */
 	private Image readImageFromRessources(String fname) {
 		try {
-			return ImageIO.read(new File("ressources/" + fname));
+			return ImageIO.read(new File("resources/" + fname));
 		} catch (Exception e) {
 			try {
 				return ImageIO.read(getClass().getResource(
-						"/ressources/" + fname));
+						"/resources/" + fname));
 			} catch (Exception e1) {
 				if(Debug.isDebug())
 					System.out.println("Falscher Dateiname");
@@ -107,11 +107,11 @@ public class Help extends JFrame {
 		BufferedReader in = null;
 		try {
 			return new BufferedReader(new InputStreamReader(
-					new FileInputStream("ressources/" + fileName), "UTF-8"));
+					new FileInputStream("resources/" + fileName), "UTF-8"));
 		} catch (Exception e) {
 			try {
 				return new BufferedReader(new InputStreamReader(Object.class.getResourceAsStream(
-								"/ressources/" + fileName), "UTF-8"));
+								"/resources/" + fileName), "UTF-8"));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				System.exit(-1);

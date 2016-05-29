@@ -211,10 +211,10 @@ public class Network implements Runnable, LogicListener {
     private BufferedReader getBufferedReader(String fileName) {
         BufferedReader in = null;
         try {
-            return new BufferedReader(new InputStreamReader(new FileInputStream("ressources/" + fileName), "UTF-8"));
+            return new BufferedReader(new InputStreamReader(new FileInputStream("resources/" + fileName), "UTF-8"));
         } catch (Exception e) {
             try {
-                return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/ressources/" + fileName), "UTF-8"));
+                return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/resources/" + fileName), "UTF-8"));
             } catch (Exception e1) {
                 e1.printStackTrace();
                 System.exit(-1);

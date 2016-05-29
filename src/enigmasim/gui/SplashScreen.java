@@ -72,11 +72,11 @@ public class SplashScreen extends JFrame {
     //@Nullable
     private Image readImageFromRessources(String fname) {
         try {
-            return ImageIO.read(new File("ressources/" + fname));
+            return ImageIO.read(new File("resources/" + fname));
         } catch (Exception e) {
             try {
                 return ImageIO.read(getClass().getResource(
-                        "/ressources/" + fname));
+                        "/resources/" + fname));
             } catch (Exception e1) {
                 if (Debug.isDebug()) {
                     System.out.println("Falscher Dateiname");

@@ -545,16 +545,16 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	}
 	
 	/**
-	 * Methode liesst ein Bild aus dem ressources Ordner aus und gibt es als Image Objekt zurueck
+	 * Methode liesst ein Bild aus dem resources Ordner aus und gibt es als Image Objekt zurueck
 	 * @param fname Der Name des Bildes
 	 * @return Das gefundene Bild, falls keines gefunden wurde wird null zurueckgegeben
 	 */
 	public Image readImageFromRessources(String fname) {
 		try {
-			return ImageIO.read(new File("ressources/" + fname));
+			return ImageIO.read(new File("resources/" + fname));
 		} catch (Exception e) {
 			try {
-				return ImageIO.read(getClass().getResource("/ressources/" + fname));
+				return ImageIO.read(getClass().getResource("/resources/" + fname));
 			} catch (Exception e1) {
 				if(Debug.isDebug())
 					System.out.println("Falscher Dateiname");
@@ -565,7 +565,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	/**
 	 * Diese Methode setzt den TrayIcon und das Icon in der Titelleiste.
 	 * Weiters wird im Tray ein PopupMenu erstellt, welches die M√∂glichkeit bietet das Programm zu schliessen
-	 * @param imgName Der Name des Bildes (muss sich im Folder ressources befinden). 
+	 * @param imgName Der Name des Bildes (muss sich im Folder resources befinden). 
 	 */
 	private void setIconsAndTray(String imgName) {
 		Image image = readImageFromRessources(imgName);
@@ -619,10 +619,10 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 			System.out.println("Dateiname: "+fileName);
 		BufferedReader in = null;
 		try {
-			return new BufferedReader(new InputStreamReader(new FileInputStream("ressources/" + fileName), "UTF-8"));
+			return new BufferedReader(new InputStreamReader(new FileInputStream("resources/" + fileName), "UTF-8"));
 		} catch (Exception e) {
 			try {
-				return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/ressources/"+fileName), "UTF-8"));
+				return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/resources/"+fileName), "UTF-8"));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				System.exit(-1);
