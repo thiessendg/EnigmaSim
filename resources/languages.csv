@@ -1,25 +1,25 @@
-key;Deutsch;English
-bset;Setzen;Set
+key;English;Deutsch
+bset;Set;Setzen
 breset;Reset;Reset
-bclear;Neu;Clear
-tbmessages;Nachrichten;Messages
-tbinput;Eingabe;Input
-tboutput;Ausgabe;Output
-tbplugboard;Steckbrett;Plugboard
-bencrypt;Ver-/Entschlüsseln;En-/Decrypt
-bsend;Senden;Send
-lrefl;Reflektor;Reflector
-mset;Einstellungen;Settings
-msetmachine;Maschine;Machine
-msetlang;Sprache;Language
+bclear;Clear;Neu
+tbmessages;Messages;Nachrichten
+tbinput;Input;Eingabe
+tboutput;Output;Ausgabe
+tbplugboard;Plugboard;Steckbrett
+bencrypt;En-/Decrypt;Ver-/Entschlüsseln
+bsend;Send;Senden
+lrefl;Reflector;Reflektor
+mset;Settings;Einstellungen
+msetmachine;Machine;Maschine
+msetlang;Language;Sprache
 mabout;?;?
-maboutabout;Über;About
-mabouthelp;Hilfe;Help
-ttencrypt;Ver-/Entschlüsselt den Text im Eingabefenster;En-/Decrypts the text in the inputarea
-ttsend;Sendet den Text im Ausgabefenster an andere Enigmas;Sends the text from the outputarea to other Enigmas
-ttmessages;Empfangene Nachrichten von anderen Enigmas;Received messages from other Enigmas
-ttset;Speichert die aktuelle Konfiguration;Save the current configuration
-ttreset;Stellt auf gespeicherte Konfiguration zurück;Recovers saved configuration
-ttclear;Stellt die Enigma auf Standardkonfiguration;Sets Enigma on standardconfiguration
-lsuberror;<html><body>Du hast unzulaessige Zeichen eingegeben! <br /> Es sind nur a-z, A-Z, 0-9, Umlaute und Leerzeichen erlaubt, da die echte Enigma auch keine Sonderzeichen verschlüsseln konnte.<br />Die falschen Zeichen wurden für dich entfernt.</body></html>;<html><body>You entered invalid characters! <br /> Only a-z, A-Z, 0-9 and spaces are allowed, because the real Enigma could also only encrypt those characters.<br />The invalid characters have been removed for you.</body></html>
-toolong;Der Text ist zu lang und wird deshalb gekürzt. Es sind maximal 25.000 Zeichen erlaubt;The text is too long and got shortened. Maximum allowed textsize is 25,000 characters.
+maboutabout;About;Über
+mabouthelp;Help;Hilfe
+ttencrypt;En-/Decrypts the text in the inputarea;Ver-/Entschlüsselt den Text im Eingabefenster
+ttsend;Sends the text from the outputarea to other Enigmas;Sendet den Text im Ausgabefenster an andere Enigmas
+ttmessages;Received messages from other Enigmas;Empfangene Nachrichten von anderen Enigmas
+ttset;Save the current configuration;Speichert die aktuelle Konfiguration
+ttreset;Recovers saved configuration;Stellt auf gespeicherte Konfiguration zurück
+ttclear;Sets Enigma on standardconfiguration;Stellt die Enigma auf Standardkonfiguration
+lsuberror;<html><body>You entered invalid characters! <br /> Only a-z, A-Z, 0-9 and spaces are allowed, because the real Enigma could also only encrypt those characters.<br />The invalid characters have been removed for you.</body></html>;<html><body>Du hast unzulaessige Zeichen eingegeben! <br /> Es sind nur a-z, A-Z, 0-9, Umlaute und Leerzeichen erlaubt, da die echte Enigma auch keine Sonderzeichen verschlüsseln konnte.<br />Die falschen Zeichen wurden für dich entfernt.</body></html>
+toolong;The text is too long and got shortened. Maximum allowed textsize is 25,000 characters.;Der Text ist zu lang und wird deshalb gekürzt. Es sind maximal 25.000 Zeichen erlaubt
