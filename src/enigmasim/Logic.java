@@ -60,21 +60,29 @@ public class Logic {
 		 * Re gibt an dass es sich um einen Reflektor handelt
 		 * Bei Re oder Ro, die sich nicht drehen, muss ein Leerzeichen am Ende des Konfigurations-Strings angegeben werden!
          */
+
+        //Plugboard
         allMappersConfig.put("Pb", "Pb:ABCDEFGHIJKLMNOPQRSTUVWXYZ: ");
-        allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:Q");
-        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:E");
-        allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:V");
-        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:J");
-        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:Z");
-        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:ZM");
-        allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:ZM");
-        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:ZM");
-        allMappersConfig.put("Beta", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS: ");
-        allMappersConfig.put("Gamma", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD: ");
+
+        //Rotors
+        allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:Q"); //1930 	Enigma I
+        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:E"); //1930 	Enigma I
+        allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:V"); //1930 	Enigma I
+        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:J"); //December 1938 	M3 Army
+        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:Z"); //December 1938 	M3 Army
+        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("Beta", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS: "); //Spring 1941 	M4 R2
+        allMappersConfig.put("Gamma", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD: "); //Spring 1941 	M4 R2
+
+        //Refelctors
         allMappersConfig.put("A", "Re:EJMZALYXVBWFCRQUONTSPIKHGD: ");
-        //allMappersConfig.put("B", "Re:YRUHQSLDPXNGOKMIEBFZCWVJAT: "); // Reflektor
-        allMappersConfig.put("B", "Re:ENKQAUYWJICOPBLMDXZVFTHRGS: ");
-        allMappersConfig.put("C", "Re:RDOBJNTKVEHMLFCWZAXGYIPSUQ: ");
+        //allMappersConfig.put("B", "Re:YRUHQSLDPXNGOKMIEBFZCWVJAT: "); //Reflektor
+        //allMappersConfig.put("C", "Re:FVPJIAOYEDRZXWGCTKUQSBNMHL: "); //Reflektor
+        //allMappersConfig.put("ETW", "Re:ABCDEFGHIJKLMNOPQRSTUVWXYZ: "); //Reflektor ETW Enigma I
+        allMappersConfig.put("B", "Re:ENKQAUYWJICOPBLMDXZVFTHRGS: "); //1940 	M4 R1 (M3 + Thin)
+        allMappersConfig.put("C", "Re:RDOBJNTKVEHMLFCWZAXGYIPSUQ: "); //1940 	M4 R1 (M3 + Thin)
 
         addInitialMachines();
     }
