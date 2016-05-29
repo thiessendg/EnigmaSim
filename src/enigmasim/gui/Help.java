@@ -37,7 +37,7 @@ public class Help extends JFrame {
 		String title = GUIText.getText("mabouthelp");
 		setTitle(title);
 		setSize(600, 500);
-		setIconImage(readImageFromRessources("Logo24.png"));
+		setIconImage(readImageFromRessources("Icon_Enigma.png"));
 
 		String text = getTextFromFile("helpText_" + GUIText.getLanguage() + ".txt");
 

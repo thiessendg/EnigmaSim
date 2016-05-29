@@ -100,7 +100,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	private JScrollPane spOutput = new JScrollPane(taOutput);
 	private TitledBorder tbOutput = new TitledBorder("");
 
-	private JLabel lLogo = new JLabel(new ImageIcon(readImageFromRessources("Logo_Technik_verysmall.png")));
+	private JLabel lLogo = new JLabel(new ImageIcon(readImageFromRessources("Logo_Enigma_verysmall.png")));
 	private GUIButton bSet = new GUIButton();
 	private GUIButton bReset = new GUIButton();
 	private GUIButton bClear = new GUIButton();
@@ -158,7 +158,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 		setJMenuBar(menubar);
 
 		setLayout(new BorderLayout());
-		setIconsAndTray("Logo24.png");
+		setIconsAndTray("Icon_Enigma.png");
 		
 		boxlay = new JPanel();
 		boxlay.setLayout(new BoxLayout(boxlay, BoxLayout.PAGE_AXIS));
@@ -494,7 +494,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 			new Help();
 		}
 		else if (src.equals(mAboutAbout)){
-			ImageIcon icon = new ImageIcon(readImageFromRessources("Logo_Technik_small.png"));
+			ImageIcon icon = new ImageIcon(readImageFromRessources("Logo_Enigma_small.png"));
 			if(Debug.isDebug())
 				System.out.println("Lang: "+GUIText.getLanguageCode());
 			JOptionPane.showMessageDialog(this, getTextFromFile("aboutText_"+GUIText.getLanguageCode()+".txt"), GUIText.getText("maboutabout"),
@@ -590,7 +590,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	 *            Breite des Fensters
 	 * @param h
 	 *            H√∂he des Fensters
-	 * @param f
+	 * ATparam f
 	 *            Das JFrame selbst
 	 */
 	private void displayCenter(int w, int h) {

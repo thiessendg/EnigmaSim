@@ -49,7 +49,7 @@ public class SplashScreen extends JFrame {
         progressBar.setBackground(Color.WHITE);
         progressBar.setForeground(Color.BLACK);
 
-        ImageIcon icon = new ImageIcon(readImageFromRessources("Logo_Technik_small.png"));
+        ImageIcon icon = new ImageIcon(readImageFromRessources("Logo_Enigma_small.png"));
 
         JLabel picLabel = new JLabel(icon);
         picLabel.setBorder(new LineBorder(Color.BLACK, 4));
