@@ -56,7 +56,7 @@ class GUISniffer extends JFrame implements NetworkListener,
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		setIconsAndTray("Logo24.png");
+		setIconsAndTray("Icon_Enigma.png");
 		
 		JPanel areapanel = new JPanel();
 		Container cp = this.getContentPane();
