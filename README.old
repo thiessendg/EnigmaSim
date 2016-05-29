@@ -1,0 +1,17 @@
+Enigma-Simulation <https://sourceforge.net/projects/enigma-sim/>
+
+DESCRIPTION
+This program simulates the function of the Enigma used in WW-II. It is developed by some students of the HTL Rennweg, Vienna.
+It uses multicast, address 224.0.0.2, port 2200.
+
+SYSTEM REQUIREMENTS
+ - At least Java Runtime Environment (JRE) Version 6 Update 10
+
+INSTALLATION
+There is no need to install this program, it runs out of the box if a JVM is installed. You just have to open the .jar-file with the JVM.
+
+DOCUMENTATION
+Some documentation is found as JavaDoc or comments in the source-code.
+
+SUPPORT
+Visit our project-page or mail us.

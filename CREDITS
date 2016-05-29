@@ -1,0 +1,31 @@
+This program is written by some students.
+Name (N)
+E-Mail (E)
+Description (D): see JavaDoc / Class-files
+
+N: Mathias Kub
+E: git@makubi.at
+D: Maintainer
+
+N: Daniel Boschofsky
+D: Enigma-GUI
+
+N: Sebastian Chlan
+E: sebastian.chlan@gmail.com
+D: Sniffer-GUI
+
+N: Mario Heindl
+E: marioheindl@gmx.at
+D: Logic
+
+N: Gerald Schreiber
+E: gerald@gerald-schreiber.at
+D: The machine itself
+
+N: Toma Mina
+E: toma.mina@gmail.com
+D: Logic
+
+N: Philip Wölfel
+E: philip@woelfel.at
+D: Parts of the machine
