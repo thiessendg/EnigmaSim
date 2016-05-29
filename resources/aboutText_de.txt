@@ -1,17 +1,13 @@
-	Enigma Version 1.4
-	
-	© ENIGMA_TEC 2010
-	technik@enigma-ausstellung.at
-	http://enigma-ausstellung.at
-	
-	Daniel Boschofsky, Sebastian Chlan, 
-	Mario Heindl, Mathias Kub, Gerald Schreiber, 
-	Mina Toma, Philip Wölfel
-	
-	Mit freundlicher Unterstützung von
-	Professor DI Franz Breunig
-	
-	HTL Rennweg
-	Rennweg 89b
-	A-1030 Wien
+EnigmaSim Version 2.0
 
+© David Thiessen 2016
+thiessendg@gmail.com
+http://github.com/thiessendg/EnigmaSim
+
+Basierend auf früheren Arbeiten von:
+Daniel Boschofsky, Sebastian Chlan,
+Mario Heindl, Mathias Kub, Gerald Schreiber,
+Mina Toma, Philip Wölfel
+
+Wer hat besonderen Dank an:
+Professor DI Franz Breunig
