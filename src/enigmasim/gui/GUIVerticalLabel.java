@@ -33,7 +33,7 @@ class GUIVerticalLabel extends BasicLabelUI {
 
     public Dimension getPreferredSize(JComponent c) {
     	Dimension dim = super.getPreferredSize(c);
-    	return new Dimension(dim.width, dim.height);
+    	return new Dimension(dim.height, dim.width);
     }	
 
 

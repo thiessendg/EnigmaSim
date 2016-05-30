@@ -25,15 +25,15 @@ import enigmasim.parts.Rotor;
 
 /**
  * @author Daniel Boschofsky, Philip Wölfl
- * 
+ *
  * ENIGMA_TEC 2010
  * technik[at]enigma-ausstellung.at
  * http://enigma-ausstellung.at
- * 
+ *
  * HTL Rennweg
  * Rennweg 89b
  * A-1030 Wien
- * 
+ *
  */
 @SuppressWarnings("serial")
 class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyListener {
@@ -41,13 +41,14 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 	private final GUIButton BDOWN = new GUIButton ("\u2228");
 
 	private JComponent[] lLetter = new JComponent[7];
-    private JLabel lrefl = new JLabel();
+	private GUIVerticalLabel lvrefl = new GUIVerticalLabel(false);
+	private JLabel lrefl = new JLabel();
 
 	private JComboBox<String> availRotors = new JComboBox<>();
 	private String prevChoosen = "";
 
 	private ArrayList<GUIRotorListener> rotorListeners = new ArrayList<>();
-	
+
 	private Mapper self = null;
 
 	//FIXME: machinensettings kommen vom logicobject .> anpassen
@@ -59,8 +60,8 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		setBorder(BorderFactory.createEtchedBorder());
 
 		self = m;
-		
-		GridBagConstraints c = new GridBagConstraints();			
+
+		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(3, 3, 3, 3);
 
 		c.gridx = 0;
@@ -90,7 +91,6 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 			lLetter[3].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		} else if (m instanceof Reflector) {
 			lrefl.setText("Reflektor");
-            GUIVerticalLabel lvrefl = new GUIVerticalLabel(false);
             lrefl.setUI(lvrefl);
 			lrefl.setHorizontalAlignment(JLabel.CENTER);
 			add(lrefl, c);
@@ -105,7 +105,7 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 			add(BUP, c);
 
 			c.gridy = 5;
-			add(BDOWN, c);			
+			add(BDOWN, c);
 
 			BUP.addActionListener(this);
 			BDOWN.addActionListener(this);
@@ -118,7 +118,7 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		for (String r : rotors) {
             availRotors.addItem(r);
         }
-		
+
 		availRotors.addActionListener(this);
 		availRotors.setSelectedItem(conf);
 		prevChoosen = (String)availRotors.getSelectedItem();
@@ -131,7 +131,7 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		}
 		else return availRotors.getSelectedItem() + ": ";
 	}
-	
+
 	void setLetter(char c) {
 		for (int i = 0; i < lLetter.length; i++) {
 			if(lLetter[i] instanceof JLabel){
@@ -146,10 +146,10 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 						GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(c) +
 								(i - lLetter.length/2) +26) % 26)));
 			}
-			
+
 		}
 	}
-	
+
 	JComboBox<String> getAvailRotors() {
 		return availRotors;
 	}
@@ -163,13 +163,13 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 				if(lLetter[i] instanceof JLabel){
 					JLabel temp = (JLabel) lLetter[i];
 					temp.setText(Character.toString(
-						GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(curr) + 
+						GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(curr) +
 								(i - lLetter.length/2) +25) % 26)));
 				}
 				else if(lLetter[i] instanceof JTextField){
 					JTextField temp = (JTextField) lLetter[i];
 					temp.setText(Character.toString(
-						GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(curr) + 
+						GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(curr) +
 								(i - lLetter.length/2) +25) % 26)));
 				}
 			}
@@ -180,13 +180,13 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 				if(lLetter[i] instanceof JLabel){
 					JLabel temp = (JLabel) lLetter[i];
 					temp.setText(Character.toString(
-							GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(curr) + 
+							GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(curr) +
 									(i - lLetter.length/2) +27) % 26)));
 				}
 				else if(lLetter[i] instanceof JTextField){
 					JTextField temp = (JTextField) lLetter[i];
 					temp.setText(Character.toString(
-							GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(curr) + 
+							GUIEnigma.LETTERS.charAt((GUIEnigma.LETTERS.indexOf(curr) +
 									(i - lLetter.length/2) +27) % 26)));
 				}
 			}
@@ -199,7 +199,7 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
     void addRotorListeners(ArrayList<GUIRotor> l){
         rotorListeners.addAll(l.stream().filter(rl -> rl != this).collect(Collectors.toList()));
 	}
-	
+
 	JLabel getLrefl() { return lrefl; }
 
     private void fireRotorChange() {
@@ -213,7 +213,7 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 			availRotors.setSelectedItem(otherRot.prevChoosen);
 		}
 	}
-	
+
 	Mapper getMapper() {
 		return self;
 	}
@@ -226,7 +226,7 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 			((JTextField)lLetter[3]).setText(input+"");
 			setLetter(input);
 		}
-		
+
 	}
 
 	@Override
@@ -239,5 +239,5 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		e.consume();
 	}
 
-	
+
 }

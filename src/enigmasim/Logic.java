@@ -1,6 +1,7 @@
 package enigmasim;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import enigmasim.gui.ChangeInfo;
@@ -73,16 +74,16 @@ public class Logic {
         allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
         allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
         allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("Beta", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS: "); //Spring 1941 	M4 R2
-        allMappersConfig.put("Gamma", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD: "); //Spring 1941 	M4 R2
+        allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS: "); //Spring 1941 	M4 R2
+        allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD: "); //Spring 1941 	M4 R2
 
         //Refelctors
-        allMappersConfig.put("A", "Re:EJMZALYXVBWFCRQUONTSPIKHGD: ");
-        //allMappersConfig.put("B", "Re:YRUHQSLDPXNGOKMIEBFZCWVJAT: "); //Reflektor
-        //allMappersConfig.put("C", "Re:FVPJIAOYEDRZXWGCTKUQSBNMHL: "); //Reflektor
+        allMappersConfig.put("A", "Re:EJMZALYXVBWFCRQUONTSPIKHGD: "); //Before WWII
+        allMappersConfig.put("B", "Re:YRUHQSLDPXNGOKMIEBFZCWVJAT: "); //Standard Reflektor
+        allMappersConfig.put("C", "Re:FVPJIAOYEDRZXWGCTKUQSBNMHL: "); //Reflektor used temp during WWII
         //allMappersConfig.put("ETW", "Re:ABCDEFGHIJKLMNOPQRSTUVWXYZ: "); //Reflektor ETW Enigma I
-        allMappersConfig.put("B", "Re:ENKQAUYWJICOPBLMDXZVFTHRGS: "); //1940 	M4 R1 (M3 + Thin)
-        allMappersConfig.put("C", "Re:RDOBJNTKVEHMLFCWZAXGYIPSUQ: "); //1940 	M4 R1 (M3 + Thin)
+        allMappersConfig.put("b", "Re:ENKQAUYWJICOPBLMDXZVFTHRGS: "); //1940 	M4 R1 (M3 + Thin)
+        allMappersConfig.put("c", "Re:RDOBJNTKVEHMLFCWZAXGYIPSUQ: "); //1940 	M4 R1 (M3 + Thin)
 
         addInitialMachines();
     }
@@ -100,7 +101,8 @@ public class Logic {
         for (String m : availableMachines.keySet()) {
             names[i++] = availableMachines.get(m).getMachineName();
         }
-
+        //sort the names array
+        Arrays.sort(names);
         return names;
     } //getAllMachineNames()
 
@@ -315,24 +317,53 @@ public class Logic {
      * Fuegt die Enigma 1 und die Enigma M4 zu den vorhanden Maschinen hinzu.
      */
     private void addInitialMachines() {
-        String nameEnigma1 = "Enigma 1";
-        String[][] availableMappersEnigma1 = {{"Pb"}, {"I", "II", "III"},
-        {"I", "II", "III"}, {"I", "II", "III"}, {"A"}}; // Welche Walzen duerfen eingesetzt werden?
+        String nameEnigma1 = "Enigma I";
+        String[][] availableMappersEnigma1 = {{"Pb"}, {"I", "II", "III", "IV","V"},
+        {"I", "II", "III", "IV","V"}, {"I", "II", "III", "IV","V"}, {"A","B","C"}}; // Welche Walzen duerfen eingesetzt werden?
         String[] configurationEnigma1 = {"Pb", "I", "II", "III", "A"}; // Eingesetzte Walzen
-
         createMachine(nameEnigma1, availableMappersEnigma1,
                 configurationEnigma1);
 
+        String nameEnigmaM3 = "Enigma M3";
+        String[][] availableMappersEnigmaM3 = {{"Pb"},
+                {"I", "II", "III", "IV", "V"},
+                {"I", "II", "III", "IV", "V"},
+                {"I", "II", "III", "IV", "V"},
+                {"B", "C"}};
+        String[] configurationEnigmaM3 = {"Pb", "I", "II", "III", "B"};
+        createMachine(nameEnigmaM3, availableMappersEnigmaM3,
+                configurationEnigmaM3);
+
+        String nameEnigmaM3K = "Enigma M3 Navy";
+        String[][] availableMappersEnigmaM3K = {{"Pb"},
+                {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
+                {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
+                {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
+                {"B", "C"}};
+        String[] configurationEnigmaM3K = {"Pb", "I", "II", "III", "B"};
+
+        createMachine(nameEnigmaM3K, availableMappersEnigmaM3K,
+                configurationEnigmaM3K);
+
         String nameEnigmaM4 = "Enigma M4";
         String[][] availableMappersEnigmaM4 = {{"Pb"},
-        {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
-        {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
-        {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
-        {"Beta", "Gamma"}, {"B", "C"}};
-        String[] configurationEnigmaM4 = {"Pb", "I", "II", "III", "Beta", "B"};
-
+        {"I", "II", "III", "IV", "V"},
+        {"I", "II", "III", "IV", "V"},
+        {"I", "II", "III", "IV", "V"},
+        {"β", "γ"}, {"b", "c"}};
+        String[] configurationEnigmaM4 = {"Pb", "I", "II", "III", "β", "b"};
         createMachine(nameEnigmaM4, availableMappersEnigmaM4,
                 configurationEnigmaM4);
+
+        String nameEnigmaM4K = "Enigma M4 Navy";
+        String[][] availableMappersEnigmaM4K = {{"Pb"},
+                {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
+                {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
+                {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
+                {"β", "γ"}, {"b", "c"}};
+        String[] configurationEnigmaM4K = {"Pb", "I", "II", "III", "β", "b"};
+        createMachine(nameEnigmaM4K, availableMappersEnigmaM4K,
+                configurationEnigmaM4K);
     }
 
     private static class ConsumerImpl implements Consumer<LogicListener> {
