@@ -63,27 +63,27 @@ public class Logic {
          */
 
         //Plugboard
-        allMappersConfig.put("Pb", "Pb:ABCDEFGHIJKLMNOPQRSTUVWXYZ: ");
+        allMappersConfig.put("Pb", "Pb:ABCDEFGHIJKLMNOPQRSTUVWXYZ: : ");
 
         //Rotors
-        allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:Q"); //1930 	Enigma I
-        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:E"); //1930 	Enigma I
-        allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:V"); //1930 	Enigma I
-        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:J"); //December 1938 	M3 Army
-        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:Z"); //December 1938 	M3 Army
-        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS: "); //Spring 1941 	M4 R2
-        allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD: "); //Spring 1941 	M4 R2
+        allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:A:Q"); //1930 	Enigma I
+        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:A:E"); //1930 	Enigma I
+        allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:A:V"); //1930 	Enigma I
+        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:A:J"); //December 1938 	M3 Army
+        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:A:Z"); //December 1938 	M3 Army
+        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:A:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:A:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:A:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS:A: "); //Spring 1941 	M4 R2
+        allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD:A: "); //Spring 1941 	M4 R2
 
-        //Refelctors
-        allMappersConfig.put("A", "Re:EJMZALYXVBWFCRQUONTSPIKHGD: "); //Before WWII
-        allMappersConfig.put("B", "Re:YRUHQSLDPXNGOKMIEBFZCWVJAT: "); //Standard Reflektor
-        allMappersConfig.put("C", "Re:FVPJIAOYEDRZXWGCTKUQSBNMHL: "); //Reflektor used temp during WWII
+        //Reflectors
+        allMappersConfig.put("A", "Re:EJMZALYXVBWFCRQUONTSPIKHGD: : "); //Before WWII
+        allMappersConfig.put("B", "Re:YRUHQSLDPXNGOKMIEBFZCWVJAT: : "); //Standard Reflektor
+        allMappersConfig.put("C", "Re:FVPJIAOYEDRZXWGCTKUQSBNMHL: : "); //Reflektor used temp during WWII
         //allMappersConfig.put("ETW", "Re:ABCDEFGHIJKLMNOPQRSTUVWXYZ: "); //Reflektor ETW Enigma I
-        allMappersConfig.put("b", "Re:ENKQAUYWJICOPBLMDXZVFTHRGS: "); //1940 	M4 R1 (M3 + Thin)
-        allMappersConfig.put("c", "Re:RDOBJNTKVEHMLFCWZAXGYIPSUQ: "); //1940 	M4 R1 (M3 + Thin)
+        allMappersConfig.put("B thin", "Re:ENKQAUYWJICOPBLMDXZVFTHRGS: : "); //1940 	M4 R1 (M3 + Thin)
+        allMappersConfig.put("C thin", "Re:RDOBJNTKVEHMLFCWZAXGYIPSUQ: : "); //1940 	M4 R1 (M3 + Thin)
 
         addInitialMachines();
     }
@@ -350,8 +350,8 @@ public class Logic {
         {"I", "II", "III", "IV", "V"},
         {"I", "II", "III", "IV", "V"},
         {"I", "II", "III", "IV", "V"},
-        {"β", "γ"}, {"b", "c"}};
-        String[] configurationEnigmaM4 = {"Pb", "I", "II", "III", "β", "b"};
+        {"β", "γ"}, {"B thin", "C thin"}};
+        String[] configurationEnigmaM4 = {"Pb", "I", "II", "III", "β", "B thin"};
         createMachine(nameEnigmaM4, availableMappersEnigmaM4,
                 configurationEnigmaM4);
 
@@ -360,8 +360,8 @@ public class Logic {
                 {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
                 {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
                 {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"},
-                {"β", "γ"}, {"b", "c"}};
-        String[] configurationEnigmaM4K = {"Pb", "I", "II", "III", "β", "b"};
+                {"β", "γ"}, {"B thin", "C thin"}};
+        String[] configurationEnigmaM4K = {"Pb", "I", "II", "III", "β", "C thin"};
         createMachine(nameEnigmaM4K, availableMappersEnigmaM4K,
                 configurationEnigmaM4K);
     }

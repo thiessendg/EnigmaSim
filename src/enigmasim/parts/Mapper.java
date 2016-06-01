@@ -17,13 +17,13 @@ import enigmasim.Debug;
  * 
  */
 public class Mapper {
-	char[] setting = new char[26]; // die Verkabelung
-	Mapper nextMapper; // der Mapper der danach kommt
-	Mapper prevMapper; // der Mapper der davor kommt
-	protected String name; // der Name des Mappers
+	char[] setting = new char[26]; // Cabling
+	Mapper nextMapper;
+	Mapper prevMapper;
+	protected String name; // name of the mapper
 
 	/**
-	 * Default Konstruktor erstellt einen Mapper mit dem Zielalphabet
+	 * Default constructor creates a mapper with the aim Alphabet
 	 * "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	 */
 	Mapper() {
@@ -31,73 +31,73 @@ public class Mapper {
 	}
 
 	/**
-	 * erstellt einen Mapper mit dem Zielalphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	 * und dem angegebenen Namen
+	 * Create a mapper with the aim Alphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	 * and the name specified
 	 */
 	Mapper(String nam) {
 		this(nam, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 	}
 
 	/**
-	 * erstellt einen Mapper mit dem angegebenen Zielalphabet
-	 * 
+	 * Create a mapper to the specified destination Alphabet
+	 *
 	 * @param name
-	 *            der Name des Mappers
+	 * The name of the mapper
 	 * @param setting
-	 *            der String mit dem Zielalphabet
+	 * The string with the aim Alphabet
 	 * @throws IllegalArgumentException
-	 *             falls der String ungueltig ist ( besteht nicht aus 26 Zeichen
-	 *             von A-Z, bzw. enthaelt doppelte Buchstaben )
-	 */
+	 * If the string is invalid (not consisting of 26 characters
+	 * A-Z, or contains duplicate letters)
+	 * */
 	Mapper(String name, String setting) {
 		this.name = name;
 		stringToSettingArray(setting);
 	}
 
 	/**
-	 * erstellt einen Mapper mit dem angegebenen Zielalphabet
-	 * 
+	 * Create a mapper to the specified destination Alphabet
+	 *
 	 * @param name
-	 *            der Name des Mappers
+	 * The name of the mapper
 	 * @param setting
-	 *            das char-Array mit dem Zielalphabet
+	 * The char array with the aim Alphabet
 	 * @throws IllegalArgumentException
-	 *             falls der String ungueltig ist ( besteht nicht aus 26 Zeichen
-	 *             von A-Z, bzw. enthaelt doppelte Buchstaben )
+	 * If the string is invalid (not consisting of 26 characters
+	 * A-Z, or contains duplicate letters)
 	 */
 	Mapper(String name, char[] setting) {
 		this.name = name;
-		String eingabe = new String(setting);
-		stringToSettingArray(eingabe);
+		String input = new String(setting);
+		stringToSettingArray(input);
 	}
 
 	/**
-	 * getter fuer den Namen
+	 * get name of mapper
 	 * 
-	 * @return der Name des Mappers
+	 * @return the name of the Mapper
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * setter fuer den Namen
+	 * set the name of the mapper
 	 * 
 	 * @param name
-	 *            der neue Name
+	 *            the new name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * bildet den eingegebenen Buchstaben auf das Zielalphabet ab
-	 * 
+	 * Maps the letters entered in the target alphabet
+	 *
 	 * @param c
-	 *            das zu verschluesselnde Zeichen
-	 * @return der abgebildete Buchstabe
+	 * To be encrypted characters
+	 * Return the letter shown
 	 * @throws IllegalArgumentException
-	 *             falls das uebergeben Zeichen nicht zwischen A-Z ist
+	 * If the handed over character is not between A-Z
 	 */
 	public char encrypt(char c) {
 		if (!(c >= 'A' && c <= 'Z')) {
@@ -114,13 +114,13 @@ public class Mapper {
 	}
 
 	/**
-	 * bildet das Zeichen aus dem Zielalphabet im Quellalphabet ab
-	 * 
+	 * Makes the sign of the target alphabet in the source alphabet from
+	 *
 	 * @param c
-	 *            Zeichen das verschluesselt werden soll
-	 * @return das verschluesselte Zeichen
+	 * Characters to be encrypted
+	 * @return the exchange encoded characters
 	 * @throws IllegalArgumentException
-	 *             falls das uebergeben Zeichen nicht zwischen A-Z ist
+	 * If the handed over character is not between A-Z
 	 */
 	public char reverseEncrypt(char c) {
 		if (!(c >= 'A' && c <= 'Z')) {
@@ -140,11 +140,11 @@ public class Mapper {
 	}
 
 	/**
-	 * ueberprueft einen String ( 26 Zeichen von A-Z, jedes kommt nur einmal vor
-	 * ) und speichert ihn dann in dem setting-Array
-	 * 
+	 * Verifies a string (26 characters from A to Z, each occurs only once),
+	 * then stores it in the setting array
+	 *
 	 * @param str
-	 *            der String der gespeichert werden soll
+	 * The string to be stored
 	 */
 	protected void stringToSettingArray(String str) {
 		TreeSet<Character> checkdouble = new TreeSet<>();
@@ -161,44 +161,44 @@ public class Mapper {
 	}
 
 	/**
-	 * setzt den Mapper danach
-	 * 
+	 * Sets the next Mapper
+	 *
 	 * @param nextMapper
-	 *            setzt den naechsten Mapper
+	 *                sets the next Mapper
 	 */
 	public void setNextMapper(Mapper nextMapper) {
 		this.nextMapper = nextMapper;
 	}
 
 	/**
-	 * gibt zurueck ob ein Mapper danach eingefuegt ist
-	 * 
-	 * @return ob ein Mapper danach eingefuegt ist
+	 * Is a Mapper after
+	 *
+	 * @return Whether a Mapper is inserted after
 	 */
 	boolean hasNextMapper() {
 		return nextMapper != null;
 	}
 
 	/**
-	 * setzt den Mapper der davor ist
-	 * 
+	 * Sets the mapper of the front is
+	 *
 	 * @param prevMapper
-	 *            setzt den Mapper der davor ist
+	 *                sets the mapper of the front is
 	 */
 	public void setPrevMapper(Mapper prevMapper) {
 		this.prevMapper = prevMapper;
 	}
 
 	/**
-	 * gibt zurueck ob ein Mapper davor vorhanden ist
-	 * 
-	 * @return ob ein Mapper davor eingefuegt ist
+	 * Gives back if an Mapper is available before
+	 *
+	 * @return Whether Mapper previously inserted
 	 */
 	boolean hasPrevMapper() {
 		return prevMapper != null;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()

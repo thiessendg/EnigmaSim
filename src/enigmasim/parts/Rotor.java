@@ -18,55 +18,56 @@ public class Rotor extends Mapper {
 	private int position = 0;
 	private char[] jumpChars = new char[2];
 	private boolean isStatic = false;
+	private char ringStellung;
 
 	/**
 	 * Default Konstruktor erstellt einen Rotor mit der Verdrahtung
 	 * "ABCDEFGHIJKLMNOPQRSTUVWXYZ" und einer Uebertragskerbe bei Z
+	 * @param name
+	 * @param setting
+	 * @param chumpchars
 	 */
-	public Rotor() {
+	public Rotor(String name, String setting, char[] chumpchars) {
 		super("Rotor");
 		jumpChars[0] = 'Z';
 		jumpChars[1] = 0;
+		ringStellung = 'A';
 	}
 
 	/**
-	 * erstellt einen Rotor mit der angegebenen Verdrahtung
-	 * 
+	 * Created a rotor with the specified wiring
+	 *
 	 * @param setting
-	 *            der String mit den Verdrahtungen
-	 * @param jump
-	 *            ein char-Array mit dem/den Zeichen bei der sich die naechste
-	 *            Walze weiterdrehen soll kann 1 oder 2 Elemente enthalten
-	 * 
-	 * @throws Exception
-	 *             falls der String ungueltig ist ( besteht nicht aus 26 Zeichen
-	 *             von A-Z, bzw. enthaelt doppelte Buchstaben )
+	 *		The string to the wirings
+	 * @param ringSetting
+	 *@param jump
+	 * 		A char array with the / the mark in the next
+	 *      should continue to turn roll may contain 1 or 2 elements
+	 *  @throws Exception
+	 * 		If the string is invalid (not consisting of 26 characters
+	 * 		A-Z, or contains duplicate letters)
 	 */
-	public Rotor(String name, String setting, char[] jump) throws Exception {
+
+	/**
+     * Created a rotor with the specified wiring
+     *  @param setting
+     * The char array to the wirings
+     * @param ringSetting
+	 * @param jump
+* A char array with the / the mark in the next should continue to turn
+* roll may contain 1 or 2 elements
+	 * @throws Exception
+     * If the string is invalid (not consisting of 26 characters
+     * A-Z, or contains duplicate letters)
+     */
+	public Rotor(String name, String setting, char ringSetting, char[] jump) throws Exception {
 		super(name, setting);
-		if (checkJumpChars(jump)) {
-			jumpChars = jump;
+		if (checkRingstellung(ringSetting)){
+			ringStellung = ringSetting;
 		} else {
-			throw new Exception(
-					"Invalid carry-character ( must be an char-Array with one or two Elements )!");
+			throw new Exception("Invalid character for ring offset, ringStellung");
 		}
-	}
 
-	/**
-	 * erstellt einen Rotor mit der angegebenen Verdrahtung
-	 * 
-	 * @param setting
-	 *            das char-Array mit den Verdrahtungen
-	 * @param jump
-	 *            ein char-Array mit dem/den Zeichen bei der sich die naechste
-	 *            Walze weiterdrehen soll kann 1 oder 2 Elemente enthalten
-	 * 
-	 * @throws Exception
-	 *             falls der String ungueltig ist ( besteht nicht aus 26 Zeichen
-	 *             von A-Z, bzw. enthaelt doppelte Buchstaben )
-	 */
-	public Rotor(String name, char[] setting, char[] jump) throws Exception {
-		super(name, setting);
 		if (checkJumpChars(jump)) {
 			jumpChars = jump;
 		} else {
@@ -76,11 +77,10 @@ public class Rotor extends Mapper {
 	}
 
 	/**
-	 * @param ch
-	 *            ueberprueft das Array ob es nur ein oder zwei Zeichen von A-Z
-	 *            enthaelt
-	 * @return false wenn die Bedingungen nicht erfuellt
-	 */
+     * @param ch
+     * check the array if there is only one or two characters from A-Z contains
+     * @return False if the conditions are not met
+     */
 	private boolean checkJumpChars(char[] ch) {
 		if (ch.length < 1) {
 			return false;
@@ -91,37 +91,44 @@ public class Rotor extends Mapper {
 		}
 		return (ch[0] >= 'A' && ch[0] <= 'Z') && !(ch.length == 2 && (!(ch[1] >= 'A' && ch[1] <= 'Z') || ch[0] == ch[1])) && ch.length <= 2;
 	}
-
-	/*
+	private boolean checkRingstellung(char ch) {
+		return (ch >= 'A' && ch <= 'Z');
+	}
+	/**
 	 * (non-Javadoc)
 	 * 
-	 * @see enigma.parts.Mapper#encrypt(char)
+	 * @see enigmasim.parts.Mapper#encrypt(char)
 	 */
 	public char encrypt(char c) {
 		if (!(c >= 'A' && c <= 'Z')) {
 			throw new IllegalArgumentException(
 					"Not a valid character! Must be A-Z.");
 		}
-		char cV = (char) (c + position); // das eingebene Zeichen um die Drehung
-											// der Walze versetzt --> das muss
-											// verschluesselt werden
-		if (cV > 'Z') { // wenn man am Z vorbeikommt
-			cV -= 26; // muss man wieder beim A anfangen ;-)
-		}
-		int pos = cV - 'A'; // Position des zu verschluesselnden Buchstabens im
-							// Alphabet - 1 --> index im Array mit den
-							// Verkabelungen
-		char ver = setting[pos]; // das verschluesselte Zeichen
+		//dgt:
+		//int ringStellung = ringSetting - 'A';
+		char cV = (char) (c + position - (ringStellung-'A'));
+        //the character entered by the rotation
+        //the roll offset -> the need
+        //be encrypted
 
-		char out = (char) (ver - position); // Zeichen wieder so umrechnen wie
-											// als waere die Walze auf Stellung
-											// A --> andere Walze kann wieder
-											// Verschiebung dazurechnen
-		if (out < 'A') { // wenn man am A vorbeikommt
-			out += 26; // muss man wieder beim Z anfangen ;-)
+		//dgt: i think pos is the position of the character input???
+		int pos = cV - 'A'; // Position of the letter to be encrypted in
+							// Alphabet - 1 -> index in the array with the
+							// cabling
+		//dgt: does ver need to be offset by the ring setting?
+		char ver = setting[pos]; // The exchange encoded characters
+
+		//the output char; note thee offset - here is assume B
+		char out = (char) (ver - position + (ringStellung-'A')); //Convert characters again as
+                                            //as would be the roll to position
+                                            //A -> other roller can again
+                                            //to anticipate shifting
+		if (out < 'A') { // if you pass A
+			out += 26; // start at Z again ;-)
+		} else if (out > 'Z') {
+			out -= 26;
 		}
 
-		// Debugmessages ausgeben
 		if (Debug.isDebug()) {
 			System.out
 					.println(getName() + ":\nc: '" + c + "'\t cV: '" + cV + "'"
@@ -137,21 +144,22 @@ public class Rotor extends Mapper {
 	}
 
 	/**
-	 * bildet den eingegebenen Buchstaben des Zielalphabetes auf das
-	 * Quellalphabet ab
-	 * 
-	 * @param c
-	 *            das eingegeben Zeichen
-	 * @return der abgebildete Buchstabe
-	 * @throws IllegalArgumentException
-	 *             falls das uebergeben Zeichen nicht zwischen A-Z ist
+     * Forms the entered letters of the alphabet to the target
+     * Source Alphabet from
+     *
+     * @param c
+     * The input characters
+     * @return the letter shown
+     * @throws IllegalArgumentException
+     * If the handed over character is not between A-Z
 	 */
 	public char reverseEncrypt(char c) {
 		if (!(c >= 'A' && c <= 'Z')) {
 			throw new IllegalArgumentException(
 					"Not a valid character! Must be A-Z.");
 		}
-		char cV = (char) (c + position); // das eingebene Zeichen um die Drehung
+		//int ringStellung = ringSetting - 'A';
+		char cV = (char) (c + position - (ringStellung-'A')); // das eingebene Zeichen um die Drehung
 											// der Walze versetzt --> das muss
 											// verschluesselt werden
 		if (cV > 'Z') { // wenn man am Z vorbeikommt
@@ -168,12 +176,14 @@ public class Rotor extends Mapper {
 			}
 		}
 
-		char out = (char) (ver - position); // Zeichen wieder so umrechnen wie
+		char out = (char) (ver - position + (ringStellung-'A')); // Zeichen wieder so umrechnen wie
 											// als waere die Walze auf Stellung
 											// A --> andere Walze kann wieder
 											// Verschiebung dazurechnen
 		if (out < 'A') { // wenn man am A vorbeikommt
 			out += 26; // muss man wieder beim Z anfangen ;-)
+		} else if (out > 'Z') {
+			out -= 26;
 		}
 
 		// Debugmessages ausgeben

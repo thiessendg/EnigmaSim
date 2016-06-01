@@ -145,6 +145,10 @@ public class Machine {
     public String encrypt(String message) {
         String encryptedMessage = "";
         for (int i = 0; i < message.length(); i++) {
+            // TODO:  ??? maybe disregard te comment below
+            // dgt: this is where the ring offsets would get used.  right now all
+            // ring settings are 1.  to implement, replace the hardcoded 0 with
+            // usedMappers.get(ringOffet-1).encrypt(...);
             encryptedMessage += usedMappers.get(0).encrypt(message.charAt(i));
         } // end for
         return encryptedMessage;
@@ -246,11 +250,12 @@ public class Machine {
         String config = logic.getMapperConfig(name);
         String type = config.split(":")[0];
         String setting = config.split(":")[1];
-        char[] chumpchars = config.split(":")[2].toCharArray();
+        char ringSetting = config.split(":")[2].charAt(0);
+        char[] chumpchars = config.split(":")[3].toCharArray();
         if (null != type) {
             switch (type) {
                 case "Ro":
-                    usedMappers.add(position, new Rotor(name, setting, chumpchars));
+                    usedMappers.add(position, new Rotor(name, setting, ringSetting, chumpchars));
                     break;
                 case "Re":
                     usedMappers.add(position, new Reflector(name, setting));
@@ -277,11 +282,12 @@ public class Machine {
         String config = logic.getMapperConfig(name);
         String type = config.split(":")[0];
         String setting = config.split(":")[1];
-        char[] chumpchars = config.split(":")[2].toCharArray();
+        char ringSetting = config.split(":")[2].charAt(0);
+        char[] chumpchars = config.split(":")[3].toCharArray();
         if (null != type) {
             switch (type) {
                 case "Ro":
-                    usedMappers.set(position, new Rotor(name, setting, chumpchars));
+                    usedMappers.set(position, new Rotor(name, setting, ringSetting, chumpchars));
                     break;
                 case "Re":
                     usedMappers.set(position, new Reflector(name, setting));
