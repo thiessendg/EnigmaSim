@@ -250,7 +250,7 @@ public class Machine {
         String config = logic.getMapperConfig(name);
         String type = config.split(":")[0];
         String setting = config.split(":")[1];
-        char ringSetting = config.split(":")[2].charAt(0);
+        String ringSetting = config.split(":")[2];
         char[] chumpchars = config.split(":")[3].toCharArray();
         if (null != type) {
             switch (type) {
@@ -282,7 +282,7 @@ public class Machine {
         String config = logic.getMapperConfig(name);
         String type = config.split(":")[0];
         String setting = config.split(":")[1];
-        char ringSetting = config.split(":")[2].charAt(0);
+        String ringSetting = config.split(":")[2];
         char[] chumpchars = config.split(":")[3].toCharArray();
         if (null != type) {
             switch (type) {

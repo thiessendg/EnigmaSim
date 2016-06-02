@@ -65,17 +65,17 @@ public class Logic {
         //Plugboard
         allMappersConfig.put("Pb", "Pb:ABCDEFGHIJKLMNOPQRSTUVWXYZ: : ");
 
-        //Rotors
-        allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:A:Q"); //1930 	Enigma I
-        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:A:E"); //1930 	Enigma I
-        allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:A:V"); //1930 	Enigma I
-        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:A:J"); //December 1938 	M3 Army
-        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:A:Z"); //December 1938 	M3 Army
-        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:A:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:A:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:A:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS:A: "); //Spring 1941 	M4 R2
-        allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD:A: "); //Spring 1941 	M4 R2
+        //Rotors ID:Type:Setting:Offset:Notch
+        allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:1:Q"); //1930 	Enigma I
+        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:2:E"); //1930 	Enigma I
+        allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:1:V"); //1930 	Enigma I
+        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:21:J"); //December 1938 	M3 Army
+        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:12:Z"); //December 1938 	M3 Army
+        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS:1: "); //Spring 1941 	M4 R2
+        allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD:1: "); //Spring 1941 	M4 R2
 
         //Reflectors
         allMappersConfig.put("A", "Re:EJMZALYXVBWFCRQUONTSPIKHGD: : "); //Before WWII
