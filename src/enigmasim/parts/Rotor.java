@@ -2,6 +2,8 @@ package enigmasim.parts;
 
 import enigmasim.Debug;
 
+import java.util.Arrays;
+
 /**
  * @author Philip Woelfel, Sebastian Chlan <br />
  *         <br />
@@ -29,7 +31,7 @@ public class Rotor extends Mapper {
      */
     public Rotor(String name, String setting, char[] chumpchars) {
         super("Rotor");
-        jumpChars[0] = 'Z';
+        jumpChars[0] = 0;
         jumpChars[1] = 0;
         ringStellung = "1";
     }
@@ -61,7 +63,7 @@ public class Rotor extends Mapper {
     public Rotor(String name, String setting, String ringSetting, char[] jump) throws Exception {
         super(name, setting);
         //if (checkRingstellung(ringSetting)) {
-            ringStellung = ringSetting;
+        ringStellung = ringSetting;
         //} else {
         //    throw new Exception("Invalid character for ring offset, ringStellung");
         //}
@@ -93,6 +95,7 @@ public class Rotor extends Mapper {
         return (ch >= 'A' && ch <= 'Z');
     }
 */
+
     /**
      * (non-Javadoc)
      *
@@ -106,7 +109,7 @@ public class Rotor extends Mapper {
         //CV will be the shifted value due to the ring offset
         //position is the count of the char entered?
         //E 69 = E 69- A 64 = 5th letter, 4th element
-        char cV = (char) (c + position - (Integer.parseInt(ringStellung)-1));
+        char cV = (char) (c + position - (Integer.parseInt(ringStellung) - 1));
         //the character entered by the rotation
         //the roll offset -> the need
         //be encrypted
@@ -138,9 +141,9 @@ public class Rotor extends Mapper {
 
         if (Debug.isDebug()) {
             System.out
-                    .println(getName() + ":\nc: '" + c + "'\t cV: '" + cV + "'"
-                            + "'\t ver: '" + ver + "'" + "'\t out: '" + out
-                            + "'");
+                    .println(getName() + ":\nc: '" + c + "'\t maps to cV: '" + cV + "'" +
+                            "'\t shifts by ring setting? ver: '" + ver +
+                            "'" + "'\t out: '" + out + "'");
         }
 
         if (hasNextMapper()) { // wenn ich wen nach mir hab
@@ -214,48 +217,81 @@ public class Rotor extends Mapper {
      * erreicht
      */
     void rotate() {
+
+        char prevPosition = getCharPosition();
+        //if (position < 0) {
+        //    position += 26;
+        //}
+        //if (position > 25) {
+        //    position -= 26;
+        //}
+
         if (Debug.isDebug()) {
-            System.out.println(getName() + " rotates from: " + position + "("
-                    + (char) ('A' + position) + ")");
+            System.out.println(getName() + " rotating from: " + prevPosition);
         }
 
-        //if we have a rotor after current rotor
-        if (hasNextMapper() && nextMapper instanceof Rotor) { //if we have another rotor next
-            Rotor nextRotor = (Rotor) nextMapper;
-            if (!nextRotor.isStatic) {
-                //check current next Rotors notch and if indicated rotate next
-                for (char jump : jumpChars) {
-                    for (char nextjump : nextRotor.jumpChars) {
-                        if (jump == 'A' + position || nextjump == 'A' + nextRotor.position) {
-                            if (Debug.isDebug()) {
-                                System.out.println(getName() + " hit notch" + jump + "to rotate next rotor.");
-                            }
-                            if (nextRotor instanceof Rotor) {
-                                //dgt: temp because we don't want rotation to affect wiring
-                                Rotor temp = (Rotor) nextMapper;
-                                temp.rotate();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+        //rotate my rotor
         position++;
+        if (position < 0) {
+            position += 26;
+        }
         if (position > 25) {
             position -= 26;
         }
-        if (Debug.isDebug()) {
-            System.out.println(getName() + " rotates to: " + position + "("
-                    + (char) ('A' + position) + ")");
-        }
-    }
 
-    /**
-     * getter fuer Position als char
-     *
-     * @return position auf der der Rotor steht als char ( A-Z )
-     */
+
+        //if we have a rotor after current rotor
+        if (hasNextMapper()) {
+            if (nextMapper instanceof Rotor) { //if we have another rotor next
+                Rotor nextRotor = (Rotor) nextMapper;
+                //if (nextMapper.hasNextMapper() && nextMapper.nextMapper instanceof Rotor) {
+                //    Rotor nextNextRotor = (Rotor) nextMapper.nextMapper;
+
+                //R is on V not a jump char, so V->Wtest next case
+                //M is on Z is a jump so rot next
+                //L is rot U->V due to middle i think its turning twice
+                //
+                    if (!nextRotor.isStatic) {
+                        //if i was sitting on my jump, rot next (no v to w)
+                        /*if (Debug.isDebug()) {
+                            System.out.println( "Current rotor: " + getName() + "Next: " + nextRotor.getName());
+                        }
+                        if (Debug.isDebug()) {
+                            System.out.println("Comparing "+(char)('A'+prevPosition)+" to "+jumpChars[0]);
+                        }*/
+                        if ( jumpChars[0] == prevPosition || nextRotor.jumpChars[0] == nextRotor.getCharPosition() ) {
+                            nextRotor.rotate();
+                        }
+                        //if next sitting on jump rotate next (yez so Z to A
+                        /*if (Debug.isDebug()) {
+                            System.out.println( "Comparing NEXT rotor" + (char)('A' + nextRotor.position) +" to "+nextRotor.jumpChars[0]);
+                        }*/
+                        //if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                        //    nextRotor.rotate();
+                        //}
+
+                        //for (char jump : nextRotor.jumpChars) {
+                        //    if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                        //        Rotor temp = (Rotor) nextMapper;
+                        //        temp.rotate();
+                        //    }
+                        //}// for
+                    }
+                }
+            }
+
+
+        if (Debug.isDebug()) {
+                System.out.println(getName() + " rotated to: " + getCharPosition() );
+            }
+        }
+    //}
+        /**
+         * getter fuer Position als char
+         *
+         * @return position auf der der Rotor steht als char ( A-Z )
+         */
+
     public char getCharPosition() {
         return (char) ('A' + position);
     }

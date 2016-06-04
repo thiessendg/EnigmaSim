@@ -71,9 +71,9 @@ public class Logic {
         allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:1:V"); //1930 	Enigma I
         allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:21:J"); //December 1938 	M3 Army
         allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:12:Z"); //December 1938 	M3 Army
-        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:8:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
         allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:13:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
         allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS:1: "); //Spring 1941 	M4 R2
         allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD:1: "); //Spring 1941 	M4 R2
 
