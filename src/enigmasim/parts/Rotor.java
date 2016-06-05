@@ -270,7 +270,10 @@ public class Rotor extends Mapper {
                     }
                     //trying to handle double step sequence
                     if (!islastRotor) {
-                        if (jumpChars[0] == getCharPosition() && nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                        //if (jumpChars[0] == getCharPosition() && nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                        if ( contains(getCharPosition(),jumpChars) && 
+                                contains(nextRotor.getCharPosition(), nextRotor.jumpChars) ) {
+                            // if (!contains('q', charArray))
                             // in just to check results of getnextcharpos
                             //char temp = getNextCharPosition();
                             //
@@ -280,14 +283,16 @@ public class Rotor extends Mapper {
                     }
 
                     //curr
-                    if (jumpChars[0] == prevCharPosition) {
+                    //if (jumpChars[0] == prevCharPosition) {
+                    if (contains(prevCharPosition, jumpChars)) {
                         nextRotor.rotate();
                     }
 
                     //next
                     //this works for current rot at jump char!
                     if (!islastRotor) {
-                        if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                        //if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                        if ( contains(nextRotor.getCharPosition(),nextRotor.jumpChars) ) {
                             nextRotor.rotate();
                         }
                     }
@@ -348,6 +353,16 @@ public class Rotor extends Mapper {
      */
     public boolean isStatic() {
         return isStatic;
+    }
+    
+    //dgt
+    public boolean contains(char c, char[] array) {
+        for (char x : array) {
+            if (x == c) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
