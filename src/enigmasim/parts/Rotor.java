@@ -239,33 +239,62 @@ public class Rotor extends Mapper {
         }
 
         //if we have a rotor after current rotor
+        //dgt: i have problem here with last wheel. if middle rotates it
         if (hasNextMapper()) {
             if (nextMapper instanceof Rotor) {
                 //create a rotor to left of current rotor
                 Rotor nextRotor = (Rotor) nextMapper;
+                boolean islastRotor = false; //is nextRotor the last one?
+                //should i check to make sure this is last rotor?
+                //dgt: testing!
+                //try to solve problem of last rotor
+                //use this if we have 2 wheels ahead of us
+                //if (nextRotor.hasNextMapper()) {
+                //    if (nextRotor.nextMapper instanceof Rotor) {
 
-                //rotate next rotor??
-                //nextRotor.position++;
-                //if (nextRotor.position > 25) {
-                //    nextRotor.position -= 26;
-                //}
+                char nextRotorPrevCharPosition = nextRotor.getCharPosition();
+
                 if (!nextRotor.isStatic) {
                     //print some debug info
                     if (Debug.isDebug()) {
-                        System.out.println("Current rotor: " + getName() + "\tNext rotor: " + nextRotor.getName());
+                        System.out.println("-> Current rotor: " + getName() + "\tNext rotor: " + nextRotor.getName());
                     }
 
-                    if (jumpChars[0] == prevCharPosition && nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                    //try placing restriction here for last wheel
+                    //if (!(nextRotor.nextMapper instanceof Reflector)) {
+                    //this works for curr & next!!!
+                    if ((nextRotor.nextMapper instanceof Reflector)) {
+                        System.out.println("-> NEXT ROTOR LAST WHEEL Current rotor: " + getName() + "\tNext rotor: " + nextRotor.getName());
+                        //since i am last wheel, i don't need to check anything, right?
+                        islastRotor = true;
+                    }
+                    //trying to handle double step sequence
+                    if (!islastRotor) {
+                        if (jumpChars[0] == getCharPosition() && nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                            // in just to check results of getnextcharpos
+                            //char temp = getNextCharPosition();
+                            //
+                            //here bot are at TO and they rot successfully, but third is not rot
+                            nextRotor.rotate();
+                        }
+                    }
+
+                    //curr
+                    if (jumpChars[0] == prevCharPosition) {
                         nextRotor.rotate();
                     }
-                    if (jumpChars[0] == prevCharPosition || nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
-                        nextRotor.rotate();
+
+                    //next
+                    //this works for current rot at jump char!
+                    if (!islastRotor) {
+                        if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                            nextRotor.rotate();
+                        }
                     }
-                    if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
-                        nextRotor.rotate();
-                    }
+                    //}
                 }
-
+                //    }
+                //}
             }
         }
 
