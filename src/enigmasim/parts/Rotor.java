@@ -6,14 +6,14 @@ import java.util.Arrays;
 
 /**
  * @author Philip Woelfel, Sebastian Chlan <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ *         <br />
+ *         ENIGMA_TEC 2010 <br />
+ *         technik[at]enigma-ausstellung.at <br />
+ *         http://enigma-ausstellung.at <br />
+ *         <br />
+ *         HTL Rennweg <br />
+ *         Rennweg 89b <br />
+ *         A-1030 Wien <br />
  */
 public class Rotor extends Mapper {
 
@@ -50,12 +50,12 @@ public class Rotor extends Mapper {
     /**
      * Created a rotor with the specified wiring
      *
-     * @param setting The char array to the wirings
+     * @param setting     The char array to the wirings
      * @param ringSetting
-     * @param jump A char array with the / the mark in the next should continue
-     * to turn roll may contain 1 or 2 elements
+     * @param jump        A char array with the / the mark in the next should continue
+     *                    to turn roll may contain 1 or 2 elements
      * @throws Exception If the string is invalid (not consisting of 26
-     * characters A-Z, or contains duplicate letters)
+     *                   characters A-Z, or contains duplicate letters)
      */
     public Rotor(String name, String setting, String ringSetting, char[] jump) throws Exception {
         super(name, setting);
@@ -75,7 +75,7 @@ public class Rotor extends Mapper {
 
     /**
      * @param ch check the array if there is only one or two characters from A-Z
-     * contains
+     *           contains
      * @return False if the conditions are not met
      */
     private boolean checkJumpChars(char[] ch) {
@@ -94,6 +94,7 @@ public class Rotor extends Mapper {
         return (ch >= 'A' && ch <= 'Z');
     }
      */
+
     /**
      * (non-Javadoc)
      *
@@ -158,7 +159,7 @@ public class Rotor extends Mapper {
      * @param c The input characters
      * @return the letter shown
      * @throws IllegalArgumentException If the handed over character is not
-     * between A-Z
+     *                                  between A-Z
      */
     public char reverseEncrypt(char c) {
         if (!(c >= 'A' && c <= 'Z')) {
@@ -239,20 +240,11 @@ public class Rotor extends Mapper {
         }
 
         //if we have a rotor after current rotor
-        //dgt: i have problem here with last wheel. if middle rotates it
         if (hasNextMapper()) {
             if (nextMapper instanceof Rotor) {
                 //create a rotor to left of current rotor
                 Rotor nextRotor = (Rotor) nextMapper;
                 boolean islastRotor = false; //is nextRotor the last one?
-                //should i check to make sure this is last rotor?
-                //dgt: testing!
-                //try to solve problem of last rotor
-                //use this if we have 2 wheels ahead of us
-                //if (nextRotor.hasNextMapper()) {
-                //    if (nextRotor.nextMapper instanceof Rotor) {
-
-                char nextRotorPrevCharPosition = nextRotor.getCharPosition();
 
                 if (!nextRotor.isStatic) {
                     //print some debug info
@@ -261,8 +253,6 @@ public class Rotor extends Mapper {
                     }
 
                     //try placing restriction here for last wheel
-                    //if (!(nextRotor.nextMapper instanceof Reflector)) {
-                    //this works for curr & next!!!
                     if ((nextRotor.nextMapper instanceof Reflector)) {
                         System.out.println("-> NEXT ROTOR LAST WHEEL Current rotor: " + getName() + "\tNext rotor: " + nextRotor.getName());
                         //since i am last wheel, i don't need to check anything, right?
@@ -270,36 +260,21 @@ public class Rotor extends Mapper {
                     }
                     //trying to handle double step sequence
                     if (!islastRotor) {
-                        //if (jumpChars[0] == getCharPosition() && nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
-                        if ( contains(getCharPosition(),jumpChars) && 
-                                contains(nextRotor.getCharPosition(), nextRotor.jumpChars) ) {
-                            // if (!contains('q', charArray))
-                            // in just to check results of getnextcharpos
-                            //char temp = getNextCharPosition();
-                            //
-                            //here bot are at TO and they rot successfully, but third is not rot
+                        if (contains(getCharPosition(), jumpChars) &&
+                                contains(nextRotor.getCharPosition(), nextRotor.jumpChars)) {
+                            nextRotor.rotate();
+                        }
+
+                        //next
+                        if (contains(nextRotor.getCharPosition(), nextRotor.jumpChars)) {
                             nextRotor.rotate();
                         }
                     }
 
-                    //curr
-                    //if (jumpChars[0] == prevCharPosition) {
                     if (contains(prevCharPosition, jumpChars)) {
                         nextRotor.rotate();
                     }
-
-                    //next
-                    //this works for current rot at jump char!
-                    if (!islastRotor) {
-                        //if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
-                        if ( contains(nextRotor.getCharPosition(),nextRotor.jumpChars) ) {
-                            nextRotor.rotate();
-                        }
-                    }
-                    //}
                 }
-                //    }
-                //}
             }
         }
 
@@ -354,7 +329,7 @@ public class Rotor extends Mapper {
     public boolean isStatic() {
         return isStatic;
     }
-    
+
     //dgt
     public boolean contains(char c, char[] array) {
         for (char x : array) {
