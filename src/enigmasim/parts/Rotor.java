@@ -6,16 +6,17 @@ import java.util.Arrays;
 
 /**
  * @author Philip Woelfel, Sebastian Chlan <br />
- *         <br />
- *         ENIGMA_TEC 2010 <br />
- *         technik[at]enigma-ausstellung.at <br />
- *         http://enigma-ausstellung.at <br />
- *         <br />
- *         HTL Rennweg <br />
- *         Rennweg 89b <br />
- *         A-1030 Wien <br />
+ * <br />
+ * ENIGMA_TEC 2010 <br />
+ * technik[at]enigma-ausstellung.at <br />
+ * http://enigma-ausstellung.at <br />
+ * <br />
+ * HTL Rennweg <br />
+ * Rennweg 89b <br />
+ * A-1030 Wien <br />
  */
 public class Rotor extends Mapper {
+
     private int position = 0;
     private char[] jumpChars = new char[2];
     private boolean isStatic = false;
@@ -39,26 +40,22 @@ public class Rotor extends Mapper {
     /**
      * Created a rotor with the specified wiring
      *
-     * @param setting
-     *		The string to the wirings
+     * @param setting The string to the wirings
      * @param ringSetting
-     *@param jump
-     * 		A char array with the / the mark in the next
-     *      should continue to turn roll may contain 1 or 2 elements
-     *  @throws Exception
-     * 		If the string is invalid (not consisting of 26 characters
-     * 		A-Z, or contains duplicate letters)
+     * @param jump A char array with the / the mark in the next should continue
+     * to turn roll may contain 1 or 2 elements
+     * @throws Exception If the string is invalid (not consisting of 26
+     * characters A-Z, or contains duplicate letters)
      */
-
     /**
      * Created a rotor with the specified wiring
      *
-     * @param setting     The char array to the wirings
+     * @param setting The char array to the wirings
      * @param ringSetting
-     * @param jump        A char array with the / the mark in the next should continue to turn
-     *                    roll may contain 1 or 2 elements
-     * @throws Exception If the string is invalid (not consisting of 26 characters
-     *                   A-Z, or contains duplicate letters)
+     * @param jump A char array with the / the mark in the next should continue
+     * to turn roll may contain 1 or 2 elements
+     * @throws Exception If the string is invalid (not consisting of 26
+     * characters A-Z, or contains duplicate letters)
      */
     public Rotor(String name, String setting, String ringSetting, char[] jump) throws Exception {
         super(name, setting);
@@ -77,7 +74,8 @@ public class Rotor extends Mapper {
     }
 
     /**
-     * @param ch check the array if there is only one or two characters from A-Z contains
+     * @param ch check the array if there is only one or two characters from A-Z
+     * contains
      * @return False if the conditions are not met
      */
     private boolean checkJumpChars(char[] ch) {
@@ -90,12 +88,12 @@ public class Rotor extends Mapper {
         }
         return (ch[0] >= 'A' && ch[0] <= 'Z') && !(ch.length == 2 && (!(ch[1] >= 'A' && ch[1] <= 'Z') || ch[0] == ch[1])) && ch.length <= 2;
     }
-/*
+
+    /*
     private boolean checkRingstellung(char ch) {
         return (ch >= 'A' && ch <= 'Z');
     }
-*/
-
+     */
     /**
      * (non-Javadoc)
      *
@@ -141,9 +139,9 @@ public class Rotor extends Mapper {
 
         if (Debug.isDebug()) {
             System.out
-                    .println(getName() + ":\nc: '" + c + "'\t maps to cV: '" + cV + "'" +
-                            "'\t shifts by ring setting? ver: '" + ver +
-                            "'" + "'\t out: '" + out + "'");
+                    .println(getName() + ":\nc: '" + c + "'\t maps to cV: '" + cV + "'"
+                            + "'\t shifts by ring setting? ver: '" + ver
+                            + "'" + "'\t out: '" + out + "'");
         }
 
         if (hasNextMapper()) { // wenn ich wen nach mir hab
@@ -154,12 +152,13 @@ public class Rotor extends Mapper {
     }
 
     /**
-     * Forms the entered letters of the alphabet to the target
-     * Source Alphabet from
+     * Forms the entered letters of the alphabet to the target Source Alphabet
+     * from
      *
      * @param c The input characters
      * @return the letter shown
-     * @throws IllegalArgumentException If the handed over character is not between A-Z
+     * @throws IllegalArgumentException If the handed over character is not
+     * between A-Z
      */
     public char reverseEncrypt(char c) {
         if (!(c >= 'A' && c <= 'Z')) {
@@ -217,83 +216,62 @@ public class Rotor extends Mapper {
      * erreicht
      */
     void rotate() {
-
-        char prevPosition = getCharPosition();
-        //if (position < 0) {
-        //    position += 26;
-        //}
-        //if (position > 25) {
-        //    position -= 26;
-        //}
-
+        //print debug information if debug enabled
         if (Debug.isDebug()) {
-            System.out.println(getName() + " rotating from: " + prevPosition);
+            System.out.println("Rotor " + getName() + " rotating from pos " + getCharPosition());
         }
 
-        //rotate my rotor
-        position++;
-        if (position < 0) {
-            position += 26;
-        }
-        if (position > 25) {
-            position -= 26;
-        }
-
-
+        char prevCharPosition = getCharPosition();
+        
         //if we have a rotor after current rotor
         if (hasNextMapper()) {
-            if (nextMapper instanceof Rotor) { //if we have another rotor next
+            if (nextMapper instanceof Rotor) {
+                //create a rotor to left of current rotor
                 Rotor nextRotor = (Rotor) nextMapper;
-                //if (nextMapper.hasNextMapper() && nextMapper.nextMapper instanceof Rotor) {
-                //    Rotor nextNextRotor = (Rotor) nextMapper.nextMapper;
 
-                //R is on V not a jump char, so V->Wtest next case
-                //M is on Z is a jump so rot next
-                //L is rot U->V due to middle i think its turning twice
-                //
-                    if (!nextRotor.isStatic) {
-                        //if i was sitting on my jump, rot next (no v to w)
-                        /*if (Debug.isDebug()) {
-                            System.out.println( "Current rotor: " + getName() + "Next: " + nextRotor.getName());
-                        }
-                        if (Debug.isDebug()) {
-                            System.out.println("Comparing "+(char)('A'+prevPosition)+" to "+jumpChars[0]);
-                        }*/
-                        if ( jumpChars[0] == prevPosition || nextRotor.jumpChars[0] == nextRotor.getCharPosition() ) {
-                            nextRotor.rotate();
-                        }
-                        //if next sitting on jump rotate next (yez so Z to A
-                        /*if (Debug.isDebug()) {
-                            System.out.println( "Comparing NEXT rotor" + (char)('A' + nextRotor.position) +" to "+nextRotor.jumpChars[0]);
-                        }*/
-                        //if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
-                        //    nextRotor.rotate();
-                        //}
+                if (!nextRotor.isStatic) {
+                    //print some debug info
+                    if (Debug.isDebug()) {
+                        System.out.println("Current rotor: " + getName() + "\tNext rotor: " + nextRotor.getName());
+                    }
 
-                        //for (char jump : nextRotor.jumpChars) {
-                        //    if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
-                        //        Rotor temp = (Rotor) nextMapper;
-                        //        temp.rotate();
-                        //    }
-                        //}// for
+                    if ( jumpChars[0] == prevCharPosition && nextRotor.jumpChars[0] == nextRotor.getCharPosition() ){
+                        nextRotor.rotate();
+                    }
+                    if ( jumpChars[0] == prevCharPosition || nextRotor.jumpChars[0] == nextRotor.getCharPosition() ){
+                        nextRotor.rotate();
+                    }    
+                    if ( nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                        nextRotor.rotate();
                     }
                 }
-            }
-
-
-        if (Debug.isDebug()) {
-                System.out.println(getName() + " rotated to: " + getCharPosition() );
+                //rotate next rotor??
+                nextRotor.position++;
             }
         }
-    //}
-        /**
-         * getter fuer Position als char
-         *
-         * @return position auf der der Rotor steht als char ( A-Z )
-         */
 
+        //update rotate my rotor letter/position
+        position++;
+
+        if (Debug.isDebug()) {
+            System.out.println(getName() + " rotated to: " + getCharPosition());
+        }
+    }
+    //}
+
+    /**
+     * getter fuer Position als char
+     *
+     * @return position auf der der Rotor steht als char ( A-Z )
+     */
     public char getCharPosition() {
         return (char) ('A' + position);
+    }
+    public char getPrevCharPosition() {
+        return (char) ('A' + position-1);
+    }
+    public char getNextCharPosition() {
+        return (char) ('A' + position+1);
     }
 
     /**
