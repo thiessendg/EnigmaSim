@@ -220,39 +220,57 @@ public class Rotor extends Mapper {
         if (Debug.isDebug()) {
             System.out.println("Rotor " + getName() + " rotating from pos " + getCharPosition());
         }
+        if (Debug.isDebug()) {
+            System.out.println(getName() + " rotates from: " + position + "("
+                    + getCharPosition() + ")");
+        }
 
         char prevCharPosition = getCharPosition();
-        
+
+        //we want this here
+        position++;
+        if (position > 25) {
+            position -= 26;
+        }
+
+        if (Debug.isDebug()) {
+            System.out.println(getName() + " rotates to: " + position + "("
+                    + (char) ('A' + position) + ")");
+        }
+
         //if we have a rotor after current rotor
         if (hasNextMapper()) {
             if (nextMapper instanceof Rotor) {
                 //create a rotor to left of current rotor
                 Rotor nextRotor = (Rotor) nextMapper;
 
+                //rotate next rotor??
+                //nextRotor.position++;
+                //if (nextRotor.position > 25) {
+                //    nextRotor.position -= 26;
+                //}
                 if (!nextRotor.isStatic) {
                     //print some debug info
                     if (Debug.isDebug()) {
                         System.out.println("Current rotor: " + getName() + "\tNext rotor: " + nextRotor.getName());
                     }
 
-                    if ( jumpChars[0] == prevCharPosition && nextRotor.jumpChars[0] == nextRotor.getCharPosition() ){
+                    if (jumpChars[0] == prevCharPosition && nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
                         nextRotor.rotate();
                     }
-                    if ( jumpChars[0] == prevCharPosition || nextRotor.jumpChars[0] == nextRotor.getCharPosition() ){
+                    if (jumpChars[0] == prevCharPosition || nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
                         nextRotor.rotate();
-                    }    
-                    if ( nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
+                    }
+                    if (nextRotor.jumpChars[0] == nextRotor.getCharPosition()) {
                         nextRotor.rotate();
                     }
                 }
-                //rotate next rotor??
-                nextRotor.position++;
+
             }
         }
 
         //update rotate my rotor letter/position
-        position++;
-
+        //position++;
         if (Debug.isDebug()) {
             System.out.println(getName() + " rotated to: " + getCharPosition());
         }
@@ -267,11 +285,13 @@ public class Rotor extends Mapper {
     public char getCharPosition() {
         return (char) ('A' + position);
     }
+
     public char getPrevCharPosition() {
-        return (char) ('A' + position-1);
+        return (char) ('A' + position - 1);
     }
+
     public char getNextCharPosition() {
-        return (char) ('A' + position+1);
+        return (char) ('A' + position + 1);
     }
 
     /**
