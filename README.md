@@ -1,13 +1,25 @@
 # EnigmaSim
 Enigma Simulator
 
-Enigma-Simulation <https://github.com/thiessendg/EnigmaSim/>
+Enigma Simulation <https://github.com/thiessendg/EnigmaSim/>
 
 DESCRIPTION
 This program simulates the function of the Enigma used in World War II.
+
 It simulates 5 versions (so far) of Enigma.  Enigma I, M3, M3 U-boat, M4, and M4 U-boat.
-It is a work in progress.
+
+It is a work in progress, although, comparing to known messages and online simulators,
+all tests have passed so far.
+
 It uses multicast, address 224.0.0.2, port 2200.
+
+ISSUES
+    1) The Ringstellung, ring offsets, are hard coded in.  I am working on putting them
+    in the GUI, but want to test to make sure they work.
+    2) the test directory is where the old unit tests reside.  I have not updated them
+    yet as I am making significant code changes.  They will also be updated for the latest
+    version of JUnit.
+
 
 SYSTEM REQUIREMENTS
  - At least Java Runtime Environment (JRE) Version 8
