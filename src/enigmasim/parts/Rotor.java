@@ -2,7 +2,6 @@ package enigmasim.parts;
 
 import enigmasim.Debug;
 
-import java.util.Arrays;
 
 /**
  * @author Philip Woelfel, Sebastian Chlan <br />
@@ -51,7 +50,7 @@ public class Rotor extends Mapper {
      * Created a rotor with the specified wiring
      *
      * @param setting     The char array to the wirings
-     * @param ringSetting
+     * @param ringSetting The ring offset
      * @param jump        A char array with the / the mark in the next should continue
      *                    to turn roll may contain 1 or 2 elements
      * @throws Exception If the string is invalid (not consisting of 26
@@ -239,13 +238,16 @@ public class Rotor extends Mapper {
                     + (char) ('A' + position) + ")");
         }
 
-        //if we have a rotor after current rotor
+        //if we have a mapper after current rotor
         if (hasNextMapper()) {
+            //if that mapper is a rotor
             if (nextMapper instanceof Rotor) {
                 //create a rotor to left of current rotor
                 Rotor nextRotor = (Rotor) nextMapper;
-                boolean islastRotor = false; //is nextRotor the last one?
+                //by default this next rotor is not the last, final rotor
+                boolean islastRotor = false;
 
+                //make sure it's a moveable rotor?
                 if (!nextRotor.isStatic) {
                     //print some debug info
                     if (Debug.isDebug()) {
@@ -253,12 +255,21 @@ public class Rotor extends Mapper {
                     }
 
                     //try placing restriction here for last wheel
+                    //if next rotor has a reflector after it, it's going to be the final rotor before hitting reflector
                     if ((nextRotor.nextMapper instanceof Reflector)) {
                         System.out.println("-> NEXT ROTOR LAST WHEEL Current rotor: " + getName() + "\tNext rotor: " + nextRotor.getName());
+
                         //since i am last wheel, i don't need to check anything, right?
                         islastRotor = true;
                     }
+
+                    //if current rotor hits notch, rotate the next rotor
+                    if (contains(prevCharPosition, jumpChars)) {
+                        nextRotor.rotate();
+                    }
+
                     //trying to handle double step sequence
+                    //if current is not last rotor
                     if (!islastRotor) {
                         if (contains(getCharPosition(), jumpChars) &&
                                 contains(nextRotor.getCharPosition(), nextRotor.jumpChars)) {
@@ -270,21 +281,14 @@ public class Rotor extends Mapper {
                             nextRotor.rotate();
                         }
                     }
-
-                    if (contains(prevCharPosition, jumpChars)) {
-                        nextRotor.rotate();
-                    }
                 }
             }
         }
 
-        //update rotate my rotor letter/position
-        //position++;
         if (Debug.isDebug()) {
             System.out.println(getName() + " rotated to: " + getCharPosition());
         }
     }
-    //}
 
     /**
      * getter fuer Position als char
@@ -295,6 +299,7 @@ public class Rotor extends Mapper {
         return (char) ('A' + position);
     }
 
+/*
     public char getPrevCharPosition() {
         return (char) ('A' + position - 1);
     }
@@ -302,6 +307,7 @@ public class Rotor extends Mapper {
     public char getNextCharPosition() {
         return (char) ('A' + position + 1);
     }
+*/
 
     /**
      * setter fuer die Position als char ( A-Z )
@@ -331,7 +337,7 @@ public class Rotor extends Mapper {
     }
 
     //dgt
-    public boolean contains(char c, char[] array) {
+    private boolean contains(char c, char[] array) {
         for (char x : array) {
             if (x == c) {
                 return true;
