@@ -65,15 +65,15 @@ public class Logic {
         //Plugboard
         allMappersConfig.put("Pb", "Pb:ABCDEFGHIJKLMNOPQRSTUVWXYZ: : ");
 
-        //Rotors ID:Type:Setting:Offset:Notch
+        //Rotors ID:Type:Setting:RingOffset:Notch
         allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:1:Q"); //1930 	Enigma I
-        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:2:E"); //1930 	Enigma I
+        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:1:E"); //1930 	Enigma I
         allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:1:V"); //1930 	Enigma I
-        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:21:J"); //December 1938 	M3 Army
-        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:12:Z"); //December 1938 	M3 Army
-        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:8:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:1:J"); //December 1938 	M3 Army
+        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:1:Z"); //December 1938 	M3 Army
+        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
         allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:13:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
         allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS:1: "); //Spring 1941 	M4 R2
         allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD:1: "); //Spring 1941 	M4 R2
 
@@ -145,6 +145,7 @@ public class Logic {
     public String encrypt(String msg, String[] rotorConfiguration) {
         String name = "";
         char startPosition;
+        String offset = "";
         try {
             availableMachines.get(usedMachine).setMapper(rotorConfiguration[0].split(":")[0], 0);
             availableMachines.get(usedMachine).setPlugboardConnections(rotorConfiguration[0].split(":")[1]);
@@ -152,15 +153,23 @@ public class Logic {
             e1.printStackTrace();
         }
 
+        //dgt: start at 1 because we don't do this for plugboard
+        //dgt: problem when  i get to reflector because you have 3 or 4 rotors.
         for (int i = 1; i < rotorConfiguration.length; i++) {
 
             String[] split = rotorConfiguration[i].split(":");
             name = split[0];
             startPosition = split[1].charAt(0);
+            if (i != rotorConfiguration.length-1) {
+                offset = split[2];
+            }
 
             try {
                 availableMachines.get(usedMachine).setMapper(name, i);
                 availableMachines.get(usedMachine).setStartPosition(i, startPosition);
+                if (i != rotorConfiguration.length-1) {
+                    availableMachines.get(usedMachine).setRingSetting(i, offset);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

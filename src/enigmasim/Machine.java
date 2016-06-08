@@ -188,7 +188,12 @@ public class Machine {
             ro.setPosition(startPosition);
         } // end if
     } // end Methode
-
+    public void setRingSetting(int position, String ringoffset) {
+        if (usedMappers.get(position) instanceof Rotor) {
+            Rotor ro = (Rotor) usedMappers.get(position);
+            ro.setRingOffset(ringoffset);
+        } // end if
+    } // end Methode
     /**
      * Ueberprüft, ob ein Mapper bereits exisitiert
      *

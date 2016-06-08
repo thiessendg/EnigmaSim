@@ -45,7 +45,12 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 	private JLabel lrefl = new JLabel();
 
 	private JComboBox<String> availRotors = new JComboBox<>();
-	private String prevChoosen = "";
+	private String prevChosenRotor = "";
+
+	private JComboBox<String> availRotorOffset = new JComboBox<>();
+	private String[] offset={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20",
+			"21","22","23","24","25","26"};
+	private String prevChosenRotorOffset = "";
 
 	private ArrayList<GUIRotorListener> rotorListeners = new ArrayList<>();
 
@@ -88,9 +93,13 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 				lLetter[i].setFont(GUIEnigma.monoFont);
 				add(lLetter[i], c);
 			}
+
+			//dgt: add offset as part of each rotor
+			add(availRotorOffset,c);
+
 			lLetter[3].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		} else if (m instanceof Reflector) {
-			lrefl.setText("Reflektor");
+			lrefl.setText("Reflector");
             lrefl.setUI(lvrefl);
 			lrefl.setHorizontalAlignment(JLabel.CENTER);
 			add(lrefl, c);
@@ -118,16 +127,27 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		for (String r : rotors) {
             availRotors.addItem(r);
         }
+		for (String o : offset) {
+			availRotorOffset.addItem(o);
+		}
 
 		availRotors.addActionListener(this);
 		availRotors.setSelectedItem(conf);
-		prevChoosen = (String)availRotors.getSelectedItem();
+		prevChosenRotor = (String)availRotors.getSelectedItem();
+
+		availRotorOffset.addActionListener(this);
+		availRotorOffset.setSelectedItem(conf);
+		prevChosenRotorOffset = (String)availRotorOffset.getSelectedItem();
 	}
 
 	String getMapperConf() {
+		//i believe this is return rotor and start position as I:A, II:A, III:A
+		//i think i want to start returning I:A:1, II:A:1, III:A:1
 		if (self instanceof Rotor){
 			JTextField middle = (JTextField) lLetter[3];
-			return availRotors.getSelectedItem() + ":" + middle.getText().charAt(0);
+			//return availRotors.getSelectedItem() + ":" + middle.getText().charAt(0);
+			return availRotors.getSelectedItem() + ":" + middle.getText().charAt(0) +
+					":" + availRotorOffset.getSelectedItem();
 		}
 		else return availRotors.getSelectedItem() + ": ";
 	}
@@ -154,8 +174,15 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		return availRotors;
 	}
 
+	JComboBox<String> getAvailRotorOffset() {
+		return availRotorOffset;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//dgt: I believe this is where th up and down arrows are used to
+		// select the start position of each rotor. I don't think I have to do
+		// this with offest because it is a ComboBox.
 		if (e.getSource() == BUP) {
 			JTextField middle = (JTextField) lLetter[3];
 			String curr = middle.getText();
@@ -192,7 +219,8 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 			}
 		} else if (e.getSource() == availRotors) {
 			fireRotorChange();
-			prevChoosen = (String)availRotors.getSelectedItem();
+			prevChosenRotor = (String)availRotors.getSelectedItem();
+			prevChosenRotorOffset = (String)availRotorOffset.getSelectedItem();
 		}
 	}
 
@@ -210,9 +238,11 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 	@Override
 	public void rotorChange(String conf, GUIRotor otherRot) {
 		if (availRotors.getSelectedItem().equals(conf)) {
-			availRotors.setSelectedItem(otherRot.prevChoosen);
+			availRotors.setSelectedItem(otherRot.prevChosenRotor);
 		}
 	}
+
+	//dgt: do i need an offsetchange method?
 
 	Mapper getMapper() {
 		return self;

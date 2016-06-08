@@ -318,6 +318,10 @@ public class Rotor extends Mapper {
         this.position = position - 'A';
     }
 
+    public void setRingOffset(String offset) {
+        this.ringStellung = offset;
+    }
+
     /**
      * macht den Rotor statisch
      *
