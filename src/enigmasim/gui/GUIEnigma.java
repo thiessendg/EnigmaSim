@@ -22,23 +22,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import enigmasim.Debug;
@@ -65,39 +52,31 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	/**
 	 * Courier New, Plain, 14pt. Wird benötigt für das Steckbrett und die Walzen
 	 */
-	public static final Font monoFont = new Font("Courier New", Font.PLAIN, 14);
-	
+	static final Font monoFont = new Font("Courier New", Font.PLAIN, 14);
 	/**
 	 * Ein String mit dem Alphabet
 	 */
-	public static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	
+	static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	/**
 	 * Ein String mit allen Zeichen des Alphabets in QWERTZ-Form
 	 */
-	public static final String KEYBOARD = "QWERTZUIOPASDFGHJKLYXCVBNM";
-	
-	
-	
+	static final String KEYBOARD = "QWERTZUIOPASDFGHJKLYXCVBNM";
+
 	private Logic log = null;
 	private String[] availMachines = null;
 	private Machine currentMachine = null;
-	
-	private JPanel boxlay=null;
-	
+
 	private JPanel pRotors = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-	private ArrayList<GUIRotor> rotors = new ArrayList<GUIRotor>();
-	private ArrayList<String> config = new ArrayList<String>();
-	private ArrayList<String> startConfig = new ArrayList<String>();
+	private ArrayList<GUIRotor> rotors = new ArrayList<>();
+	private ArrayList<String> config = new ArrayList<>();
+	private ArrayList<String> startConfig = new ArrayList<>();
 
 	private TitledBorder tbplugBoard = new TitledBorder("");
 	private GUIPlugboard plugBoard = new GUIPlugboard();
 
 	private JTextArea taInput = new JTextArea();
-	private JScrollPane spInput = new JScrollPane(taInput);
 	private TitledBorder tbInput = new TitledBorder("");
 	private JTextArea taOutput = new JTextArea();
-	private JScrollPane spOutput = new JScrollPane(taOutput);
 	private TitledBorder tbOutput = new TitledBorder("");
 
 	private JLabel lLogo = new JLabel(new ImageIcon(readImageFromRessources("Logo_Enigma_verysmall.png")));
@@ -108,12 +87,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	private GUIButton bSend = new GUIButton();
 
 	private TitledBorder tbmessages = new TitledBorder("");
-	private JComboBox<String> cMessages = new JComboBox<String>();
-        // NO:
-        //JComboBox jComboBox6 = new JComboBox(...);
-        // YES:
-        //JComboBox<String> jComboBox6 = new JComboBox<String>(...);
-
+	private JComboBox<String> cMessages = new JComboBox<>();
 
 	private JMenuBar menubar = new JMenuBar();
 
@@ -122,10 +96,10 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	private JMenu mSetLang = new JMenu();
 
 	private ButtonGroup groupMachines = new ButtonGroup();
-	private ArrayList<JRadioButtonMenuItem> rbMachine = new ArrayList<JRadioButtonMenuItem>();
+	private ArrayList<JRadioButtonMenuItem> rbMachine = new ArrayList<>();
 
 	private ButtonGroup groupLang = new ButtonGroup();
-	private ArrayList<JRadioButtonMenuItem> rbLanguages = new ArrayList<JRadioButtonMenuItem>();
+	private ArrayList<JRadioButtonMenuItem> rbLanguages = new ArrayList<>();
 
 	private JMenu mAbout = new JMenu();
 	private JMenuItem mAboutAbout = new JMenuItem();
@@ -152,15 +126,15 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 		currentMachine = log.getMachine(availMachines[0]);
 		log.setMachine(currentMachine.getMachineName());
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		createMenubar();
 		setJMenuBar(menubar);
 
 		setLayout(new BorderLayout());
 		setIconsAndTray("Icon_Enigma.png");
-		
-		boxlay = new JPanel();
+
+		JPanel boxlay = new JPanel();
 		boxlay.setLayout(new BoxLayout(boxlay, BoxLayout.PAGE_AXIS));
 		
 		// Erste Zeile (Walzen, Buttons)
@@ -172,7 +146,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 
 		SplashScreen.updateProgressBar(50);
 		
-		JPanel corner = null;
+		JPanel corner;
 		
 		corner = placeButtonsAndLogo();
 		corner.setPreferredSize(new Dimension(80, 230));
@@ -190,6 +164,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 		
 		// Zeile 3 (Input, Verschl√ºsselnbutton)
 		JPanel thirdLine = new JPanel(new FlowLayout());
+		JScrollPane spInput = new JScrollPane(taInput);
 		spInput.setBorder(tbInput);
 		tbInput.setTitle(GUIText.getText("tbinput"));
 		spInput.setPreferredSize(new Dimension(300, 100));
@@ -207,6 +182,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 		
 		// 4. Zeile (Output, Sendenbutton)
 		JPanel fourthLine = new JPanel(new FlowLayout());
+		JScrollPane spOutput = new JScrollPane(taOutput);
 		spOutput.setBorder(tbOutput);
 		tbOutput.setTitle(GUIText.getText("tboutput"));
 		spOutput.setPreferredSize(new Dimension(300, 100));
@@ -256,8 +232,6 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 		diry.add(dirx, BorderLayout.SOUTH);
 		return diry;
 	}
-	
-	public JPanel getBoxlay() { return boxlay; }
 
 	/**
 	 * Erstellt das Menü
@@ -418,7 +392,6 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 
 	@Override
 	public void sendRecievedMessage(String msg) {
-		
 		if(Debug.isDebug())
 			System.out.println("Message-History[9]: "+cMessages.getItemAt(9));
 		
@@ -474,10 +447,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 		if(e.getSource() == bSend){
 			log.sendMessage(taOutput.getText());
 		}
-		
-		
-		
-		// TODO:
+
 		if (e.getSource() == bSet) {
 			saveCurrSettings();
 			return;
@@ -489,16 +459,16 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 				config.set(i, startConfig.get(i));
 			resetCurrSettings();
 		}
-		// TODO: Wenn die Sprache auf Englisch ist, muss ein anderer Text angezeigt werden.		
-		else if (src.equals(mAboutHelp)){
-			new Help();
-		}
-		else if (src.equals(mAboutAbout)){
-			ImageIcon icon = new ImageIcon(readImageFromRessources("Logo_Enigma_small.png"));
-			if(Debug.isDebug())
-				System.out.println("Lang: "+GUIText.getLanguageCode());
-			JOptionPane.showMessageDialog(this, getTextFromFile("aboutText_"+GUIText.getLanguageCode()+".txt"), GUIText.getText("maboutabout"),
-					JOptionPane.PLAIN_MESSAGE, icon);
+		else {
+			if (src.equals(mAboutHelp)) {
+				new Help();
+			} else if (src.equals(mAboutAbout)) {
+				ImageIcon icon = new ImageIcon(readImageFromRessources("Logo_Enigma_small.png"));
+				if (Debug.isDebug())
+					System.out.println("Lang: " + GUIText.getLanguageCode());
+				JOptionPane.showMessageDialog(this, getTextFromFile("aboutText_" + GUIText.getLanguageCode() + ".txt"), GUIText.getText("maboutabout"),
+						JOptionPane.PLAIN_MESSAGE, icon);
+			}
 		}
 		if(e.getSource()==pop){
 			System.exit(0);
@@ -516,8 +486,6 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 			
 			taInput.setText(output);
 		}
-		
-		//TODO menu fertig machen
 	}
 	
 	/**
@@ -526,8 +494,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	private void saveCurrSettings() {
 		config.clear();
 		config.add(plugBoard.getPlugSettings());
-		for (int i = 0; i < rotors.size(); i++)
-			config.add(rotors.get(i).getMapperConf());
+		config.addAll(rotors.stream().map(GUIRotor::getMapperConf).collect(Collectors.toList()));
 	}
 	
 	/**
@@ -549,7 +516,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	 * @param fname Der Name des Bildes
 	 * @return Das gefundene Bild, falls keines gefunden wurde wird null zurueckgegeben
 	 */
-	public Image readImageFromRessources(String fname) {
+	private Image readImageFromRessources(String fname) {
 		try {
 			return ImageIO.read(new File("resources/" + fname));
 		} catch (Exception e) {
@@ -562,6 +529,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 			}
 		}
 	}
+
 	/**
 	 * Diese Methode setzt den TrayIcon und das Icon in der Titelleiste.
 	 * Weiters wird im Tray ein PopupMenu erstellt, welches die M√∂glichkeit bietet das Programm zu schliessen
@@ -578,10 +546,11 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 		try {
 			SystemTray.getSystemTray().add(trayIcon);
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
+			//Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Methode zum zentrieren und setzen der Groesse des Sniffer Fensters auf
 	 * dem Desktop
@@ -606,7 +575,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 		try {
 			String line;
 			while((line = br.readLine()) != null)
-				sb.append(line+System.getProperty("line.separator"));
+				sb.append(line).append(System.getProperty("line.separator"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -622,13 +591,13 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 			return new BufferedReader(new InputStreamReader(new FileInputStream("resources/" + fileName), "UTF-8"));
 		} catch (Exception e) {
 			try {
-				return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/resources/"+fileName), "UTF-8"));
+				return new BufferedReader(new InputStreamReader(Object.class.getResourceAsStream("/resources/"+fileName), "UTF-8"));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				System.exit(-1);
 			}
 			finally {
-				closeStream(in);
+				closeStream(null);
 			}
 		}
 		return in;
@@ -649,21 +618,17 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener, 
 	}
 	
 	private void addMessageHistoryItem(String msg){
-
-		ArrayList<String> items = new ArrayList<String>();
-		
+		ArrayList<String> items = new ArrayList<>();
 		for(int i = 0; i < cMessages.getItemCount(); i++){
 			// toString() statt +"" zerschiesst geralds Netbook?
-			items.add(cMessages.getItemAt(i).toString());
+			items.add(cMessages.getItemAt(i));
 		}
 		cMessages.removeAllItems();
 		
 		cMessages.addItem(msg);
-		
-		for(int i = 0; i < items.size(); i++){
-			cMessages.addItem(items.get(i));
-		}
 
-		
+		for (String item : items) {
+			cMessages.addItem(item);
+		}
 	}
 }

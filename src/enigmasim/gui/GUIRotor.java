@@ -41,16 +41,12 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 	private final GUIButton BDOWN = new GUIButton ("\u2228");
 
 	private JComponent[] lLetter = new JComponent[7];
-	private GUIVerticalLabel lvrefl = new GUIVerticalLabel(false);
 	private JLabel lrefl = new JLabel();
 
 	private JComboBox<String> availRotors = new JComboBox<>();
 	private String prevChosenRotor = "";
 
 	private JComboBox<String> availRotorOffset = new JComboBox<>();
-	private String[] offset={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20",
-			"21","22","23","24","25","26"};
-	private String prevChosenRotorOffset = "";
 
 	private ArrayList<GUIRotorListener> rotorListeners = new ArrayList<>();
 
@@ -100,7 +96,8 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 			lLetter[3].setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		} else if (m instanceof Reflector) {
 			lrefl.setText("Reflector");
-            lrefl.setUI(lvrefl);
+			GUIVerticalLabel lvrefl = new GUIVerticalLabel(false);
+			lrefl.setUI(lvrefl);
 			lrefl.setHorizontalAlignment(JLabel.CENTER);
 			add(lrefl, c);
 		}
@@ -127,6 +124,8 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		for (String r : rotors) {
             availRotors.addItem(r);
         }
+		String[] offset = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+				"21", "22", "23", "24", "25", "26"};
 		for (String o : offset) {
 			availRotorOffset.addItem(o);
 		}
@@ -137,7 +136,6 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 
 		availRotorOffset.addActionListener(this);
 		availRotorOffset.setSelectedItem(conf);
-		prevChosenRotorOffset = (String)availRotorOffset.getSelectedItem();
 	}
 
 	String getMapperConf() {
@@ -174,9 +172,9 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		return availRotors;
 	}
 
-	JComboBox<String> getAvailRotorOffset() {
-		return availRotorOffset;
-	}
+	//JComboBox<String> getAvailRotorOffset() {
+	//	return availRotorOffset;
+	//}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -220,7 +218,6 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 		} else if (e.getSource() == availRotors) {
 			fireRotorChange();
 			prevChosenRotor = (String)availRotors.getSelectedItem();
-			prevChosenRotorOffset = (String)availRotorOffset.getSelectedItem();
 		}
 	}
 

@@ -91,7 +91,7 @@ public class Machine {
      * @return false wenn der Mapper nicht gesetzt werden konnte
      * @throws Exception falls der neue Mapper nicht gesetzt werden konnte
      */
-    public boolean setMapper(String name, int position) throws Exception {
+    boolean setMapper(String name, int position) throws Exception {
         if (mapperAlreadyExists(name)) {
             // exisitierenden Mapper hierher verschieben und aktuellen Mapper
             // dorthin verschieben
@@ -142,13 +142,9 @@ public class Machine {
      * @param message Nachricht zum Entschluesseln
      * @return verschluesselte Nachricht
      */
-    public String encrypt(String message) {
+    String encrypt(String message) {
         String encryptedMessage = "";
         for (int i = 0; i < message.length(); i++) {
-            // TODO:  ??? maybe disregard te comment below
-            // dgt: this is where the ring offsets would get used.  right now all
-            // ring settings are 1.  to implement, replace the hardcoded 0 with
-            // usedMappers.get(ringOffet-1).encrypt(...);
             encryptedMessage += usedMappers.get(0).encrypt(message.charAt(i));
         } // end for
         return encryptedMessage;
@@ -160,21 +156,11 @@ public class Machine {
      * @param setting String mit den neuen Verbindungen
      * @throws Exception falls die Verbindungen nicht neu gesetzt werden konnten
      */
-    public void setPlugboardConnections(String setting) throws Exception {
+    void setPlugboardConnections(String setting) throws Exception {
         Plugboard pb = (Plugboard) usedMappers.get(0);
         pb.setConnections(setting);
     } // end Methode
 
-    /**
-     * Setzt die Verbindungen des Plugboards neu
-     *
-     * @param setting char[] mit den neuen Verbindungen
-     * @throws Exception falls die Verbindungen nicht neu gesetzt werden konnten
-     */
-    public void setPlugboardConnections(char[] setting) throws Exception {
-        Plugboard pb = (Plugboard) usedMappers.get(0);
-        pb.setConnections(setting);
-    } // end Methode
 
     /**
      * Setzt die Startposition eines spezifischen Rotors
@@ -182,18 +168,26 @@ public class Machine {
      * @param position Position des Rotors
      * @param startPosition Startposition auf die der Rotor gesetzt werden soll
      */
-    public void setStartPosition(int position, char startPosition) {
+    void setStartPosition(int position, char startPosition) {
         if (usedMappers.get(position) instanceof Rotor) {
             Rotor ro = (Rotor) usedMappers.get(position);
             ro.setPosition(startPosition);
         } // end if
     } // end Methode
-    public void setRingSetting(int position, String ringoffset) {
+
+    /**
+     * Set the ring setting, Ringstellung, for the rotor
+     *
+     * @param position Position of the Rotor
+     * @param ringoffset ringoffset the rimng offset for the rotor
+     */
+    void setRingSetting(int position, String ringoffset) {
         if (usedMappers.get(position) instanceof Rotor) {
             Rotor ro = (Rotor) usedMappers.get(position);
             ro.setRingOffset(ringoffset);
         } // end if
     } // end Methode
+    
     /**
      * Ueberprüft, ob ein Mapper bereits exisitiert
      *
@@ -201,7 +195,7 @@ public class Machine {
      * @return true, wenn der Mapper bereits exisitiert und false, wenn der
      * Mapper noch nicht exisitiert
      */
-    public boolean mapperAlreadyExists(String name) {
+    private boolean mapperAlreadyExists(String name) {
         for (Mapper mapper : usedMappers) {
             if (name.equals(mapper.getName())) {
                 return true;
@@ -247,7 +241,6 @@ public class Machine {
      *
      * @param name Names des neuen Mappers
      * @param position Position des neuen Mappers
-     * @return true, wenn Mapper positioniert werden konnte und false falls
      * nicht moeglich
      * @throws Exception falls Mapper nicht erzeugt werden konnte
      */
@@ -255,12 +248,11 @@ public class Machine {
         String config = logic.getMapperConfig(name);
         String type = config.split(":")[0];
         String setting = config.split(":")[1];
-        String ringSetting = config.split(":")[2];
-        char[] chumpchars = config.split(":")[3].toCharArray();
+        char[] chumpchars = config.split(":")[2].toCharArray();
         if (null != type) {
             switch (type) {
                 case "Ro":
-                    usedMappers.add(position, new Rotor(name, setting, ringSetting, chumpchars));
+                    usedMappers.add(position, new Rotor(name, setting, chumpchars));
                     break;
                 case "Re":
                     usedMappers.add(position, new Reflector(name, setting));
@@ -279,7 +271,6 @@ public class Machine {
      *
      * @param name Names des Mappers
      * @param position Position des Mappers
-     * @return true, wenn Mapper positioniert werden konnte und false falls
      * nicht moeglich
      * @throws Exception falls Mapper nicht erzeugt werden konnte
      */
@@ -287,12 +278,11 @@ public class Machine {
         String config = logic.getMapperConfig(name);
         String type = config.split(":")[0];
         String setting = config.split(":")[1];
-        String ringSetting = config.split(":")[2];
-        char[] chumpchars = config.split(":")[3].toCharArray();
+        char[] chumpchars = config.split(":")[2].toCharArray();
         if (null != type) {
             switch (type) {
                 case "Ro":
-                    usedMappers.set(position, new Rotor(name, setting, ringSetting, chumpchars));
+                    usedMappers.set(position, new Rotor(name, setting, chumpchars));
                     break;
                 case "Re":
                     usedMappers.set(position, new Reflector(name, setting));
@@ -333,7 +323,7 @@ public class Machine {
      * @param name Name des Mappers
      * @return Position des Mappers
      */
-    public int getPositionOfMapper(String name) {
+    private int getPositionOfMapper(String name) {
         for (int i = 0; i < usedMappers.size(); i++) {
             if (name.equals(usedMappers.get(i).getName())) {
                 return i;
@@ -359,13 +349,13 @@ public class Machine {
             } // end for
         } // end for
         str.append(new_line).append("Benutzte Walzen: ");
-        for (int i = 0; i < usedMappers.size(); i++) {
-            str.append(" ").append(usedMappers.get(i).getName());
+        for (Mapper usedMapper1 : usedMappers) {
+            str.append(" ").append(usedMapper1.getName());
         } // end for
         str.append(new_line).append("Walzenstellung: ");
-        for (int i = 0; i < usedMappers.size(); i++) {
-            if (usedMappers.get(i) instanceof Rotor) {
-                Rotor rot = (Rotor) usedMappers.get(i);
+        for (Mapper usedMapper : usedMappers) {
+            if (usedMapper instanceof Rotor) {
+                Rotor rot = (Rotor) usedMapper;
                 str.append(" ").append(rot.getCharPosition());
             } // end if
         } // end for
@@ -377,11 +367,9 @@ public class Machine {
      *
      * @return - char[] mit allen Walzenpositionen
      */
-    public char[] getCurrentRotorPositions() {
+    char[] getCurrentRotorPositions() {
         StringBuilder sb = new StringBuilder();
-        usedMappers.stream().filter((m) -> (m instanceof Rotor)).forEach((m) -> {
-            sb.append(((Rotor) m).getCharPosition());
-        });
+        usedMappers.stream().filter((m) -> (m instanceof Rotor)).forEach((m) -> sb.append(((Rotor) m).getCharPosition()));
 
         char[] currentRotorPositions = new char[sb.toString().length()];
         for (int i = 0; i < currentRotorPositions.length; i++) {

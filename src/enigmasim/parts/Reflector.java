@@ -37,10 +37,6 @@ public class Reflector extends Mapper {
 	 * 
 	 * @param setting
 	 *            der String mit der internen Verdrahtung des Reflektors
-	 * @throws Exception
-	 *             Exception falls der String ungueltig ist ( besteht nicht aus
-	 *             26 Zeichen von A-Z, bzw. enthaelt doppelte Buchstaben oder
-	 *             die Verkabelung ist ungueltig )
 	 */
 	public Reflector(String name, String setting) {
 		super(name, setting);
@@ -52,10 +48,6 @@ public class Reflector extends Mapper {
 	 * 
 	 * @param setting
 	 *            das char Array mit der internen Vedrahtung des Reflektors
-	 * @throws Exception
-	 *             falls das char Array ungueltig ist ( besteht nicht aus 26
-	 *             Zeichen von A-Z, bzw. enthaelt doppelte Buchstaben oder die
-	 *             Verkabelung ist ungueltig )
 	 */
 	public Reflector(String name, char[] setting) {
 		super(name, setting);
@@ -68,13 +60,13 @@ public class Reflector extends Mapper {
 	 * Zeichen oder Verkabelungsfehler beinhaltet (Bsp.: A-->E, E-->A, B-->Z,
 	 * Z-->B)
 	 * 
-	 * @param str
-	 * @throws Exception
+	 * @param str the setting string
+	 * @throws IllegalArgumentException
 	 *             falls das char Array ungueltig ist ( besteht nicht aus 26
 	 *             Zeichen von A-Z, bzw. enthaelt doppelte Buchstaben oder die
 	 *             Verkabelung ist ungueltig )
 	 */
-	protected void stringToSettingArray(String str) {
+	void stringToSettingArray(String str) {
 		TreeSet<Character> checkdouble = new TreeSet<>();
 		for (char c : str.toCharArray()) {
 			checkdouble.add(c);

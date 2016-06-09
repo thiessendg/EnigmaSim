@@ -20,19 +20,17 @@ public class Mapper {
 	char[] setting = new char[26]; // Cabling
 	Mapper nextMapper;
 	Mapper prevMapper;
-	protected String name; // name of the mapper
+	String name; // name of the mapper
 
 	/**
-	 * Default constructor creates a mapper with the aim Alphabet
-	 * "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	 * Default constructor creates a mapper with the Alphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	 */
 	Mapper() {
 		this("Mapper", "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 	}
 
 	/**
-	 * Create a mapper with the aim Alphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	 * and the name specified
+	 * Create a mapper with the Alphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ" and the name specified
 	 */
 	Mapper(String nam) {
 		this(nam, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -122,7 +120,7 @@ public class Mapper {
 	 * @throws IllegalArgumentException
 	 * If the handed over character is not between A-Z
 	 */
-	public char reverseEncrypt(char c) {
+	char reverseEncrypt(char c) {
 		if (!(c >= 'A' && c <= 'Z')) {
 			throw new IllegalArgumentException(
 					"Invalid character! Must be A-Z.");
@@ -146,7 +144,7 @@ public class Mapper {
 	 * @param str
 	 * The string to be stored
 	 */
-	protected void stringToSettingArray(String str) {
+	void stringToSettingArray(String str) {
 		TreeSet<Character> checkdouble = new TreeSet<>();
 		for (char c : str.toCharArray()) {
 			checkdouble.add(c);

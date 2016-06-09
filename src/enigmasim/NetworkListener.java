@@ -14,5 +14,5 @@ package enigmasim;
  */
 public interface NetworkListener {
 
-    public void sendRecievedMessage(String msg);
+    void sendRecievedMessage(String msg);
 }

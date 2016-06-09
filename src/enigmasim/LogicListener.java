@@ -14,7 +14,7 @@ package enigmasim;
  */
 public interface LogicListener {
 
-    public void sendText(String text);
+    void sendText(String text);
 
-    public void updateRotorSettings(char[] rotorSetting);
+    void updateRotorSettings(char[] rotorSetting);
 }

@@ -7,101 +7,95 @@ import java.util.HashMap;
 import enigmasim.gui.ChangeInfo;
 import java.util.function.Consumer;
 
+
 /**
- * Die Klasse erzeugt Maschinen, legt die Walzenkonfiguration fest und leitet
- * die verschluesselung weiter.
- *
- * @author Mario Heindl, Mina Toma <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
- *
+ * @author David Thiessen thiessendg@gmail.com
+ *         based on work by:
+ *         Philip Woelfel, Sebastian Chlan <br />
+ *         <br />
+ *         ENIGMA_TEC 2010 <br />
+ *         technik[at]enigma-ausstellung.at <br />
+ *         http://enigma-ausstellung.at <br />
+ *         <br />
+ *         HTL Rennweg <br />
+ *         Rennweg 89b <br />
+ *         A-1030 Wien <br />
  */
+
 public class Logic {
 
     /**
-     * Alle Listeners, die sich bei der Logic-Klasse angemeldet haben.
-     */
+     *
+     * All Listeners, who have registered in the logic class.
+     * */
     private final ArrayList<LogicListener> listeners = new ArrayList<>();
 
     /**
-     * Alle Maschinen, die man benutzen kann (also schon erzeugt wurden).
-     * <Maschinenname, Maschinenobjekt>
+     * All machines, which can be used (ie were already generated). <Machine name, machine object>
      */
     private final HashMap<String, Machine> availableMachines = new HashMap<>();
 
     /**
-     * Die zur Zeit benutzte Maschine.
+     * The currently used machine.
      */
     private String usedMachine;
 
     /**
-     * Welcher Mapper hat welche Konfiguration (Verdrahtung?)
-     * <Name des Mappers (Kuerzel), Verdrahtung>
-     * Zu Verdrahtung: String sieht wie folgt aus: [Art des
-     * Mappers]:[Verdrahtung]:[Uebertragskerben] Wenn keine Uebertragskerben
-     * vorhanden, Leerstring ' ' anfuegen.
+     * Which mapper which configuration (wiring?) <Name of the mapper(shortcut), wiring> For wiring: string looks
+     * like this: [TypeMappers]: [wiring]: [supporting notches] If for no notches exist, empty string' '.
      */
     private final HashMap<String, String> allMappersConfig = new HashMap<>();
 
     /**
-     * Zuerst werden die moeglichen Walzen und dann die anfaenglichen Maschinen
-     * erstellt.
+     * Initially the possible rolls and then the initial machines will be created.
      */
     public Logic() {
 
         /*
-		 * Hier werden die Walzen konfiguriert
-		 * Ro gibt an dass es sich um eine Walze handelt
-		 * Re gibt an dass es sich um einen Reflektor handelt
-		 * Bei Re oder Ro, die sich nicht drehen, muss ein Leerzeichen am Ende des Konfigurations-Strings angegeben werden!
+		 * Here, the rotors s are configured
+         * Ro indicates that it is a roller
+         * Re indicates that there is a reflector case
+         * Re which do not rotate, a space at the end of the configuration strings must be specified!
          */
 
         //Plugboard
-        allMappersConfig.put("Pb", "Pb:ABCDEFGHIJKLMNOPQRSTUVWXYZ: : ");
+        allMappersConfig.put("Pb", "Pb:ABCDEFGHIJKLMNOPQRSTUVWXYZ: ");
 
-        //Rotors ID:Type:Setting:RingOffset:Notch
-        allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:1:Q"); //1930 	Enigma I
-        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:1:E"); //1930 	Enigma I
-        allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:1:V"); //1930 	Enigma I
-        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:1:J"); //December 1938 	M3 Army
-        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:1:Z"); //December 1938 	M3 Army
-        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:1:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
-        allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS:1: "); //Spring 1941 	M4 R2
-        allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD:1: "); //Spring 1941 	M4 R2
+        //Rotors ID:Type:Setting:Notch
+        allMappersConfig.put("I", "Ro:EKMFLGDQVZNTOWYHXUSPAIBRCJ:Q"); //1930 	Enigma I
+        allMappersConfig.put("II", "Ro:AJDKSIRUXBLHWTMCQGZNPYFVOE:E"); //1930 	Enigma I
+        allMappersConfig.put("III", "Ro:BDFHJLCPRTXVZNYEIWGAKMUSQO:V"); //1930 	Enigma I
+        allMappersConfig.put("IV", "Ro:ESOVPZJAYQUIRHXLNFTGKDCMWB:J"); //December 1938 	M3 Army
+        allMappersConfig.put("V", "Ro:VZBRGITYUPSDNHLXAWMJQOFECK:Z"); //December 1938 	M3 Army
+        allMappersConfig.put("VI", "Ro:JPGVOUMFYQBENHZRDKASXLICTW:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VII", "Ro:NZJHGRCXMYSWBOUFAIVLPEKQDT:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("VIII", "Ro:FKQHTLXOCBJSPDZRAMEWNIUYGV:ZM"); //1939 	M3 & M4 Naval (FEB 1942)
+        allMappersConfig.put("β", "Ro:LEYJVCNIXWPBQMDRTAKZGFUHOS: "); //Spring 1941 	M4 R2
+        allMappersConfig.put("γ", "Ro:FSOKANUERHMBTIYCWLQPZXVGJD: "); //Spring 1941 	M4 R2
 
         //Reflectors
-        allMappersConfig.put("A", "Re:EJMZALYXVBWFCRQUONTSPIKHGD: : "); //Before WWII
-        allMappersConfig.put("B", "Re:YRUHQSLDPXNGOKMIEBFZCWVJAT: : "); //Standard Reflektor
-        allMappersConfig.put("C", "Re:FVPJIAOYEDRZXWGCTKUQSBNMHL: : "); //Reflektor used temp during WWII
         //allMappersConfig.put("ETW", "Re:ABCDEFGHIJKLMNOPQRSTUVWXYZ: "); //Reflektor ETW Enigma I
-        allMappersConfig.put("B thin", "Re:ENKQAUYWJICOPBLMDXZVFTHRGS: : "); //1940 	M4 R1 (M3 + Thin)
-        allMappersConfig.put("C thin", "Re:RDOBJNTKVEHMLFCWZAXGYIPSUQ: : "); //1940 	M4 R1 (M3 + Thin)
+        allMappersConfig.put("A", "Re:EJMZALYXVBWFCRQUONTSPIKHGD: "); //Before WWII
+        allMappersConfig.put("B", "Re:YRUHQSLDPXNGOKMIEBFZCWVJAT: "); //Standard Reflektor
+        allMappersConfig.put("C", "Re:FVPJIAOYEDRZXWGCTKUQSBNMHL: "); //Reflektor used temp during WWII
+        allMappersConfig.put("B thin", "Re:ENKQAUYWJICOPBLMDXZVFTHRGS: "); //1940 	M4 R1 (M3 + Thin)
+        allMappersConfig.put("C thin", "Re:RDOBJNTKVEHMLFCWZAXGYIPSUQ: "); //1940 	M4 R1 (M3 + Thin)
 
         addInitialMachines();
     }
 
     /**
-     * Die Methode gibt zurueck welche moeglichen Maschinen es zur Auswahl gibt.
+     * The method returns back machines there are to choose from.
      *
-     * @return Array mit allen Maschinennamen
+     * @return array of all machine names
      */
     public String[] getAllMachineNames() {
         String[] names = new String[availableMachines.size()];
-        //FIXME: notlösung von daniel - kA obs korrekt ist, aber bei availableMachines
-        // erfordert die get anweisung ein object des typs String.
         int i = 0;
         for (String m : availableMachines.keySet()) {
             names[i++] = availableMachines.get(m).getMachineName();
         }
-        //sort the names array
+        //dgt: sort the names array
         Arrays.sort(names);
         return names;
     } //getAllMachineNames()
@@ -143,7 +137,7 @@ public class Logic {
      * @return ein String mit der verschluesselten Nachricht
      */
     public String encrypt(String msg, String[] rotorConfiguration) {
-        String name = "";
+        String name;
         char startPosition;
         String offset = "";
         try {
@@ -196,10 +190,8 @@ public class Logic {
      *
      * @param c ein char-Array mit der Rotorstellung
      */
-    public void sendRotorPositionsToListeners(char[] c) {
-        listeners.stream().forEach((LogicListener l) -> {
-            l.updateRotorSettings(c);
-        });
+    private void sendRotorPositionsToListeners(char[] c) {
+        listeners.stream().forEach((LogicListener l) -> l.updateRotorSettings(c));
     }
 
     /**
@@ -208,7 +200,7 @@ public class Logic {
      * @param l der LogicListener
      * @return false wenn der Listener nicht hinzugefuegt werden konnte
      */
-    public boolean addLogicListener(LogicListener l) {
+    boolean addLogicListener(LogicListener l) {
         return listeners.add(l);
     }
 
@@ -218,18 +210,15 @@ public class Logic {
      * @param l der LogicListener
      * @return false wenn der Listener nicht entfernt werden konnte
      */
-    public boolean removeLogicListener(LogicListener l) {
-        return listeners.remove(l);
-    }
 
     /**
      * Gibt die aktuelle Konfiguration eines Mappers zurueck. Uebernimmt den
      * Namen des Mappers und waehlt mit diesem aus eienr Liste aus.
      *
-     * @param mapperName
+     * @param mapperName name of the Mapper
      * @return einen String mit der Konfiguration des Mappers
      */
-    public String getMapperConfig(String mapperName) {
+    String getMapperConfig(String mapperName) {
         return allMappersConfig.get(mapperName);
     }
 
@@ -295,7 +284,7 @@ public class Logic {
      * fuer die Positionen
      * @param configuration eine default Konfiguration fuer die Mapper
      */
-    public void createMachine(String machine, String[][] availableMappers, String[] configuration) {
+    private void createMachine(String machine, String[][] availableMappers, String[] configuration) {
         try {
             availableMachines.put(machine, new Machine(this, machine, availableMappers, configuration));
         } catch (Exception e) {
@@ -308,9 +297,6 @@ public class Logic {
      *
      * @param machine der Name der Maschine
      */
-    public void removeMachineData(String machine) {
-        availableMachines.remove(machine);
-    }
 
     /**
      * Gibt ein String-Array mit den moeglichen Mappern fuer diese Position mit
@@ -318,9 +304,6 @@ public class Logic {
      * @param position die Position
      * @return ein String-Array mit den moeglichen Mappern
      */
-    public String[] getAvailableMappersOnPosition(int position) {
-        return availableMachines.get(usedMachine).getAvailableMappersOnPosition(position);
-    }
 
     /**
      * Fuegt die Enigma 1 und die Enigma M4 zu den vorhanden Maschinen hinzu.
@@ -379,7 +362,7 @@ public class Logic {
 
         private final String message;
 
-        public ConsumerImpl(String message) {
+        ConsumerImpl(String message) {
             this.message = message;
         }
 

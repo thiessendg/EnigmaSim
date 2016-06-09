@@ -41,8 +41,8 @@ public class Network implements Runnable, LogicListener {
      * ({@link #createMultiSocket()}) und man tretet einer
      * Multicastgruppe(multicastAddr,port) bei
      *
-     * @param multicastAddr
-     * @param port
+     * @param multicastAddr the multi cast address
+     * @param port the port
      */
     public Network(InetAddress multicastAddr, int port) {
         this.port = port;
@@ -58,7 +58,7 @@ public class Network implements Runnable, LogicListener {
      * Der MulticastSocket wird in dem Konstruktor erzeugt und man tretet einer
      * Multicastgruppe(multicastAddr,port) bei
      */
-    public Network() {
+    Network() {
 
         String localMulticastAddr = getVariableFromFile("network.properties", "multicastAddr");
         String localPort = getVariableFromFile("network.properties", "port");
@@ -108,7 +108,7 @@ public class Network implements Runnable, LogicListener {
      * Nachrichten ueber das Netzwerk an die Multicastadresse
      * {@link #multicastAddr} zu senden
      *
-     * @param text
+     * @param text the text
      */
     @Override
     public void sendText(String text) {
@@ -133,7 +133,7 @@ public class Network implements Runnable, LogicListener {
      * und somit, von der Klasse Network, empfangene Nachrichten
      * weiterverarbeiten
      *
-     * @param listener
+     * @param listener the listener
      * @return <b>boolean</b>: Erfolg des Hinzufuegens des NetworkListeners
      */
     public boolean addNetworkListener(NetworkListener listener) {
@@ -143,12 +143,12 @@ public class Network implements Runnable, LogicListener {
     /**
      * Mit dieser oeffentlichen Methode koennen sich NetworkListener abmelden
      *
-     * @param listener
+     * @param listener the listener
      * @return <b>boolean</b>: Erfolg des Entfernens des NetworkListeners
      */
-    public boolean removeNetworkListener(NetworkListener listener) {
-        return listeners.remove(listener);
-    }
+    //public boolean removeNetworkListener(NetworkListener listener) {
+    //    return listeners.remove(listener);
+    //}
 
     /**
      * Diese private Methode ist fuer das Weitersenden der, uebers Netzwerks,
@@ -157,12 +157,10 @@ public class Network implements Runnable, LogicListener {
      * Dabei wird die, bei den NetworkListenern implementierte, Methode
      * {@link NetworkListener#sendRecievedMessage(String)} aufgerufen
      *
-     * @param text
+     * @param text the text
      */
     private void sendTextToListeners(String text) {
-        listeners.stream().forEach((listener) -> {
-            listener.sendRecievedMessage(text);
-        });
+        listeners.stream().forEach((listener) -> listener.sendRecievedMessage(text));
     }
 
     /**
@@ -214,12 +212,12 @@ public class Network implements Runnable, LogicListener {
             return new BufferedReader(new InputStreamReader(new FileInputStream("resources/" + fileName), "UTF-8"));
         } catch (Exception e) {
             try {
-                return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/resources/" + fileName), "UTF-8"));
+                return new BufferedReader(new InputStreamReader(Object.class.getResourceAsStream("/resources/" + fileName), "UTF-8"));
             } catch (Exception e1) {
                 e1.printStackTrace();
                 System.exit(-1);
             } finally {
-                closeStream(in);
+                closeStream(null);
             }
         }
         return in;

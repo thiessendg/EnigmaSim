@@ -59,6 +59,6 @@ public class EnigmaSim {
      * nicht beachtet werden
      */
     public static void main(String[] args) {
-        EnigmaSim enigma = new EnigmaSim();
+        new EnigmaSim();
     } // end main
 } // end Klasse Enigma

@@ -113,7 +113,8 @@ public class Debug {
         } finally {
             closeStream(reader);
         }
-        return properties.getProperty("debug").equals("true") ? true : false;
+        //return properties.getProperty("debug").equals("true") ? true : false;
+        return Boolean.parseBoolean(properties.getProperty("debug"));
     }
 
     /**
@@ -129,7 +130,7 @@ public class Debug {
             return new BufferedReader(new InputStreamReader(new FileInputStream("resources/" + fileName), "UTF-8"));
         } catch (Exception e) {
             try {
-                return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/resources/" + fileName), "UTF-8"));
+                return new BufferedReader(new InputStreamReader(Object.class.getResourceAsStream("/resources/" + fileName), "UTF-8"));
             } catch (Exception e1) {
                 e1.printStackTrace();
                 System.exit(-1);
