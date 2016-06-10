@@ -45,7 +45,7 @@ import java.util.Properties;
 public class Debug {
 
     private static String fileName = "enigma.properties";
-    private static Properties properties = new Properties();
+    private static final Properties PROPERTIES = new Properties();
     private static boolean DEBUG = readDebugVariableFromFile(fileName);
 
     /**
@@ -105,7 +105,7 @@ public class Debug {
         BufferedReader reader = null;
         try {
             reader = getBufferedReader(fileName);
-            properties.load(reader);
+            PROPERTIES.load(reader);
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         } catch (IOException e) {
@@ -114,7 +114,7 @@ public class Debug {
             closeStream(reader);
         }
         //return properties.getProperty("debug").equals("true") ? true : false;
-        return Boolean.parseBoolean(properties.getProperty("debug"));
+        return Boolean.parseBoolean(PROPERTIES.getProperty("debug"));
     }
 
     /**

@@ -146,10 +146,12 @@ public class Network implements Runnable, LogicListener {
      * @param listener the listener
      * @return <b>boolean</b>: Erfolg des Entfernens des NetworkListeners
      */
-    //public boolean removeNetworkListener(NetworkListener listener) {
-    //    return listeners.remove(listener);
-    //}
-
+    /*
+    public boolean removeNetworkListener(NetworkListener listener) {
+        return listeners.remove(listener);
+    }
+    */
+    
     /**
      * Diese private Methode ist fuer das Weitersenden der, uebers Netzwerks,
      * empfangenen Nachrichten an die angemeldeten <b>NetworkListener</b>

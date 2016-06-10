@@ -74,9 +74,8 @@ public class ChangeInfo extends JFrame implements ActionListener {
      */
     private void displayCenter(int w, int h) {
         Dimension dem = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((int) (dem.getWidth() / 2 - w / 2), (int) (dem
-                .getHeight() / 2)
-                - h / 2);
+        setLocation( (int) (dem.getWidth() / 2 - w / 2), 
+                (int) (dem.getHeight() / 2) - h / 2 );
     }
 
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package enigmasim;
 
 import javax.swing.UIManager;
@@ -16,10 +11,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class EnigmaSim {
 
-    /**
-     * Konstruktor, welcher die benoetigten Klassen initialisiert
-     */
-    public EnigmaSim() {
+    public static void main(String[] args) {
         SplashScreen splash = new SplashScreen();
         SplashScreen.updateProgressBar(0);
         /*
@@ -50,15 +42,5 @@ public class EnigmaSim {
         SplashScreen.updateProgressBar(100);
         splash.setVisible(false);
         splash.dispose();
-    } // end Konstruktor
-
-    /**
-     * main-Methode, welche den Konstruktor der Klasse aufruft
-     *
-     * @param args Argumente, welche von der Kommandozeile uebernommen, aber
-     * nicht beachtet werden
-     */
-    public static void main(String[] args) {
-        new EnigmaSim();
     } // end main
-} // end Klasse Enigma
+} // end EnigmaSim

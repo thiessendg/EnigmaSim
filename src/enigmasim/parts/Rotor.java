@@ -2,22 +2,20 @@ package enigmasim.parts;
 
 import enigmasim.Debug;
 
-
 /**
- * @author David Thiessen thiessendg@gmail.com
- *         based on work by:
- *         Philip Woelfel, Sebastian Chlan <br />
- *         <br />
- *         ENIGMA_TEC 2010 <br />
- *         technik[at]enigma-ausstellung.at <br />
- *         http://enigma-ausstellung.at <br />
- *         <br />
- *         HTL Rennweg <br />
- *         Rennweg 89b <br />
- *         A-1030 Wien <br />
+ * @author David Thiessen thiessendg@gmail.com based on work by: Philip Woelfel,
+ * Sebastian Chlan <br />
+ * <br />
+ * ENIGMA_TEC 2010 <br />
+ * technik[at]enigma-ausstellung.at <br />
+ * http://enigma-ausstellung.at <br />
+ * <br />
+ * HTL Rennweg <br />
+ * Rennweg 89b <br />
+ * A-1030 Wien <br />
  */
-
 public class Rotor extends Mapper {
+
     private int position = 0;
     private char[] jumpChars = new char[2];
     private boolean isStatic = false;
@@ -26,16 +24,20 @@ public class Rotor extends Mapper {
     /**
      * Create a rotor with the specified wiring
      *
-     * @param setting     The char array to the wirings
-     * @param jump        A char array with the containing the notch positions to roll over next rotor
-     * @throws Exception If the string is invalid (not consisting of 26 characters A-Z, or contains duplicate letters)
+     * @param name
+     * @param setting The char array to the wirings
+     * @param jump A char array with the containing the notch positions to roll
+     * over next rotor
+     * @throws Exception If the string is invalid (not consisting of 26
+     * characters A-Z, or contains duplicate letters)
      */
     public Rotor(String name, String setting, char[] jump) throws Exception {
         super(name, setting);
         if (checkJumpChars(jump)) {
             jumpChars = jump;
         } else {
-            throw new Exception("Invalid carry-character (must be an char-Array with one or two elements)!");
+            throw new Exception("Invalid carry-character (must be an char "
+                    + "array with one or two elements)!");
         }
     }
 
@@ -52,21 +54,24 @@ public class Rotor extends Mapper {
             setStatic(true);
             return true;
         }
-        return (ch[0] >= 'A' && ch[0] <= 'Z') && !(ch.length == 2 && (!(ch[1] >= 'A' && ch[1] <= 'Z') ||
-                ch[0] == ch[1])) && ch.length <= 2;
+        return (ch[0] >= 'A' && ch[0] <= 'Z')
+                && !(ch.length == 2 && (!(ch[1] >= 'A' && ch[1] <= 'Z')
+                || ch[0] == ch[1])) && ch.length <= 2;
     }
 
     /**
      * (non-Javadoc)
      *
+     * @return
      * @see enigmasim.parts.Mapper#encrypt(char)
      */
+    @Override
     public char encrypt(char c) {
         if (!(c >= 'A' && c <= 'Z')) {
-            throw new IllegalArgumentException("Not a valid character! Must be A-Z.");
+            throw new IllegalArgumentException("Invalid character! Not A-Z.");
         }
 
-        char cV = (char) (c + position - (Integer.parseInt(ringStellung) - 1));
+        char cV = (char) (c + position - (Integer.parseInt(ringStellung)-1));
 
         if (cV < 'A') {
             cV += 26;
@@ -74,12 +79,15 @@ public class Rotor extends Mapper {
             cV -= 26;
         }
 
-        int pos = cV - 'A'; // Position of the letter to be encrypted in Alphabet - 1 -> index in the cabling array
+        // Position of the letter to be encrypted in Alphabet - 1 -> index 
+        // in the cabling array
+        int pos = cV - 'A';
 
         char ver = setting[pos]; // The exchange encoded characters
 
-        char out = (char) (ver - position + (Integer.parseInt(ringStellung) - 1));
-        //Convert characters again as would be the roll to position A -> other roller can again to anticipate shifting
+        char out = (char) (ver - position + (Integer.parseInt(ringStellung)-1));
+        //Convert characters again as would be the roll to position A -> other 
+        //roller can again to anticipate shifting
         if (out < 'A') {
             out += 26;
         } else if (out > 'Z') {
@@ -87,30 +95,33 @@ public class Rotor extends Mapper {
         }
 
         if (Debug.isDebug()) {
-            System.out.println(getName() + ":\nc: '" + c + "'\tcV: '" + cV + "'"  +
-                    "'\tver: '" + ver + "'" + "'\tout: '" + out + "'");
+            System.out.println(getName() + ":\nc: '" + c + "'\tcV: '" + cV + "'"
+                    + "'\tver: '" + ver + "'" + "'\tout: '" + out + "'");
         }
 
-        if (hasNextMapper()) { // when I when got to me
-            return nextMapper.encrypt(out); // I give the signal to further encrypt
+        if (hasNextMapper()) {
+            return nextMapper.encrypt(out);
         }
-        return out; // if not give me back mine
+        return out;
     }
 
     /**
-     * Forms the entered letters of the alphabet to the target Source Alphabet from
+     * Forms the entered letters of the alphabet to the target Source Alphabet
+     * from
      *
      * @param c The input characters
      * @return the letter shown
-     * @throws IllegalArgumentException If the handed over character is not between A-Z
+     * @throws IllegalArgumentException If the handed over character is not
+     * between A-Z
      */
+    @Override
     public char reverseEncrypt(char c) {
         if (!(c >= 'A' && c <= 'Z')) {
-            throw new IllegalArgumentException("Not a valid character! Must be A-Z.");
+            throw new IllegalArgumentException("Invalid character! Not A-Z.");
         }
 
-        char cV = (char) (c + position - (Integer.parseInt(ringStellung) - 1)); // the character entered by the rotation
-        // the roll offset - be> that needs to be encrypted
+        char cV = (char) (c + position - (Integer.parseInt(ringStellung)-1));
+
         if (cV < 'A') {
             cV += 26;
         } else if (cV > 'Z') {
@@ -121,12 +132,13 @@ public class Rotor extends Mapper {
 
         for (int i = 0; i < setting.length; i++) { // all cabling go through
             if (setting[i] == cV) { // when to be encrypted letter is found
-                ver = (char) ('A' + i); // the dazugehoerige letter is saved from the alphabet
+                ver = (char) ('A' + i); // the letter is saved from the alphabet
             }
         }
 
-        char out = (char) (ver - position + (Integer.parseInt(ringStellung) - 1));
-        //Mark again convert like as would be the roll to position A -> other roll can be expected to shift again
+        char out = (char) (ver - position + (Integer.parseInt(ringStellung)-1));
+        //Mark again convert like as would be the roll to position A -> other 
+        //roll can be expected to shift again
         if (out < 'A') {
             out += 26;
         } else if (out > 'Z') {
@@ -135,8 +147,8 @@ public class Rotor extends Mapper {
 
         // debug messages
         if (Debug.isDebug()) {
-            System.out.println(getName() + ":\nc: '" + c + "'\tcV: '" + cV + "'" + "'\tver: '" + ver + "'" +
-                    "'\tout: '" + out + "'");
+            System.out.println(getName() + ":\nc: '" + c + "'\tcV: '" + cV
+                    + "'" + "'\tver: '" + ver + "'" + "'\tout: '" + out + "'");
         }
 
         if (hasPrevMapper()) {
@@ -150,10 +162,12 @@ public class Rotor extends Mapper {
      */
     void rotate() {
         if (Debug.isDebug()) {
-            System.out.println(getName() + " rotating from pos " + getCharPosition());
+            System.out.println(getName() + " rotating from pos "
+                    + getCharPosition());
         }
         if (Debug.isDebug()) {
-            System.out.print(getName() + " rotates from: " + position + "("  + getCharPosition() + ")");
+            System.out.print(getName() + " rotates from: " + position + "("
+                    + getCharPosition() + ")");
         }
 
         char prevCharPosition = getCharPosition();
@@ -164,7 +178,8 @@ public class Rotor extends Mapper {
         }
 
         if (Debug.isDebug()) {
-            System.out.println(" to: " + position + "(" + (char) ('A' + position) + ")");
+            System.out.println(" to: " + position + "("
+                    + (char) ('A' + position) + ")");
         }
 
         //if we have a mapper after current rotor
@@ -179,7 +194,8 @@ public class Rotor extends Mapper {
                 //make sure it's a moveable rotor?
                 if (!nextRotor.isStatic) {
                     //try placing restriction here for last wheel
-                    //if next rotor has a reflector after it, it's going to be the final rotor before hitting reflector
+                    //if next rotor has a reflector after it, it's going to be
+                    //the final rotor before hitting reflector
                     if ((nextRotor.nextMapper instanceof Reflector)) {
                         //since i am last rotor
                         islastRotor = true;
@@ -188,8 +204,9 @@ public class Rotor extends Mapper {
                     //if current rotor hits notch, rotate the next rotor
                     if (contains(prevCharPosition, jumpChars)) {
                         if (Debug.isDebug()) {
-                            System.out.println("Rotor: " + getName() + " hit notch. Rotating next rotor: " +
-                                    nextRotor.getName());
+                            System.out.println("Rotor: " + getName()
+                                    + " hit notch. Rotating next rotor: "
+                                    + nextRotor.getName());
                         }
                         nextRotor.rotate();
                     }
@@ -197,20 +214,24 @@ public class Rotor extends Mapper {
                     //trying to handle double step sequence
                     //if current is not last rotor
                     if (!islastRotor) {
-                        if (contains(getCharPosition(), jumpChars) &&
-                                contains(nextRotor.getCharPosition(), nextRotor.jumpChars)) {
+                        if (contains(getCharPosition(), jumpChars)
+                                && contains(nextRotor.getCharPosition(),
+                                        nextRotor.jumpChars)) {
                             if (Debug.isDebug()) {
-                                System.out.println("Rotor: " + getName() + " hit notch. Rotating next rotor: " +
-                                        nextRotor.getName());
+                                System.out.println("Rotor: " + getName()
+                                        + " hit notch. Rotating next rotor: "
+                                        + nextRotor.getName());
                             }
                             nextRotor.rotate();
                         }
 
                         //next
-                        if (contains(nextRotor.getCharPosition(), nextRotor.jumpChars)) {
+                        if (contains(nextRotor.getCharPosition(),
+                                nextRotor.jumpChars)) {
                             if (Debug.isDebug()) {
-                                System.out.println("Rotor: " + getName() + " hit notch. Rotating next rotor: " +
-                                        nextRotor.getName());
+                                System.out.println("Rotor: " + getName()
+                                        + " hit notch. Rotating next rotor: "
+                                        + nextRotor.getName());
                             }
                             nextRotor.rotate();
                         }

@@ -161,7 +161,6 @@ public class Machine {
         pb.setConnections(setting);
     } // end Methode
 
-
     /**
      * Setzt die Startposition eines spezifischen Rotors
      *
@@ -187,7 +186,7 @@ public class Machine {
             ro.setRingOffset(ringoffset);
         } // end if
     } // end Methode
-    
+
     /**
      * Ueberprüft, ob ein Mapper bereits exisitiert
      *
@@ -240,19 +239,18 @@ public class Machine {
      * Fuegt einen neuen Mapper hinzu
      *
      * @param name Names des neuen Mappers
-     * @param position Position des neuen Mappers
-     * nicht moeglich
+     * @param position Position des neuen Mappers nicht moeglich
      * @throws Exception falls Mapper nicht erzeugt werden konnte
      */
     private void addMapperObject(String name, int position) throws Exception {
         String config = logic.getMapperConfig(name);
         String type = config.split(":")[0];
         String setting = config.split(":")[1];
-        char[] chumpchars = config.split(":")[2].toCharArray();
+        char[] notch = config.split(":")[2].toCharArray();
         if (null != type) {
             switch (type) {
                 case "Ro":
-                    usedMappers.add(position, new Rotor(name, setting, chumpchars));
+                    usedMappers.add(position, new Rotor(name, setting, notch));
                     break;
                 case "Re":
                     usedMappers.add(position, new Reflector(name, setting));
@@ -263,26 +261,25 @@ public class Machine {
                 default:
                     break;
             }//end string switch
-        }
+        }//end if
     } // end Methode
 
     /**
      * Eretzt einen bestehenden Mapper
      *
      * @param name Names des Mappers
-     * @param position Position des Mappers
-     * nicht moeglich
+     * @param position Position des Mappers nicht moeglich
      * @throws Exception falls Mapper nicht erzeugt werden konnte
      */
     private void setMapperObject(String name, int position) throws Exception {
         String config = logic.getMapperConfig(name);
         String type = config.split(":")[0];
         String setting = config.split(":")[1];
-        char[] chumpchars = config.split(":")[2].toCharArray();
+        char[] notch = config.split(":")[2].toCharArray();
         if (null != type) {
             switch (type) {
                 case "Ro":
-                    usedMappers.set(position, new Rotor(name, setting, chumpchars));
+                    usedMappers.set(position, new Rotor(name, setting, notch));
                     break;
                 case "Re":
                     usedMappers.set(position, new Reflector(name, setting));
@@ -293,7 +290,7 @@ public class Machine {
                 default:
                     break;
             }//end string switch
-        }
+        }//endif
     } // end Methode
 
     /**
@@ -369,13 +366,13 @@ public class Machine {
      */
     char[] getCurrentRotorPositions() {
         StringBuilder sb = new StringBuilder();
-        usedMappers.stream().filter((m) -> (m instanceof Rotor)).forEach((m) -> sb.append(((Rotor) m).getCharPosition()));
+        usedMappers.stream().filter((m) -> (m instanceof Rotor)).forEach((m)
+                -> sb.append(((Rotor) m).getCharPosition()));
 
         char[] currentRotorPositions = new char[sb.toString().length()];
         for (int i = 0; i < currentRotorPositions.length; i++) {
             currentRotorPositions[i] = sb.charAt(i);
         }
         return currentRotorPositions;
-    }
-
+    }//end method
 } // end Klasse Machine
