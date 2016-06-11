@@ -24,7 +24,7 @@ public class Rotor extends Mapper {
     /**
      * Create a rotor with the specified wiring
      *
-     * @param name
+     * @param name name of rotor
      * @param setting The char array to the wirings
      * @param jump A char array with the containing the notch positions to roll
      * over next rotor
@@ -62,7 +62,7 @@ public class Rotor extends Mapper {
     /**
      * (non-Javadoc)
      *
-     * @return
+     * @return encrypted char
      * @see enigmasim.parts.Mapper#encrypt(char)
      */
     @Override

@@ -191,8 +191,6 @@ public class Network implements Runnable, LogicListener {
         try {
             reader = getBufferedReader(fileName);
             properties.load(reader);
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -29,7 +29,7 @@ public class Plugboard extends Mapper {
      * Konstruktor, welcher ein Steckbrett mit der angegebenen Verdrahtung
      * erstellt.
      *
-     * @param name
+     * @param name name
      * @param setting String, der die Verdrahtung angibt
      */
     public Plugboard(String name, String setting) {
@@ -40,7 +40,7 @@ public class Plugboard extends Mapper {
      * Konstruktor, welcher ein Steckbrett mit der angegebenen Verdrahtung
      * erstellt.
      *
-     * @param name
+     * @param name name
      * @param setting char[], welches die Verdrahtung angibt
      */
     public Plugboard(String name, char[] setting) {

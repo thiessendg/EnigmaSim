@@ -35,7 +35,7 @@ public class Reflector extends Mapper {
      * erstellt einen Reflektor mit den Einstellungen welche aus dem
      * mitgegebenen String ausgelesen werden
      *
-     * @param name
+     * @param name name of reflector
      * @param setting der String mit der internen Verdrahtung des Reflektors
      */
     public Reflector(String name, String setting) {
@@ -46,7 +46,7 @@ public class Reflector extends Mapper {
      * erstellt einen Reflektor mit den Einstellungen welche aus dem
      * mitgegebenen char Array ausgelesen werden
      *
-     * @param name
+     * @param name name of reflector
      * @param setting das char Array mit der internen Vedrahtung des Reflektors
      */
     public Reflector(String name, char[] setting) {
@@ -92,7 +92,7 @@ public class Reflector extends Mapper {
      * aufgerufen
      *
      * @param c Zeichen welches verschluesselt werden soll
-     * @return
+     * @return encrypted char
      */
     @Override
     public char encrypt(char c) {

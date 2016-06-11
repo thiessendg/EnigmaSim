@@ -247,9 +247,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
         rbMachine.stream().map((mi) -> {
             groupMachines.add(mi);
             return mi;
-        }).forEach((mi) -> {
-            mSetMachine.add(mi);
-        });
+        }).forEach(mSetMachine::add);
 
         mSetLang.setText(GUIText.getText("msetlang"));
         mSet.add(mSetLang);
@@ -261,9 +259,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
         rbLanguages.stream().map((mi) -> {
             groupLang.add(mi);
             return mi;
-        }).forEach((mi) -> {
-            mSetLang.add(mi);
-        });
+        }).forEach(mSetLang::add);
 
         mAbout.setText(GUIText.getText("mabout"));
         menubar.add(mAbout);
@@ -293,12 +289,8 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
         mAboutHelp.addActionListener(this);
         mAboutAbout.addActionListener(this);
 
-        rbLanguages.stream().forEach((mi) -> {
-            mi.addActionListener(this);
-        });
-        rbMachine.stream().forEach((mi) -> {
-            mi.addActionListener(this);
-        });
+        rbLanguages.stream().forEach((mi) -> mi.addActionListener(this));
+        rbMachine.stream().forEach((mi) -> mi.addActionListener(this));
 
     }
 
@@ -361,9 +353,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
             pRotors.add(rotors.get(i));
         }
 
-        rotors.stream().forEach((gr) -> {
-            gr.addRotorListeners(rotors);
-        });
+        rotors.stream().forEach((gr) -> gr.addRotorListeners(rotors));
 
         lrefl = rotors.get(rotors.size() - 1).getLrefl();
 

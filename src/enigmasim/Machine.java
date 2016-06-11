@@ -350,12 +350,12 @@ public class Machine {
             str.append(" ").append(usedMapper1.getName());
         } // end for
         str.append(new_line).append("Walzenstellung: ");
-        for (Mapper usedMapper : usedMappers) {
-            if (usedMapper instanceof Rotor) {
-                Rotor rot = (Rotor) usedMapper;
-                str.append(" ").append(rot.getCharPosition());
-            } // end if
-        } // end for
+        // end if
+// end for
+        usedMappers.stream().filter(usedMapper -> usedMapper instanceof Rotor).forEachOrdered(usedMapper -> {
+            Rotor rot = (Rotor) usedMapper;
+            str.append(" ").append(rot.getCharPosition());
+        });
         return str.toString();
     } // end Method
 

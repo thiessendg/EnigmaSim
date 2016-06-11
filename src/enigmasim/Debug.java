@@ -53,11 +53,13 @@ public class Debug {
      *
      * @param debugMessage der String der ausgegeben wird
      */
+    /*
     public static void print(String debugMessage) {
         if (DEBUG) {
             System.out.println(debugMessage);
         }
     }
+    */
 
     /**
      * ist das Debugging aktiviert?
@@ -73,27 +75,33 @@ public class Debug {
      *
      * @param debug der neue Wert fuers debuggen
      */
+    /*
     public static void setDebug(boolean debug) {
         DEBUG = debug;
     }
+    */
 
     /**
      * ACHTUNG: Der Dateinamenpfad ist relativ zum 'resources'-Ordner.
      *
      * @param filename der Dateiname
      */
+    /*
     public static void setFileName(String filename) {
         fileName = filename;
     }
+    */
 
     /**
      * ACHTUNG: Der Dateinamenpfad ist relativ zum 'resources'-Ordner.
      *
      * @return der Dateiname
      */
+    /*
     public static String getFileName() {
         return fileName;
     }
+    */
 
     /**
      * Liest die Debug Variable aus dem Properties-File ein.
@@ -135,7 +143,7 @@ public class Debug {
                 e1.printStackTrace();
                 System.exit(-1);
             } finally {
-                closeStream(in);
+                closeStream(null);
             }
         }
         return in;
