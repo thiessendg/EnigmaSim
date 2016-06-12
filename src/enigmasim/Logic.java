@@ -8,8 +8,7 @@ import enigmasim.gui.ChangeInfo;
 import java.util.function.Consumer;
 
 /**
- * @author David Thiessen thiessendg@gmail.com based on work by: Philip Woelfel,
- * Sebastian Chlan 
+ * @author David Thiessen based on work by: Philip Woelfel, Sebastian Chlan 
  * 
  * ENIGMA_TEC 2010 
  * technik[at]enigma-ausstellung.at 
@@ -106,10 +105,10 @@ public class Logic {
     } //getAllMachineNames()
 
     /**
-     * Die Funktion setzt die ausgewaehlte Maschine.
+     * The function sets the selected machine.
      *
-     * @param machine der Name der Maschine
-     * @return false wenn die Maschine nicht gesetzt wurde
+     * @param machine name of the machine
+     * @return false if the Machine has not been set
      */
     public boolean setMachine(String machine) {
         String[] allMach = getAllMachineNames();
@@ -123,31 +122,33 @@ public class Logic {
     }
 
     /**
-     * Die Methode liefert eine verfuegbare Maschine anhand des Namens zurueck.
+     * The method returns back an available machine by name.
      *
-     * @param name der Name der gesuchten Maschine
-     * @return das Machine Objekt mit dem Namen
+     * @param name the name of this Machine
+     * @return the Machine Object named
      */
     public Machine getMachine(String name) {
         return availableMachines.get(name);
     }
 
     /**
-     * Die Methode dient zum verschluesseln eines Textes. Zuerst werden die
-     * Walzen, das Steckbrett und der Reflektor konfiguriert. Danach wird die
-     * verschluesseln Methode beim Plugboard aufgerufen.
+     * The method is used to encrypt a text. First, the rollers, the breadboard 
+     * and the reflector are configured. Thereafter, the encrypt method is 
+     * called when Plugboard.
      *
-     * @param msg der String der verschluesselt werden soll
-     * @param rotorConfiguration ein String-Array mit der Rotor Konfiguration
-     * @return ein String mit der verschluesselten Nachricht
+     * @param msg the String to be encrypted
+     * @param rotorConfiguration an array of strings with rotor configuration
+     * @return the resulting encrypted String
      */
     public String encrypt(String msg, String[] rotorConfiguration) {
         String name;
         char startPosition;
         String offset = "";
         try {
-            availableMachines.get(usedMachine).setMapper(rotorConfiguration[0].split(":")[0], 0);
-            availableMachines.get(usedMachine).setPlugboardConnections(rotorConfiguration[0].split(":")[1]);
+            availableMachines.get(usedMachine).setMapper(
+                    rotorConfiguration[0].split(":")[0], 0);
+            availableMachines.get(usedMachine).setPlugboardConnections(
+                    rotorConfiguration[0].split(":")[1]);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -161,23 +162,26 @@ public class Logic {
             }
             try {
                 availableMachines.get(usedMachine).setMapper(name, i);
-                availableMachines.get(usedMachine).setStartPosition(i, startPosition);
+                availableMachines.get(usedMachine).setStartPosition(i, 
+                        startPosition);
                 if (i != rotorConfiguration.length - 1) {
-                    availableMachines.get(usedMachine).setRingSetting(i, offset);
+                    availableMachines.get(usedMachine).setRingSetting(i, 
+                            offset);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         String encrText = availableMachines.get(usedMachine).encrypt(msg);
-        sendRotorPositionsToListeners(availableMachines.get(usedMachine).getCurrentRotorPositions());
+        sendRotorPositionsToListeners(availableMachines.get(usedMachine).
+                getCurrentRotorPositions());
         return encrText;
     }
 
     /**
-     * Diese Methode sendet eine Nachricht an alle angemeldeten LogicListeners
+     * This method sends a message to all logged Logic Listeners
      *
-     * @param message die Nachricht
+     * @param message the message
      */
     public void sendMessage(String message) {
         if (!message.isEmpty()) {
@@ -186,46 +190,47 @@ public class Logic {
     }
 
     /**
-     * sendet eine neue Rotorstellung an alle angemeldeten LogicListener
+     * sends a new rotor position to all registered listeners Logic
      *
-     * @param c ein char-Array mit der Rotorstellung
+     * @param c char array with rotor positions
      */
     private void sendRotorPositionsToListeners(char[] c) {
-        listeners.stream().forEach((LogicListener l) -> l.updateRotorSettings(c));
+        listeners.stream().forEach((LogicListener l) -> 
+                l.updateRotorSettings(c));
     }
 
     /**
-     * Die Methode fuegt einen Listener der Liste hinzu
+     * The method adds a Listener to the list
      *
-     * @param l der LogicListener
-     * @return false wenn der Listener nicht hinzugefuegt werden konnte
+     * @param l the LogicListener
+     * @return false when the listener could not be added
      */
     boolean addLogicListener(LogicListener l) {
         return listeners.add(l);
     }
 
     /**
-     * Gibt die aktuelle Konfiguration eines Mappers zurueck. Uebernimmt den
-     * Namen des Mappers und waehlt mit diesem aus eienr Liste aus.
+     * Get the current configuration of the mapper. Name of the mapper chosen 
+     * from list.
      *
      * @param mapperName name of the Mapper
-     * @return einen String mit der Konfiguration des Mappers
+     * @return a String with the configuration of the mapper
      */
     String getMapperConfig(String mapperName) {
         return allMappersConfig.get(mapperName);
     }
 
     /**
-     * Diese Methode bereitet den Text fuer das senden vor. Dabei wird in einer
-     * HashMap nachgesehen, ob der Buchstabe zulaessig ist, falls nicht wird
-     * dieser mit seinem Value aus der Liste ersetzt. Sollte es sich um ein
-     * nicht zulaessiges Zeichen (ausserhalb von A-Z) handeln wird es geloescht.
+     * This method prepares the text for the post. It is looked up in a HashMap, 
+     * if the letter is not permissible, it is replaced with its value from the 
+     * list. Should there be an illegal character (outside A-Z), it will be 
+     * deleted.
      *
-     * @param msg der zu substituierende String
-     * @return ein String in dem alle ungueltigen Zeichen geloescht wurden
+     * @param msg the String to be substituted
+     * @return a String (any invalid characters deleted)
      */
     public String substitute(String msg) {
-        boolean substituted = false; //wird auf true gesetzt falls etwas am Text veraendert wurd
+        boolean substituted = false;
         HashMap<Character, String> substitution = new HashMap<>();
 
         substitution.put('\u00C4', "AE");
@@ -270,23 +275,25 @@ public class Logic {
     }
 
     /**
-     * Fuegt eine Maschine zu der Liste der vorhanden Maschinen hinzu.
+     * Adds a machine to the list of available machines.
      *
-     * @param machine ein String mit dem Namen der Maschine
-     * @param availableMappers ein 2D-String-Array mit den moeglichen Mappern
-     * fuer die Positionen
-     * @param configuration eine default Konfiguration fuer die Mapper
+     * @param machine a String containing the name of the machine
+     * @param availableMappersa 2D array of Strings for possible additional 
+     * Mappers for the positions
+     * @param configuration default configuration for the Mapper
      */
-    private void createMachine(String machine, String[][] availableMappers, String[] configuration) {
+    private void createMachine(String machine, String[][] availableMappers, 
+            String[] configuration) {
         try {
-            availableMachines.put(machine, new Machine(this, machine, availableMappers, configuration));
+            availableMachines.put(machine, new Machine(this, machine, 
+                    availableMappers, configuration));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Fuegt die Enigma 1 und die Enigma M4 zu den vorhanden Maschinen hinzu.
+     * Adds the Enigma's to the available equipment
      */
     private void addInitialMachines() {
         String nameEnigma1 = "Enigma I";
@@ -296,7 +303,7 @@ public class Logic {
             {"I", "II", "III"},
             {"I", "II", "III"},
             {"A", "B", "C"}};
-        String[] configurationEnigma1 = {"Pb", "III", "II", "I", "A"}; // Eingesetzte Walzen
+        String[] configurationEnigma1 = {"Pb", "III", "II", "I", "A"};
         createMachine(nameEnigma1, availableMappersEnigma1,
                 configurationEnigma1);
 
