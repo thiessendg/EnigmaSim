@@ -28,8 +28,8 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
- * Diese Klasse wird zum Debugging verwendet. Die Einstellungen dazu sind in der
- * Datei 'resources/enigma.properties' zu finden.
+ * This class is used for debugging. The settings for this can be found in the 
+ * 'resources/enigma.properties' file.
  *
  * @author Mathias Kub 
  * 
@@ -49,65 +49,19 @@ public class Debug {
     private static final boolean DEBUG = readDebugVariableFromFile(FILENAME);
 
     /**
-     * Gibt einen String aus wenn das Debugging aktiviert ist.
+     * is debugging enabled
      *
-     * @param debugMessage der String der ausgegeben wird
-     */
-    /*
-    public static void print(String debugMessage) {
-        if (DEBUG) {
-            System.out.println(debugMessage);
-        }
-    }
-    */
-
-    /**
-     * ist das Debugging aktiviert?
-     *
-     * @return ob Debugging aktiviert ist
+     * @return boolean indicating whether debug level output enabled
      */
     public static boolean isDebug() {
         return DEBUG;
     }
 
     /**
-     * aktiviert oder deaktiviert Debugging
+     * Reads the debug variable from the properties file.
      *
-     * @param debug der neue Wert fuers debuggen
-     */
-    /*
-    public static void setDebug(boolean debug) {
-        DEBUG = debug;
-    }
-    */
-
-    /**
-     * ACHTUNG: Der Dateinamenpfad ist relativ zum 'resources'-Ordner.
-     *
-     * @param filename der Dateiname
-     */
-    /*
-    public static void setFileName(String filename) {
-        fileName = filename;
-    }
-    */
-
-    /**
-     * ACHTUNG: Der Dateinamenpfad ist relativ zum 'resources'-Ordner.
-     *
-     * @return der Dateiname
-     */
-    /*
-    public static String getFileName() {
-        return fileName;
-    }
-    */
-
-    /**
-     * Liest die Debug Variable aus dem Properties-File ein.
-     *
-     * @param fileName der Name des Property-Files
-     * @return der ausgelesene Wert
+     * @param fileName the filename of properties file
+     * @return the value read
      */
     private static boolean readDebugVariableFromFile(String fileName) {
         BufferedReader reader = null;
@@ -126,21 +80,24 @@ public class Debug {
     }
 
     /**
-     * Gibt den passenden BufferedReader zurueck, egal ob in eine Jar-File oder
-     * nicht.
+     * Is back for royalty BufferedReader, whether in a jar file or not.
      *
-     * @param fileName der Dateiname fuer den der BufferedReader gebraucht wird
-     * @return der BufferedReader fuer das File
+     * @param fileName the filename for the the BufferedReader
+     * @return the BufferedReader for the file
      */
     private static BufferedReader getBufferedReader(String fileName) {
         BufferedReader in = null;
         try {
-            return new BufferedReader(new InputStreamReader(new FileInputStream("resources/" + fileName), "UTF-8"));
+            return new BufferedReader(new InputStreamReader(new FileInputStream(
+                    "resources/" + fileName), "UTF-8"));
         } catch (Exception e) {
             try {
-                return new BufferedReader(new InputStreamReader(Object.class.getResourceAsStream("/resources/" + fileName), "UTF-8"));
+                return new BufferedReader(new InputStreamReader(
+                        Object.class.getResourceAsStream(
+                                "/resources/" + fileName), "UTF-8"));
             } catch (Exception e1) {
                 e1.printStackTrace();
+                //TODO: This needs to change!
                 System.exit(-1);
             } finally {
                 closeStream(null);
@@ -150,9 +107,9 @@ public class Debug {
     }
 
     /**
-     * schließt ein Closeable-Object
+     * indicates a Closeable Object
      *
-     * @param closeable das zu schliessende Objekt
+     * @param closeable the Closeable Object
      */
     private static void closeStream(Closeable closeable) {
         if (closeable != null) {
