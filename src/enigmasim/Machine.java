@@ -143,10 +143,13 @@ public class Machine {
      * @return verschluesselte Nachricht
      */
     String encrypt(String message) {
-        String encryptedMessage = "";
+        //String encryptedMessage = "";
+        StringBuilder buf = new StringBuilder();
         for (int i = 0; i < message.length(); i++) {
-            encryptedMessage += usedMappers.get(0).encrypt(message.charAt(i));
+            //encryptedMessage += usedMappers.get(0).encrypt(message.charAt(i));
+            buf.append(usedMappers.get(0).encrypt(message.charAt(i)));
         } // end for
+        String encryptedMessage = buf.toString();
         return encryptedMessage;
     } // end Methode
 
