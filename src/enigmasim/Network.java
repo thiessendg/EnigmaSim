@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 /**
- * Die Klasse Network ist zustaendig fuer das Empfangen und Versenden von
- * Nachrichten ueber eine Multicastadresse und einen bestimmten Port
+ * The class Network is responsible for sending and receiving messages over a 
+ * multicast address and a specific port
  *
  * @author Mario Heindl, Mina Toma 
  * 
@@ -36,10 +36,9 @@ public class Network implements Runnable, LogicListener {
     private ArrayList<NetworkListener> listeners = new ArrayList<>();
 
     /**
-     * Konstruktor fuer die Klasse Network
-     * Der MulticastSocket wird in dem Konstruktor erzeugt
-     * ({@link #createMultiSocket()}) und man tretet einer
-     * Multicastgruppe(multicastAddr,port) bei
+     * Constructor for the class Network The multicast socket is in the 
+     * constructor creates ({@link #createMultiSocket ()}) and you transgress a 
+     * multicast group (multicastAddr, port) at
      *
      * @param multicastAddr the multi cast address
      * @param port the port
@@ -49,18 +48,18 @@ public class Network implements Runnable, LogicListener {
         this.multicastAddr = multicastAddr;
         createMultiSocket();
         new Thread(this).start();
-    } //Konstruktor
+    } //Constructor
 
     /**
-     * Standardkonstruktor fuer die Klasse Network <br>
-     * Der Standardport ist 2200 <br>
-     * Die Multicastadresse ist defaultmaessig 224.0.0.2 <br>
-     * Der MulticastSocket wird in dem Konstruktor erzeugt und man tretet einer
-     * Multicastgruppe(multicastAddr,port) bei
+     * Default constructor for the class Network. The default port is 2200. 
+     * The default multicast address is 224.0.0.2.  Multicast socket is created 
+     * in the constructor and you transgress a multicast group 
+     * (multicastAddr, port) at
      */
     Network() {
 
-        String localMulticastAddr = getVariableFromFile("network.properties", "multicastAddr");
+        String localMulticastAddr = 
+                getVariableFromFile("network.properties", "multicastAddr");
         String localPort = getVariableFromFile("network.properties", "port");
 
         this.port = Integer.parseInt(localPort);
@@ -75,9 +74,9 @@ public class Network implements Runnable, LogicListener {
     }
 
     /**
-     * In der run()-Methode wartet die Klasse auf ein, an die Multicastadresse
-     * adressiertes, Paket und schickt diese dann anschliessend an die
-     * angemeldeten NetworkListeners {@link #listeners}
+     * In the run() method, class waits for, addressed to the multicast address,
+     * packet and sends it then subsequently to the registered Network Listeners
+     * {@link #listeners}
      */
     @Override
     public void run() {
@@ -85,10 +84,12 @@ public class Network implements Runnable, LogicListener {
             byte[] buffer;
             while (true) {
                 buffer = new byte[1600];
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                DatagramPacket packet = 
+                        new DatagramPacket(buffer, buffer.length);
                 multiSocket.receive(packet);
 
-                String message = new String(packet.getData(), 0, packet.getLength());
+                String message = 
+                        new String(packet.getData(), 0, packet.getLength());
                 if (Debug.isDebug()) {
                     System.out.println(message);
                 }
@@ -102,18 +103,17 @@ public class Network implements Runnable, LogicListener {
     }
 
     /**
-     * Diese oeffentliche Methode wird mit dem Interface LogicListener
-     * implementiert <br>
-     * Die Klasse {@link Logic} hat mit dieser Methode die Moeglichkeit
-     * Nachrichten ueber das Netzwerk an die Multicastadresse
-     * {@link #multicastAddr} zu senden
+     * This public method is the Interface Logic listener implements the class 
+     * {@link} Logic must send with this method the possibility messages over 
+     * the network to the multicast address {@link #multicastAddr}
      *
      * @param text the text
      */
     @Override
     public void sendText(String text) {
         byte[] buffer = text.getBytes();
-        DatagramPacket packet = new DatagramPacket(buffer, buffer.length, multicastAddr, port);
+        DatagramPacket packet = 
+                new DatagramPacket(buffer, buffer.length, multicastAddr, port);
         try {
             multiSocket.send(packet);
         } catch (IOException e) {
@@ -129,19 +129,18 @@ public class Network implements Runnable, LogicListener {
     }
 
     /**
-     * Mit dieser oeffentlichen Methode koennen sich NetworkListener anmelden
-     * und somit, von der Klasse Network, empfangene Nachrichten
-     * weiterverarbeiten
+     * This public method is Network Listener can sign and thus further 
+     * process, from the Network class, received messages
      *
      * @param listener the listener
-     * @return <b>boolean</b>: Erfolg des Hinzufuegens des NetworkListeners
+     * @return <b>boolean</b>: success of the NetworkListener
      */
     public boolean addNetworkListener(NetworkListener listener) {
         return listeners.add(listener);
     }
 
     /**
-     * Mit dieser oeffentlichen Methode koennen sich NetworkListener abmelden
+     * This public method is Network Listener can unsubscribe
      *
      * @param listener the listener
      * @return <b>boolean</b>: Erfolg des Entfernens des NetworkListeners
@@ -153,21 +152,21 @@ public class Network implements Runnable, LogicListener {
     */
     
     /**
-     * Diese private Methode ist fuer das Weitersenden der, uebers Netzwerks,
-     * empfangenen Nachrichten an die angemeldeten <b>NetworkListener</b>
-     * zustaendig. <br>
-     * Dabei wird die, bei den NetworkListenern implementierte, Methode
-     * {@link NetworkListener#sendRecievedMessage(String)} aufgerufen
+     * This private method is responsible for the sending of the, uebers 
+     * network, received messages to registered <b>Network Listener</ b>.<br>
+     * Here is the one implemented in the Network listeners, method 
+     * {@link Network Listener # sendRecievedMessage (String)} called
      *
      * @param text the text
      */
     private void sendTextToListeners(String text) {
-        listeners.stream().forEach((listener) -> listener.sendRecievedMessage(text));
+        listeners.stream().forEach((listener) -> 
+                listener.sendRecievedMessage(text));
     }
 
     /**
-     * Diese private Methode ist fuer das Erstellen des MulticastSockets und
-     * fuer das Beitreten der Muticastgruppe zustaendig
+     * This private method is responsible for creating the multicast sockets and
+     * for join the Multicast group.
      */
     private void createMultiSocket() {
         try {
@@ -179,11 +178,11 @@ public class Network implements Runnable, LogicListener {
     }
 
     /**
-     * liest eine Variable aus einem Properties-File
+     * read a variable from a Properties File
      *
-     * @param fileName das Properties-File aus dem die Variable gelesen wird
-     * @param variable der Name der gesuchten Variable
-     * @return ein String mit dem Wert der Variable
+     * @param fileName The properties file
+     * @param variable The name of the variable
+     * @return a String with the value of the variable
      */
     private String getVariableFromFile(String fileName, String variable) {
         Properties properties = new Properties();
@@ -200,19 +199,21 @@ public class Network implements Runnable, LogicListener {
     }
 
     /**
-     * Gibt den passenden BufferedReader zurueck, egal ob in eine Jar-File oder
-     * nicht.
+     * Is back for royalty BufferedReader, whether in a jar file or not.
      *
-     * @param fileName der Dateiname fuer den der BufferedReader gebraucht wird
-     * @return der BufferedReader fuer das File
+     * @param fileName the filename for the the BufferedReader is needed
+     * @return the BufferedReader for the file
      */
     private BufferedReader getBufferedReader(String fileName) {
         BufferedReader in = null;
         try {
-            return new BufferedReader(new InputStreamReader(new FileInputStream("resources/" + fileName), "UTF-8"));
+            return new BufferedReader(new InputStreamReader(
+                    new FileInputStream("resources/" + fileName), "UTF-8"));
         } catch (Exception e) {
             try {
-                return new BufferedReader(new InputStreamReader(Object.class.getResourceAsStream("/resources/" + fileName), "UTF-8"));
+                return new BufferedReader(new InputStreamReader(
+                        Object.class.getResourceAsStream(
+                                "/resources/" + fileName), "UTF-8"));
             } catch (Exception e1) {
                 e1.printStackTrace();
                 System.exit(-1);
@@ -224,9 +225,9 @@ public class Network implements Runnable, LogicListener {
     }
 
     /**
-     * schließt ein Closeable-Object
+     * closes a Closeable Object
      *
-     * @param closeable das zu schliessende Objekt
+     * @param closeable the Object to close
      */
     private void closeStream(Closeable closeable) {
         if (closeable != null) {
