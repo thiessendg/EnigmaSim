@@ -15,15 +15,15 @@ import enigmasim.Debug;
 
 
 /**
- * @author Gerald Schreiber <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Gerald Schreiber 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  * 
  */
 @SuppressWarnings("serial")
@@ -53,7 +53,7 @@ public class Help extends JFrame {
 	}
 
 	/**
-	 * ATparam args
+	 * @param args cl arguments
 	 */
 	public static void main(String[] args) {
 		new Help();

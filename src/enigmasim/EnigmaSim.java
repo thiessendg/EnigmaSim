@@ -11,6 +11,11 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class EnigmaSim {
 
+    /**
+     *
+     * @param args
+     */
+
     public static void main(String[] args) {
         SplashScreen splash = new SplashScreen();
         SplashScreen.updateProgressBar(0);

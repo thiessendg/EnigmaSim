@@ -40,15 +40,15 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 	private final GUIButton BUP = new GUIButton ("\u2227");
 	private final GUIButton BDOWN = new GUIButton ("\u2228");
 
-	private JComponent[] lLetter = new JComponent[7];
-	private JLabel lrefl = new JLabel();
+	private final JComponent[] lLetter = new JComponent[7];
+	private final JLabel lrefl = new JLabel();
 
-	private JComboBox<String> availRotors = new JComboBox<>();
+	private final JComboBox<String> availRotors = new JComboBox<>();
 	private String prevChosenRotor = "";
 
-	private JComboBox<String> availRotorOffset = new JComboBox<>();
+	private final JComboBox<String> availRotorOffset = new JComboBox<>();
 
-	private ArrayList<GUIRotorListener> rotorListeners = new ArrayList<>();
+	private final ArrayList<GUIRotorListener> rotorListeners = new ArrayList<>();
 
 	private Mapper self = null;
 
@@ -86,7 +86,7 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 							GUIEnigma.LETTERS.charAt(((i - lLetter.length/2) +26) % 26)));
 				}
 				lLetter[i].setAlignmentX(JLabel.CENTER);
-				lLetter[i].setFont(GUIEnigma.monoFont);
+				lLetter[i].setFont(GUIEnigma.MONOFONT);
 				add(lLetter[i], c);
 			}
 
@@ -228,8 +228,9 @@ class GUIRotor extends JPanel implements ActionListener, GUIRotorListener, KeyLi
 	JLabel getLrefl() { return lrefl; }
 
     private void fireRotorChange() {
-		for (GUIRotorListener l : rotorListeners)
-			l.rotorChange((String)availRotors.getSelectedItem(), this);
+        rotorListeners.stream().forEach((l) -> {
+            l.rotorChange((String)availRotors.getSelectedItem(), this);
+            });
 	}
 
 	@Override

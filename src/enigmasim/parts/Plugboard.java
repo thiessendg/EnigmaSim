@@ -3,15 +3,15 @@ package enigmasim.parts;
 import enigmasim.Debug;
 
 /**
- * @author Gerald Schreiber, Philip Woelfel, Sebastian Chlan <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Gerald Schreiber, Philip Woelfel, Sebastian Chlan 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  *
  */
 public class Plugboard extends Mapper {

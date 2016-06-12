@@ -29,6 +29,7 @@ class GUIPlugButton extends JToggleButton {
 		setSelected(isSelected());
 	}
 
+        @Override
 	public void setSelected(boolean state) {
 		super.setSelected (state);
 		if (state) setBorder(BorderFactory.createLoweredBevelBorder());

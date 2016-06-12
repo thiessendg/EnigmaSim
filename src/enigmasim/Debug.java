@@ -31,22 +31,22 @@ import java.util.Properties;
  * Diese Klasse wird zum Debugging verwendet. Die Einstellungen dazu sind in der
  * Datei 'resources/enigma.properties' zu finden.
  *
- * @author Mathias Kub <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Mathias Kub 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  *
  */
 public class Debug {
 
-    private static String fileName = "enigma.properties";
+    private static final String FILENAME = "enigma.properties";
     private static final Properties PROPERTIES = new Properties();
-    private static boolean DEBUG = readDebugVariableFromFile(fileName);
+    private static final boolean DEBUG = readDebugVariableFromFile(FILENAME);
 
     /**
      * Gibt einen String aus wenn das Debugging aktiviert ist.

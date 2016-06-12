@@ -12,15 +12,15 @@ import javax.swing.*;
 /**
  * Dient zum darstellen des Info Fensters wenn Buchstaben ersetzt wurden.
  *
- * @author Mario Heindl, Philip Woelfel <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Mario Heindl, Philip Woelfel 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  *
  */
 @SuppressWarnings("serial")

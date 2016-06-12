@@ -3,7 +3,7 @@ package enigmasim;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.DatagramPacket;
@@ -17,15 +17,15 @@ import java.util.Properties;
  * Die Klasse Network ist zustaendig fuer das Empfangen und Versenden von
  * Nachrichten ueber eine Multicastadresse und einen bestimmten Port
  *
- * @author Mario Heindl, Mina Toma <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Mario Heindl, Mina Toma 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  *
  */
 public class Network implements Runnable, LogicListener {
@@ -36,7 +36,7 @@ public class Network implements Runnable, LogicListener {
     private ArrayList<NetworkListener> listeners = new ArrayList<>();
 
     /**
-     * Konstruktor fuer die Klasse Network </br>
+     * Konstruktor fuer die Klasse Network
      * Der MulticastSocket wird in dem Konstruktor erzeugt
      * ({@link #createMultiSocket()}) und man tretet einer
      * Multicastgruppe(multicastAddr,port) bei

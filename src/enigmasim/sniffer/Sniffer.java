@@ -5,15 +5,15 @@ import java.net.UnknownHostException;
 import enigmasim.Network;
 
 /**
- * @author Sebastian Chlan <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Sebastian Chlan
+ *
+ * ENIGMA_TEC 2010
+ * technik[at]enigma-ausstellung.at
+ * http://enigma-ausstellung.at
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  * 
  */
 public class Sniffer {

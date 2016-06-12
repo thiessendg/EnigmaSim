@@ -21,15 +21,15 @@ import enigmasim.Debug;
 import enigmasim.NetworkListener;
 
 /**
- * @author Sebastian Chlan <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Sebastian Chlan 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  * 
  */
 @SuppressWarnings("serial")
@@ -135,8 +135,8 @@ class GUISniffer extends JFrame implements NetworkListener,
 			tmp = s.split("%");
 			tmp[1] = insertLineBreaks(tmp[1]);
 			txt += ("<span style=\"font-size:20pt;font-family:Arial;\"><b><u>Nachricht "
-					+ tmp[0] + "</u></b><br />" + tmp[1] + "</span>");
-			txt += "<br /><br />";
+					+ tmp[0] + "</u></b>" + tmp[1] + "</span>");
+			txt += "";
 		}
 		txt += "</div>";
 		print(txt);
@@ -156,7 +156,7 @@ class GUISniffer extends JFrame implements NetworkListener,
 		String ret = "";
 		for (int i = 0; i < s.length(); i++) {
 			if ((i % COUNT_LINEBREAK) == 0 && i != 0) {
-				ret += s.charAt(i) + "<br />";
+				ret += s.charAt(i) + "";
 			} else {
 				ret += s.charAt(i);
 			}

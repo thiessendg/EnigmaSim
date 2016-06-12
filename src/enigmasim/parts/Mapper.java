@@ -5,15 +5,15 @@ import java.util.TreeSet;
 import enigmasim.Debug;
 
 /**
- * @author Philip Woelfel, Sebastian Chlan <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Philip Woelfel, Sebastian Chlan 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  *
  */
 public class Mapper {
@@ -91,6 +91,7 @@ public class Mapper {
      * @param c To be encrypted characters Return the letter shown
      * @throws IllegalArgumentException If the handed over character is not
      * between A-Z
+     * @return encrypted char
      */
     public char encrypt(char c) {
         if (!(c >= 'A' && c <= 'Z')) {

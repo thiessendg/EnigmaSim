@@ -23,15 +23,15 @@ import enigmasim.Debug;
  *
  * Wird verwendet, um das Laden von 'GUIEnigma' anzuzeigen.
  *
- * @author Mathias Kub <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Mathias Kub 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  *
  */
 @SuppressWarnings("serial")
@@ -39,6 +39,9 @@ public class SplashScreen extends JFrame {
 
     private static JProgressBar progressBar;
 
+    /**
+     *
+     */
     public SplashScreen() {
         setUndecorated(true);
 
@@ -65,6 +68,10 @@ public class SplashScreen extends JFrame {
         setVisible(true);
     }
 
+    /**
+     *
+     * @param progressBarValue
+     */
     public static void updateProgressBar(int progressBarValue) {
         progressBar.setValue(progressBarValue);
     }

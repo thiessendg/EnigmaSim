@@ -27,13 +27,13 @@ class GUIText {
 	 *   key->value[]
 	 *   die Sprach-Position im value-Array ist analog zu, languages-Array
 	 */
-	private static HashMap<String, String[]> map = new HashMap<>();
+	private static final HashMap<String, String[]> MAP = new HashMap<>();
 	
 	/** Die Nummer der aktuellen Sprache (=Position im languages-Array) */
 	private static int languageNr = 0;
 	
 	/** Alle angemeldeten graphischen Elemente, bei denen der Text gesetzt werden soll */
-	private static HashMap<Object, String> components = new HashMap<>();
+	private static final HashMap<Object, String> COMPONENTS = new HashMap<>();
 	
 	
 	/**
@@ -78,7 +78,7 @@ class GUIText {
 	 * @return der Text
 	 */
 	static String getText(String key) {
-		String value[] = map.get(key.toLowerCase().trim());
+		String value[] = MAP.get(key.toLowerCase().trim());
 		if (value==null)
 			throw new IllegalArgumentException("Key >" + key + "< not found.");
 		return value[languageNr];
@@ -89,10 +89,10 @@ class GUIText {
 	 * Aendert fuer alle angemeldeten Componenten die Beschriftung.
 	 */
 	private static void updateLanguage() {
-		// TODO Aendere fuer alle angemeldeten Componenten die Beschriftung.
-		for (Object c:components.keySet()) {
-			updateLanguage(c, components.get(c));
-		}
+            // TODO Aendere fuer alle angemeldeten Componenten die Beschriftung.
+            COMPONENTS.keySet().stream().forEach((c) -> {
+                updateLanguage(c, COMPONENTS.get(c));
+            });
 	}
 	
 	
@@ -125,7 +125,7 @@ class GUIText {
 	 * @return          die neu beschriftete Componente
 	 */
 	public static Object add(Object component, String key) {
-		components.put(component, key);
+		COMPONENTS.put(component, key);
 		updateLanguage(component, key);
 		return component;
 	}
@@ -163,7 +163,7 @@ class GUIText {
 			while ((line=in.readLine()) != null) {
 				String[] s      = line.split(";",2);
 				String[] values = s[1].split(";");
-				map.put(s[0].toLowerCase().trim(), values);
+				MAP.put(s[0].toLowerCase().trim(), values);
 			}
 			in.close();
 		} catch (Exception e1) {
@@ -186,16 +186,22 @@ class GUIText {
 		}
 		s.append("\n");
 		
-		for (String key:map.keySet()) {
-			s.append(key);
-			s.append(": ");
-			String v[] = map.get(key);
-			for (int i=0; i<v.length; i++) {
-				if (i>0) s.append(";");
-				s.append(v[i]);
-			}
-			s.append("\n");
-		}
+                MAP.keySet().stream().map((key) -> {
+                    s.append(key);
+                return key;
+            }).map((key) -> {
+                s.append(": ");
+                String v[] = MAP.get(key);
+                return v;
+            }).map((v) -> {
+                for (int i=0; i<v.length; i++) {
+                    if (i>0) s.append(";");
+                    s.append(v[i]);
+                }
+                return v;
+            }).forEach((_item) -> {
+                s.append("\n");
+            });
 		
 		return s.toString();
 	}

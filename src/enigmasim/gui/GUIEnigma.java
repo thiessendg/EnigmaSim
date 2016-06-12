@@ -50,7 +50,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
     /**
      * Courier New, Plain, 14pt. Wird benötigt für das Steckbrett und die Walzen
      */
-    static final Font monoFont = new Font("Courier New", Font.PLAIN, 14);
+    static final Font MONOFONT = new Font("Courier New", Font.PLAIN, 14);
     /**
      * Ein String mit dem Alphabet
      */
@@ -115,6 +115,10 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
     private final GUIString ttReset = new GUIString("");
     private final GUIString ttClear = new GUIString("");
 
+    /**
+     *
+     * @param logic
+     */
     public GUIEnigma(Logic logic) {
         super("Enigma");
         initiateLangObjects();
@@ -642,8 +646,8 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
 
         cMessages.addItem(msg);
 
-        for (String item : items) {
+        items.stream().forEach((item) -> {
             cMessages.addItem(item);
-        }
+        });
     }
 }

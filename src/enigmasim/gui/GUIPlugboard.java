@@ -24,12 +24,12 @@ import javax.swing.JPanel;
  */
 @SuppressWarnings("serial")
 class GUIPlugboard extends JPanel implements ActionListener {
-	private GUIPlugButton[] letters = new GUIPlugButton[26];
+	private final GUIPlugButton[] letters = new GUIPlugButton[26];
 	private GUIPlugButton temp = null;
 
 	private boolean clicked = false;
 
-	private TreeMap<Character, Character> plug = new TreeMap<>();
+	private final TreeMap<Character, Character> plug = new TreeMap<>();
 
 	GUIPlugboard() {
 		super();
@@ -38,7 +38,7 @@ class GUIPlugboard extends JPanel implements ActionListener {
 			letters[i] = new GUIPlugButton(
 					Character.toString(GUIEnigma.KEYBOARD.charAt(i)) + "\u2192" +
 					Character.toString(GUIEnigma.KEYBOARD.charAt(i)));
-			letters[i].setFont(GUIEnigma.monoFont);
+			letters[i].setFont(GUIEnigma.MONOFONT);
 			letters[i].setPreferredSize(new Dimension(40, 30));
 			letters[i].addActionListener(this);
 			//letters[i].setBorder(BorderFactory.createRaisedBevelBorder());

@@ -8,15 +8,15 @@ import enigmasim.parts.Reflector;
 import enigmasim.parts.Rotor;
 
 /**
- * @author Gerald Schreiber <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Gerald Schreiber 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  *
  */
 public class Machine {
@@ -195,12 +195,7 @@ public class Machine {
      * Mapper noch nicht exisitiert
      */
     private boolean mapperAlreadyExists(String name) {
-        for (Mapper mapper : usedMappers) {
-            if (name.equals(mapper.getName())) {
-                return true;
-            } // end if
-        } // end for
-        return false;
+        return usedMappers.stream().anyMatch((mapper) -> (name.equals(mapper.getName())));
     } // end Methode
 
     /**
@@ -346,9 +341,9 @@ public class Machine {
             } // end for
         } // end for
         str.append(new_line).append("Benutzte Walzen: ");
-        for (Mapper usedMapper1 : usedMappers) {
+        usedMappers.stream().forEach((usedMapper1) -> {
             str.append(" ").append(usedMapper1.getName());
-        } // end for
+        }); // end for
         str.append(new_line).append("Walzenstellung: ");
         // end if
 // end for

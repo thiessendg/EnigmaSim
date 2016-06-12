@@ -1,20 +1,28 @@
 package enigmasim;
 
 /**
- * @author Mina Toma <br />
- * <br />
- * ENIGMA_TEC 2010 <br />
- * technik[at]enigma-ausstellung.at <br />
- * http://enigma-ausstellung.at <br />
- * <br />
- * HTL Rennweg <br />
- * Rennweg 89b <br />
- * A-1030 Wien <br />
+ * @author Mina Toma 
+ * 
+ * ENIGMA_TEC 2010 
+ * technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at 
+ * 
+ * HTL Rennweg 
+ * Rennweg 89b 
+ * A-1030 Wien 
  *
  */
 public interface LogicListener {
 
+    /**
+     *
+     * @param text
+     */
     void sendText(String text);
 
+    /**
+     *
+     * @param rotorSetting
+     */
     void updateRotorSettings(char[] rotorSetting);
 }
