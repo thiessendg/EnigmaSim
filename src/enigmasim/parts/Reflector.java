@@ -54,7 +54,7 @@ public class Reflector extends Mapper {
     }
 
     /**
-     * Diese Methode liesst aus einem String die Verkabelung aus und speicher
+     * Diese method liesst aus einem String die Verkabelung aus und speicher
      * sie in einem char Array. Der String wird auf ungueltige (A-Z) und
      * doppelete Zeichen geprueft. Weiters wird geprueft ob der String doppelte
      * Zeichen oder Verkabelungsfehler beinhaltet (Bsp.: A-->E, E-->A, B-->Z,
@@ -87,8 +87,8 @@ public class Reflector extends Mapper {
     }
 
     /**
-     * Methode wird von der prev. Rotor aufgerufen --> Zeichen wird
-     * verschluesselt --> die reverse Encrypt Methode des prev. Rotor wird
+     * method wird von der prev. Rotor aufgerufen --> Zeichen wird
+     * verschluesselt --> die reverse Encrypt method des prev. Rotor wird
      * aufgerufen
      *
      * @param c Zeichen welches verschluesselt werden soll

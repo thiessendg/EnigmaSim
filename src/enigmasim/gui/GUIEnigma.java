@@ -216,7 +216,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
     }
 
     /**
-     * Diese Methode plaziert die Buttone bSet, bReset, bClear und das Logo auf
+     * Diese method plaziert die Buttone bSet, bReset, bClear und das Logo auf
      * einem Panel
      */
     private JPanel placeButtonsAndLogo() {
@@ -371,7 +371,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
     }
 
     /**
-     * Diese Methode wird beim Maschinenwechsel aufgerufen. setVisible(false)
+     * Diese method wird beim Maschinenwechsel aufgerufen. setVisible(false)
      * ist nötig um möglichen Anzeigefehlern vorzubeugen
      */
     private void resize() {
@@ -526,7 +526,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
     }
 
     /**
-     * Methode liesst ein Bild aus dem resources Ordner aus und gibt es als
+     * method liesst ein Bild aus dem resources Ordner aus und gibt es als
      * Image Objekt zurueck
      *
      * @param fname Der Name des Bildes
@@ -549,7 +549,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
     }
 
     /**
-     * Diese Methode setzt den TrayIcon und das Icon in der Titelleiste. Weiters
+     * Diese method setzt den TrayIcon und das Icon in der Titelleiste. Weiters
      * wird im Tray ein PopupMenu erstellt, welches die M√∂glichkeit bietet das
      * Programm zu schliessen
      *
@@ -573,7 +573,7 @@ public class GUIEnigma extends JFrame implements ActionListener, LogicListener,
     }
 
     /**
-     * Methode zum zentrieren und setzen der Groesse des Sniffer Fensters auf
+     * method zum zentrieren und setzen der Groesse des Sniffer Fensters auf
      * dem Desktop
      *
      * @param w Breite des Fensters

@@ -28,15 +28,14 @@ public class Machine {
     private final ArrayList<Mapper> usedMappers;
 
     /**
-     * Konstruktor, der die Machine erzeugt und alle eingebauten Walzen,
-     * Reflektoren und das Steckbrett erzeugt
+     * Constructor which generates the machine and generates all built rotors, 
+     * reflectors and the plugboard
      *
-     * @param logic Referenz auf die Logik-Klasse
-     * @param machineName Name der Machine
-     * @param availableMappers Mappers, welche fuer diese Machine vorhanden sind
-     * @param configuration Konfiguration, mit welcher die Machine initialisiert
-     * wird
-     * @throws Exception falls die Machine nicht erzeugt werden konnte
+     * @param logic the Logic Class
+     * @param machineName 
+     * @param availableMappers Mappers available for this Machine
+     * @param configuration Configuration, with which the machine is initialized
+     * @throws Exception if Machine couldn't be created
      */
     public Machine(Logic logic, String machineName, String[][] availableMappers,
             String[] configuration) throws Exception {
@@ -46,55 +45,53 @@ public class Machine {
         this.maxRotors = availableMappers.length;
         this.usedMappers = new ArrayList<>();
 
-        // geht alle Elemente der zu setzenden Konfiguration durch
+        // goes through all elements of the configuration to be set
         for (int i = 0; i < configuration.length; i++) {
             if (isMapperAllowedOnPosition(configuration[i], i)
                     && !mapperAlreadyExists(configuration[i])) {
-                // fuegt den neuen Mapper hinzu
+                // adds the new Mapper
                 addMapperObject(configuration[i], i);
             } //end if
             else {
-                // wirft eine Exception falls der Mapper nicht hinzugefuegt
-                // werden konnte
+                // throws an exception if the Mapper could not be added
                 throw new Exception("Mapper with name " + configuration[i]
                         + " can't be used on position " + i
                         + " or already exists");
             } // end else
         } // end for
         setMapperConnections();
-    } // end Konstruktor
+    } // end Constructor
 
     /**
-     * Gibt den Namen der Machine zurueck
+     * Returns the name of the Machine
      *
-     * @return Name der Machine
+     * @return name of the Machine
      */
     public String getMachineName() {
         return machineName;
-    } // end Methode
+    } // end method
 
     /**
-     * Gibt alle fuer diese Position verfuegbaren Mappers zurueck
+     * Is all for this position available mapper back
      *
-     * @param position Position, nach der gefragt wird
-     * @return String[] mit allen verfuegbaren Mappern
+     * @param position 
+     * @return String[] servicing all available mappers
      */
     public String[] getAvailableMappersOnPosition(int position) {
         return availableMappers[position];
-    } // end Methode
+    } // end method
 
     /**
-     * Setzt einen neuen Mapper an einer definierten Position ein
+     * Sets a new Mapper at a defined position
      *
-     * @param name Name des neuen Mappers
-     * @param position Position des neuen Mappers
-     * @return false wenn der Mapper nicht gesetzt werden konnte
-     * @throws Exception falls der neue Mapper nicht gesetzt werden konnte
+     * @param name name of the new Mapper
+     * @param position position of the new Mapper
+     * @return false when the Mapper could not be set
+     * @throws Exception if the new Mapper could not be set
      */
     boolean setMapper(String name, int position) throws Exception {
         if (mapperAlreadyExists(name)) {
-            // exisitierenden Mapper hierher verschieben und aktuellen Mapper
-            // dorthin verschieben
+            //Move existing Mapper here and move current Mapper there
             int exisitingPosition = getPositionOfMapper(name);
             Mapper currentMapper = getMapper(position);
             if (isMapperAllowedOnPosition(currentMapper.getName(),
@@ -115,32 +112,31 @@ public class Machine {
             return true;
         } // end else if
         return false;
-    } // end Methode
+    } // end method
 
     /**
-     * Gibt eine Referenz auf einen Mapper zurueck
+     * Returns a reference back to a Mapper
      *
-     * @param position Position des Mappers
-     * @return Referenz des Mappers an der uebergebenen Position
+     * @param position position of the Mappers
+     * @return Reference of the mapper at given position
      */
     public Mapper getMapper(int position) {
         return usedMappers.get(position);
-    } // end Methode
+    } // end method
 
     /**
-     * Gibt die Anzahl an setzbaren Mappers zurueck
-     *
-     * @return Anzahl der setzbaren Mapper
+     * Specifies the number of settable Mapper
+     * @return number of the usable Mapper
      */
     public int getNumberOfMappers() {
         return maxRotors;
-    } // Methode
+    } // method
 
     /**
-     * Verschluesselt die uebergebene Nachricht
+     * Encrypts the message passed
      *
-     * @param message Nachricht zum Entschluesseln
-     * @return verschluesselte Nachricht
+     * @param message message to encrypt
+     * @return encrypted message
      */
     String encrypt(String message) {
         //String encryptedMessage = "";
@@ -151,60 +147,58 @@ public class Machine {
         } // end for
         String encryptedMessage = buf.toString();
         return encryptedMessage;
-    } // end Methode
+    } // end method
 
     /**
-     * Setzt die Verbindungen des Plugboards neu
-     *
-     * @param setting String mit den neuen Verbindungen
-     * @throws Exception falls die Verbindungen nicht neu gesetzt werden konnten
+     * Sets the PlugBoards connections
+     * @param setting 
+     * @throws Exception if connections can't be set
      */
     void setPlugboardConnections(String setting) throws Exception {
         Plugboard pb = (Plugboard) usedMappers.get(0);
         pb.setConnections(setting);
-    } // end Methode
+    } // end method
 
     /**
-     * Setzt die Startposition eines spezifischen Rotors
+     * Sets the starting position of a specific rotor
      *
-     * @param position Position des Rotors
-     * @param startPosition Startposition auf die der Rotor gesetzt werden soll
+     * @param position position of the rotor
+     * @param startPosition position to be set on the rotor
      */
     void setStartPosition(int position, char startPosition) {
         if (usedMappers.get(position) instanceof Rotor) {
             Rotor ro = (Rotor) usedMappers.get(position);
             ro.setPosition(startPosition);
         } // end if
-    } // end Methode
+    } // end method
 
     /**
      * Set the ring setting, Ringstellung, for the rotor
      *
      * @param position Position of the Rotor
-     * @param ringoffset ringoffset the rimng offset for the rotor
+     * @param ringoffset the ring offset for the rotor
      */
     void setRingSetting(int position, String ringoffset) {
         if (usedMappers.get(position) instanceof Rotor) {
             Rotor ro = (Rotor) usedMappers.get(position);
             ro.setRingOffset(ringoffset);
         } // end if
-    } // end Methode
+    } // end method
 
     /**
-     * Ueberprüft, ob ein Mapper bereits exisitiert
-     *
-     * @param name Name, des Mappers
-     * @return true, wenn der Mapper bereits exisitiert und false, wenn der
-     * Mapper noch nicht exisitiert
+     * Checks whether a mapper already exists
+`    *
+     * @param name of the Mappers
+     * @return boolean indicating if the mapper already exists
      */
     private boolean mapperAlreadyExists(String name) {
         return usedMappers.stream().anyMatch((mapper) -> (name.equals(mapper.getName())));
-    } // end Methode
+    } // end method
 
     /**
-     * Gibt die aktuelle Konfiguration zurueck
+     * returns the current configuration
      *
-     * @return String[] mit der aktuellen Konfiguration
+     * @return String[] with the current configuration
      */
     public String[] getCurrentConfiguration() {
         String[] config = new String[usedMappers.size()];
@@ -215,12 +209,11 @@ public class Machine {
     }
 
     /**
-     * Ueberprüft, ob der Mapper an der uebergebenen Position erlaubt ist
+     * Checks if the mapper is allowed at the location you passed
      *
-     * @param name Name des Mappers
-     * @param position Position, an welcher der Mapper positioniert werden soll
-     * @return true, wenn er positioniert werden kann und false, wenn er nicht
-     * positioniert werden kann
+     * @param name of the Mappers
+     * @param position at which the mapper is to be positioned
+     * @return boolean indicating if allowed on the position
      */
     private boolean isMapperAllowedOnPosition(String name, int position) {
         if (position >= 0 && position < availableMappers.length) {
@@ -231,14 +224,14 @@ public class Machine {
             } // end for
         } // end if
         return false;
-    } // end Methode
+    } // end method
 
     /**
-     * Fuegt einen neuen Mapper hinzu
+     * Adds a new Mapper
      *
-     * @param name Names des neuen Mappers
-     * @param position Position des neuen Mappers nicht moeglich
-     * @throws Exception falls Mapper nicht erzeugt werden konnte
+     * @param name of the new Mappers
+     * @param position of the new Mappers
+     * @throws Exception if Mapper could not be created
      */
     private void addMapperObject(String name, int position) throws Exception {
         String config = logic.getMapperConfig(name);
@@ -260,14 +253,14 @@ public class Machine {
                     break;
             }//end string switch
         }//end if
-    } // end Methode
+    } // end method
 
     /**
-     * Eretzt einen bestehenden Mapper
+     * Replaces an existing Mapper
      *
-     * @param name Names des Mappers
-     * @param position Position des Mappers nicht moeglich
-     * @throws Exception falls Mapper nicht erzeugt werden konnte
+     * @param name of the Mappers
+     * @param position of the Mappers
+     * @throws Exception if Mapper couldn't be created
      */
     private void setMapperObject(String name, int position) throws Exception {
         String config = logic.getMapperConfig(name);
@@ -289,10 +282,10 @@ public class Machine {
                     break;
             }//end string switch
         }//endif
-    } // end Methode
+    } // end method
 
     /**
-     * Setzt die Nachbarn jedes einzelnen Mappers
+     * Sets the neighbors of each mapper
      */
     private void setMapperConnections() {
         for (int j = 1; j < usedMappers.size() - 1; j++) {
@@ -310,13 +303,13 @@ public class Machine {
         // Reflectors
         usedMappers.get(usedMappers.size() - 1).setPrevMapper(
                 usedMappers.get(usedMappers.size() - 2));
-    } // end Methode
+    } // end method
 
     /**
-     * Gibt die Position eines Mappers zurueck
+     * returns the position of a specified mapper
      *
-     * @param name Name des Mappers
-     * @return Position des Mappers
+     * @param name of the Mappers
+     * @return position of the mappers
      */
     private int getPositionOfMapper(String name) {
         for (int i = 0; i < usedMappers.size(); i++) {
@@ -325,7 +318,7 @@ public class Machine {
             } // end if
         } // end for
         return -1;
-    } // end Methode
+    } // end method
 
     /* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -349,7 +342,7 @@ public class Machine {
         }); // end for
         str.append(new_line).append("Walzenstellung: ");
         // end if
-// end for
+        // end for
         usedMappers.stream().filter(usedMapper -> usedMapper instanceof Rotor).forEachOrdered(usedMapper -> {
             Rotor rot = (Rotor) usedMapper;
             str.append(" ").append(rot.getCharPosition());
@@ -358,9 +351,9 @@ public class Machine {
     } // end Method
 
     /**
-     * Liefert alle Walzenpositionen in einem char[].
+     * Return all the rotor positions in a char [].
      *
-     * @return - char[] mit allen Walzenpositionen
+     * @return char[] of all rotor positions
      */
     char[] getCurrentRotorPositions() {
         StringBuilder sb = new StringBuilder();
@@ -373,4 +366,4 @@ public class Machine {
         }
         return currentRotorPositions;
     }//end method
-} // end Klasse Machine
+} // end Class Machine

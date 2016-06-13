@@ -17,8 +17,8 @@ import enigmasim.Debug;
 public class Plugboard extends Mapper {
 
     /**
-     * Default-Konstruktor, welcher ein Steckbrett erzeugt, bei welchem jedes
-     * Zeichen auf sich selbst abgebildet wird.
+     * Default constructor which generates a breadboard, in which each character
+     * is mapped to itself.
      *
      */
     public Plugboard() {
@@ -26,32 +26,30 @@ public class Plugboard extends Mapper {
     }
 
     /**
-     * Konstruktor, welcher ein Steckbrett mit der angegebenen Verdrahtung
-     * erstellt.
+     * Constructor, which creates a breadboard with the specified wiring.
      *
      * @param name name
-     * @param setting String, der die Verdrahtung angibt
+     * @param setting wiring
      */
     public Plugboard(String name, String setting) {
         super(name, setting);
     }
 
     /**
-     * Konstruktor, welcher ein Steckbrett mit der angegebenen Verdrahtung
-     * erstellt.
+     * Constructor creates a breadboard with the specified wiring
      *
      * @param name name
-     * @param setting char[], welches die Verdrahtung angibt
+     * @param setting wiring
      */
     public Plugboard(String name, char[] setting) {
         super(name, setting);
     }
 
     /**
-     * Setzt alle Verbindungen neu.
+     * sets all connections
      *
-     * @param setting String, mit den Zielbuchstaben
-     * @throws Exception falls der uebergebene String fehlerhaft ist
+     * @param setting String, with the target letter
+     * @throws Exception the passed string is faulty
      */
     public void setConnections(String setting) throws Exception {
         stringToSettingArray(setting);

@@ -54,10 +54,10 @@ public class Mapper {
     }
 
     /**
-     * Create a mapper to the specified destination Alphabet
+     * Create a mapper to the specified destination "alphabet"
      *
-     * @param name The name of the mapper
-     * @param setting The char array with the aim Alphabet
+     * @param name of the mapper
+     * @param setting char array with the specified "alphabet"
      * @throws IllegalArgumentException if string is invalid (not consisting of
      * 26 characters A-Z, or contains duplicate letters)
      */
@@ -107,12 +107,11 @@ public class Mapper {
     }
 
     /**
-     * Makes the sign of the target alphabet in the source alphabet from
+     * Decrypts
      *
-     * @param c Characters to be encrypted
+     * @param c characters to be encrypted
      * @return the exchange encoded characters
-     * @throws IllegalArgumentException If the handed over character is not
-     * between A-Z
+     * @throws IllegalArgumentException if character is not between A-Z
      */
     char reverseEncrypt(char c) {
         if (!(c >= 'A' && c <= 'Z')) {
@@ -170,7 +169,7 @@ public class Mapper {
     }
 
     /**
-     * Sets the mapper of the front is
+     * Sets he prev Mapper
      *
      * @param prevMapper sets the mapper of the front is
      */
@@ -179,7 +178,7 @@ public class Mapper {
     }
 
     /**
-     * Gives back if an Mapper is available before
+     * returns whether a Mapper is available before
      *
      * @return Whether Mapper previously inserted
      */

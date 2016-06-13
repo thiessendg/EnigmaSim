@@ -3,16 +3,11 @@ package enigmasim.parts;
 import enigmasim.Debug;
 
 /**
- * @author David Thiessen thiessendg@gmail.com based on work by: Philip Woelfel,
- * Sebastian Chlan 
- * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
+ * @author David Thiessen based on work by: Philip Woelfel, Sebastian Chlan
+ *
+ * ENIGMA_TEC 2010 technik[at]enigma-ausstellung.at http://enigma-ausstellung.at
+ *
+ * HTL Rennweg Rennweg 89b A-1030 Wien
  */
 public class Rotor extends Mapper {
 
@@ -24,11 +19,10 @@ public class Rotor extends Mapper {
     /**
      * Create a rotor with the specified wiring
      *
-     * @param name name of rotor
-     * @param setting The char array to the wirings
-     * @param jump A char array with the containing the notch positions to roll
-     * over next rotor
-     * @throws Exception If the string is invalid (not consisting of 26
+     * @param name of rotor
+     * @param setting wirings
+     * @param jump notch positions to roll over next rotor
+     * @throws Exception if the string is invalid (not consisting of 26
      * characters A-Z, or contains duplicate letters)
      */
     public Rotor(String name, String setting, char[] jump) throws Exception {
@@ -43,7 +37,7 @@ public class Rotor extends Mapper {
 
     /**
      * @param ch check the array if there is only one or two characters from A-Z
-     * @return boolean false if the conditions are not met
+     * @return boolean indicating whether jumpChars
      */
     private boolean checkJumpChars(char[] ch) {
         if (ch.length < 1) {
@@ -71,7 +65,7 @@ public class Rotor extends Mapper {
             throw new IllegalArgumentException("Invalid character! Not A-Z.");
         }
 
-        char cV = (char) (c + position - (Integer.parseInt(ringStellung)-1));
+        char cV = (char) (c + position - (Integer.parseInt(ringStellung) - 1));
 
         if (cV < 'A') {
             cV += 26;
@@ -85,7 +79,7 @@ public class Rotor extends Mapper {
 
         char ver = setting[pos]; // The exchange encoded characters
 
-        char out = (char) (ver - position + (Integer.parseInt(ringStellung)-1));
+        char out = (char) (ver - position + (Integer.parseInt(ringStellung) - 1));
         //Convert characters again as would be the roll to position A -> other 
         //roller can again to anticipate shifting
         if (out < 'A') {
@@ -106,13 +100,11 @@ public class Rotor extends Mapper {
     }
 
     /**
-     * Forms the entered letters of the alphabet to the target Source Alphabet
-     * from
+     * Forms the entered letters of the alphabet to the target alphabet
      *
-     * @param c The input characters
+     * @param c input characters
      * @return the letter shown
-     * @throws IllegalArgumentException If the handed over character is not
-     * between A-Z
+     * @throws IllegalArgumentException if character is not between A-Z
      */
     @Override
     public char reverseEncrypt(char c) {
@@ -120,7 +112,7 @@ public class Rotor extends Mapper {
             throw new IllegalArgumentException("Invalid character! Not A-Z.");
         }
 
-        char cV = (char) (c + position - (Integer.parseInt(ringStellung)-1));
+        char cV = (char) (c + position - (Integer.parseInt(ringStellung) - 1));
 
         if (cV < 'A') {
             cV += 26;
@@ -136,7 +128,7 @@ public class Rotor extends Mapper {
             }
         }
 
-        char out = (char) (ver - position + (Integer.parseInt(ringStellung)-1));
+        char out = (char) (ver - position + (Integer.parseInt(ringStellung) - 1));
         //Mark again convert like as would be the roll to position A -> other 
         //roll can be expected to shift again
         if (out < 'A') {
@@ -263,23 +255,19 @@ public class Rotor extends Mapper {
         this.position = position - 'A';
     }
 
-    /*
-     * setter for the ringstellung, the ring offset
-     */
-
     /**
+     * setter for the ringstellung, the ring offset
      *
      * @param offset
      */
-
     public void setRingOffset(String offset) {
         this.ringStellung = offset;
     }
 
     /**
-     * macht den Rotor statisch
+     * sets rotor static state
      *
-     * @param isStatic the new value for isStatic
+     * @param isStatic new value
      */
     private void setStatic(boolean isStatic) {
         this.isStatic = isStatic;
@@ -288,20 +276,27 @@ public class Rotor extends Mapper {
     /**
      * returns whether the rotor is static
      *
-     * @return der Wert von isStatic
+     * @return boolean indicating whether static
      */
     public boolean isStatic() {
         return isStatic;
     }
 
-    //dgt
-    private boolean contains(char c, char[] array) {
-        for (char x : array) {
-            if (x == c) {
-                return true;
+    /**
+     * returns whether a given character in the char array of notch values
+     *
+     * @param c character to check
+     * @param notch character array of notch values for the rotor
+     * @return boolean indicating whether given char is a notch char
+     */
+    private boolean contains(char c, char[] notch) {
+        boolean match = false;
+        for (char notchValue : notch) {
+            if (notchValue == c) {
+                match = true;
             }
         }
-        return false;
+        return match;
     }
 
 }

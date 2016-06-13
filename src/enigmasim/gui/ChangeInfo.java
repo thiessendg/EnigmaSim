@@ -66,7 +66,7 @@ public class ChangeInfo extends JFrame implements ActionListener {
     }
 
     /**
-     * Methode zum zentrieren und setzen der Groesse des Sniffer Fensters auf
+     * method zum zentrieren und setzen der Groesse des Sniffer Fensters auf
      * dem Desktop
      *
      * @param w Breite des Fensters
