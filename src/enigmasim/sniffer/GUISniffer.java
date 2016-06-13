@@ -21,199 +21,197 @@ import enigmasim.Debug;
 import enigmasim.NetworkListener;
 
 /**
- * @author Sebastian Chlan 
- * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
- * 
+ * @author Sebastian Chlan
+ *
+ * ENIGMA_TEC 2010 technik[at]enigma-ausstellung.at 
+ * http://enigma-ausstellung.at
+ *
+ * HTL Rennweg Rennweg 89b A-1030 Wien
+ *
  */
 @SuppressWarnings("serial")
 class GUISniffer extends JFrame implements NetworkListener,
-		ActionListener {
-	private ArrayList<String> messages = new ArrayList<>();
-	private JEditorPane msgarea = new JEditorPane();
-	private int countmsg = 0;
-	private static final int MSGBUFFERSIZE = 10;
-	private static final int FRAMEWIDTH = 900;
-	private static final int FRAMEHEIGHT = 600;
-	private static final int MSGAREAWIDTH = 865;
-	private static final int MSGAREAHEIGHT = 565;
-	private static final int COUNT_LINEBREAK = 60;
+        ActionListener {
 
-	/**
-	 * Default Konstruktor
-	 * erzeugt die GUI
-	 */
-	GUISniffer() {
+    private ArrayList<String> messages = new ArrayList<>();
+    private JEditorPane msgarea = new JEditorPane();
+    private int countmsg = 0;
+    private static final int MSGBUFFERSIZE = 10;
+    private static final int FRAMEWIDTH = 900;
+    private static final int FRAMEHEIGHT = 600;
+    private static final int MSGAREAWIDTH = 865;
+    private static final int MSGAREAHEIGHT = 565;
+    private static final int COUNT_LINEBREAK = 60;
 
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		setIconsAndTray("Icon_Enigma.png");
-		
-		JPanel areapanel = new JPanel();
-		Container cp = this.getContentPane();
+    /**
+     * Default Constructor generates the GUI
+     */
+    GUISniffer() {
 
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setTitle("Enigma Sniffer");
-		this.setResizable(false);
-		displayCenter(FRAMEWIDTH, FRAMEHEIGHT, this);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setIconsAndTray("Icon_Enigma.png");
 
-		msgarea.setContentType("text/html");
-		msgarea.setEditable(false);
-		msgarea.setPreferredSize(new Dimension(MSGAREAWIDTH, MSGAREAHEIGHT));
-		msgarea.setAutoscrolls(false);
-		msgarea.setToolTipText("Abgeh\u00F6rte Enigma Nachrichten");
-		JScrollPane msgpane = new JScrollPane(msgarea);
-		msgpane.setPreferredSize(new Dimension(MSGAREAWIDTH, MSGAREAHEIGHT));
-		msgpane
-				.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JPanel areapanel = new JPanel();
+        Container cp = this.getContentPane();
 
-		areapanel.add(msgpane);
-		cp.add(areapanel);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setTitle("Enigma Sniffer");
+        this.setResizable(false);
+        displayCenter(FRAMEWIDTH, FRAMEHEIGHT, this);
 
-		this.setVisible(true);
-	}
+        msgarea.setContentType("text/html");
+        msgarea.setEditable(false);
+        msgarea.setPreferredSize(new Dimension(MSGAREAWIDTH, MSGAREAHEIGHT));
+        msgarea.setAutoscrolls(false);
+        msgarea.setToolTipText("Abgeh\u00F6rte Enigma Nachrichten");
+        JScrollPane msgpane = new JScrollPane(msgarea);
+        msgpane.setPreferredSize(new Dimension(MSGAREAWIDTH, MSGAREAHEIGHT));
+        msgpane.setHorizontalScrollBarPolicy(
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-	
-	/**
-	 * Diese Methode setzt den TrayIcon und das Icon in der Titelleiste.
-	 * Weiters wird im Tray ein PopupMenu erstellt, welches die Möglichkeit bietet das Programm zu schliessen
-	 * @param imgName Der Name des Bildes (muss sich im Folder resources befinden). 
-	 */
-	private void setIconsAndTray(String imgName) {
-		Image image = readImageFromRessources(imgName);
-		assert image != null;
-		TrayIcon trayIcon = new TrayIcon(image);
-		PopupMenu pop = new PopupMenu("Enigma Sniffer");
-		pop.add("Exit");
-		pop.addActionListener(this);
-		trayIcon.setPopupMenu(pop);
-		this.setIconImage(image);
-		try {
-			SystemTray.getSystemTray().add(trayIcon);
-		} catch (AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        areapanel.add(msgpane);
+        cp.add(areapanel);
 
-	/**
-	 * Methode zum zentrieren und setzen der Groesse des Sniffer Fensters auf
-	 * dem Desktop
-	 * 
-	 * @param w
-	 *            Breite des Fensters
-	 * @param h
-	 *            Höhe des Fensters
-	 * @param f
-	 *            Das JFrame selbst
-	 */
-	private static void displayCenter(int w, int h, JFrame f) {
-		f.setSize(w, h);
-		Dimension dem = Toolkit.getDefaultToolkit().getScreenSize();
-		f.setLocation((int) (dem.getWidth() / 2 - w / 2), (int) (dem
-				.getHeight() / 2)
-				- h / 2);
-	}
+        this.setVisible(true);
+    }
 
-	/**
-	 * Diese Methode schreibt die Nachrichten aus der messages ArrayList in die
-	 * JEditorPane
-	 */
-	private void writeToArea() {
-		String[] tmp;
-		String txt = "<div style=\"background-image: url(/home/basti/Desktop/Logo.png)\">";
-		for (String s : messages) {
-			tmp = s.split("%");
-			tmp[1] = insertLineBreaks(tmp[1]);
-			txt += ("<span style=\"font-size:20pt;font-family:Arial;\"><b><u>Nachricht "
-					+ tmp[0] + "</u></b>" + tmp[1] + "</span>");
-			txt += "";
-		}
-		txt += "</div>";
-		print(txt);
-	}
+    /**
+     * This method sets the tray icon and the icon in the title bar.
+     * Furthermore, a PopupMenu is created in the system tray, which offers the
+     * possibility to close the program
+     *
+     * @param imgName name of the image (must be in the folder resources).
+     */
+    private void setIconsAndTray(String imgName) {
+        Image image = readImageFromRessources(imgName);
+        assert image != null;
+        TrayIcon trayIcon = new TrayIcon(image);
+        PopupMenu pop = new PopupMenu("Enigma Sniffer");
+        pop.add("Exit");
+        pop.addActionListener(this);
+        trayIcon.setPopupMenu(pop);
+        this.setIconImage(image);
+        try {
+            SystemTray.getSystemTray().add(trayIcon);
+        } catch (AWTException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * Diese Methode fuegt in einen String der in die JEditorPane eingefuegt
-	 * werden soll LineBreaks ein da die JEditorPane keine automatischen Line
-	 * Wrap hat. Die Position des Linebreaks wird in der Variable
-	 * COUNT_LINEBREAK gespeichert.
-	 * 
-	 * @param s
-	 *            Der String in den die Linebreaks eingefuegt werden.
-	 * @return Der String mit den eingefuegten Linebreaks.
-	 */
-	private String insertLineBreaks(String s) {
-		String ret = "";
-		for (int i = 0; i < s.length(); i++) {
-			if ((i % COUNT_LINEBREAK) == 0 && i != 0) {
-				ret += s.charAt(i) + "";
-			} else {
-				ret += s.charAt(i);
-			}
-		}
-		return ret;
-	}
+    /**
+     * method to center and put the size of the Sniffer window on the desktop
+     *
+     * @param w width of window
+     * @param h height of window
+     * @param f the JFrame itself
+     */
+    private static void displayCenter(int w, int h, JFrame f) {
+        f.setSize(w, h);
+        Dimension dem = Toolkit.getDefaultToolkit().getScreenSize();
+        f.setLocation((int) (dem.getWidth() / 2 - w / 2), (int) (dem
+                .getHeight() / 2)
+                - h / 2);
+    }
 
-	/**
-	 * Diese Methode schreibt den Text in die JEditorPane.
-	 * 
-	 * @param txt
-	 *            Der String der in die JEditorPane eingefuegt werden soll.
-	 */
-	private void print(String txt) {
-		msgarea.setText(txt);
-	}
+    /**
+     * This method writes the messages from the messages ArrayList in the
+     * JEditorPane
+     */
+    private void writeToArea() {
+        String[] tmp;
+        String txt = "<div style=\"background-image: "
+                + "url(/home/basti/Desktop/Logo.png)\">";
+        for (String s : messages) {
+            tmp = s.split("%");
+            tmp[1] = insertLineBreaks(tmp[1]);
+            txt += ("<span style=\"font-size:20pt;font-family:Arial;\">"
+                    + "<b><u>Nachricht " + tmp[0] + "</u></b>" + tmp[1] + 
+                    "</span>");
+            txt += "";
+        }
+        txt += "</div>";
+        print(txt);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see enigma.NetworkListener#sendRecievedMessage(java.lang.String)
-	 */
-	@Override
-	public void sendRecievedMessage(String msg) {
-		countmsg++;
-		Date timestamp = new Date();
-		messages.add(0, countmsg + " - " + timestamp.toString() + "%" + msg);
-		if (messages.size() > MSGBUFFERSIZE) {
-			messages.remove(MSGBUFFERSIZE);
-		}
-		writeToArea();
-	}
+    /**
+     * This method adds to a string to be listed on the JEditorPane linebreaks
+     * one since the JEditorPane has no automatic Line wrap. The position of the
+     * Line Breaks is stored in the variable COUNT_LINEBREAK.
+     *
+     * @param s The string in the Line Breaks are inserted.
+     * @return The string with the eingefuegten linebreaks.
+     */
+    private String insertLineBreaks(String s) {
+        String ret = "";
+        for (int i = 0; i < s.length(); i++) {
+            if ((i % COUNT_LINEBREAK) == 0 && i != 0) {
+                ret += s.charAt(i) + "";
+            } else {
+                ret += s.charAt(i);
+            }
+        }
+        return ret;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.exit(0);
-	}
+    /**
+     * This method writes the text in the JEditorPane.
+     *
+     * @param txt The string to be listed on the JEditorPane.
+     */
+    private void print(String txt) {
+        msgarea.setText(txt);
+    }
 
-	/**
-	 * Methode liesst ein Bild aus dem resources Ordner aus und gibt es als Image Objekt zurueck
-	 * @param fname Der Name des Bildes
-	 * @return Das gefundene Bild, falls keines gefunden wurde wird null zurueckgegeben
-	 */
-	private Image readImageFromRessources(String fname) {
-		try {
-			return ImageIO.read(new File("resources/" + fname));
-		} catch (Exception e) {
-			try {
-				return ImageIO.read(getClass().getResource("/resources/" + fname));
-			} catch (Exception e1) {
-				if(Debug.isDebug())
-					System.out.println("Falscher Dateiname");
-				return null;
-			}
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see enigma.NetworkListener#sendRecievedMessage(java.lang.String)
+     */
+    @Override
+    public void sendRecievedMessage(String msg) {
+        countmsg++;
+        Date timestamp = new Date();
+        messages.add(0, countmsg + " - " + timestamp.toString() + "%" + msg);
+        if (messages.size() > MSGBUFFERSIZE) {
+            messages.remove(MSGBUFFERSIZE);
+        }
+        writeToArea();
+    }
+
+    /* (non-Javadoc)
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.
+     * ActionEvent)
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.exit(0);
+    }
+
+    /**
+     * method reads an image from the resources folder and returns available as
+     * image object
+     *
+     * @param fname name of the image
+     * @return The image found. If none was found, return null
+     */
+    private Image readImageFromRessources(String fname) {
+        try {
+            return ImageIO.read(new File("resources/" + fname));
+        } catch (Exception e) {
+            try {
+                return ImageIO.read(getClass().getResource(
+                        "/resources/" + fname));
+            } catch (Exception e1) {
+                if (Debug.isDebug()) {
+                    System.out.println("Falscher Dateiname");
+                }
+                return null;
+            }
+        }
+    }
 }
