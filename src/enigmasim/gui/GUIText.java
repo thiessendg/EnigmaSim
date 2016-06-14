@@ -12,7 +12,7 @@ import javax.swing.border.TitledBorder;
 
 
 /**
- * @author bre
+ * @author David Thiessen based on previous work by bre
  *
  */
 class GUIText {

@@ -1,15 +1,7 @@
 package enigmasim;
 
 /**
- * @author Mina Toma 
- * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
+ * @author David Thiessen based on previous work by Mina Toma 
  *
  */
 public interface NetworkListener {

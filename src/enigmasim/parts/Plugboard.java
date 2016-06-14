@@ -3,16 +3,9 @@ package enigmasim.parts;
 import enigmasim.Debug;
 
 /**
- * @author Gerald Schreiber, Philip Woelfel, Sebastian Chlan 
+ * @author David Thiessen based on prev work by Gerald Schreiber, 
+ * Philip Woelfel, & Sebastian Chlan 
  * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
- *
  */
 public class Plugboard extends Mapper {
 

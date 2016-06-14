@@ -12,16 +12,8 @@ import javax.swing.*;
 /**
  * Dient zum darstellen des Info Fensters wenn Buchstaben ersetzt wurden.
  *
- * @author Mario Heindl, Philip Woelfel 
+ * @author David Thiessen based on previous work by Mario Heindl, Philip Woelfel 
  * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
- *
  */
 @SuppressWarnings("serial")
 public class ChangeInfo extends JFrame implements ActionListener {

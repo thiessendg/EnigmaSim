@@ -19,20 +19,9 @@ import enigmasim.Debug;
 //import org.jetbrains.annotations.Nullable;
 
 /**
- * Ladebildschirm.
  *
- * Wird verwendet, um das Laden von 'GUIEnigma' anzuzeigen.
- *
- * @author Mathias Kub 
+ * @author David Thiessen based on previous work by Mathias Kub 
  * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
- *
  */
 @SuppressWarnings("serial")
 public class SplashScreen extends JFrame {

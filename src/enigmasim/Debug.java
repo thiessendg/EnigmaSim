@@ -1,22 +1,3 @@
-/* 
- * 	This program simulates the function of the Enigma.
- * 
- *	Copyright © 2010 Mathias Kub <git@makubi.at>
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *  
- */
 package enigmasim;
 
 import java.io.BufferedReader;
@@ -31,15 +12,7 @@ import java.util.Properties;
  * This class is used for debugging. The settings for this can be found in the 
  * 'resources/enigma.properties' file.
  *
- * @author Mathias Kub 
- * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
+ * @author David Thiessen based on previous work by Mathias Kub 
  *
  */
 public class Debug {

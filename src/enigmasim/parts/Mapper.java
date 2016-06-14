@@ -5,16 +5,8 @@ import java.util.TreeSet;
 import enigmasim.Debug;
 
 /**
- * @author Philip Woelfel, Sebastian Chlan 
+ * @author David Thiessen based on prev work by Philip Woelfel & Sebastian Chlan 
  * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
- *
  */
 public class Mapper {
 

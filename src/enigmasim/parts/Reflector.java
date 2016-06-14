@@ -5,15 +5,8 @@ import java.util.TreeSet;
 import enigmasim.Debug;
 
 /**
- * @author Sebastian Chlan, Philip Woelfel 
- * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
+ * @author David Thiessen based on previous work by Sebastian Chlan & 
+ * Philip Woelfel 
  *
  */
 public class Reflector extends Mapper {

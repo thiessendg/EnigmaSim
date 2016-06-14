@@ -7,15 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JToggleButton;
 
 /**
- * @author DI Franz Breunig
- * 
- * ENIGMA_TEC 2010
- * technik[at]enigma-ausstellung.at
- * http://enigma-ausstellung.at
- * 
- * HTL Rennweg
- * Rennweg 89b
- * A-1030 Wien
+ * @author David Thiessen based on previous work by DI Franz Breunig
  * 
  */
 @SuppressWarnings("serial")

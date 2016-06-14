@@ -17,15 +17,7 @@ import java.util.Properties;
  * The class Network is responsible for sending and receiving messages over a 
  * multicast address and a specific port
  *
- * @author Mario Heindl, Mina Toma 
- * 
- * ENIGMA_TEC 2010 
- * technik[at]enigma-ausstellung.at 
- * http://enigma-ausstellung.at 
- * 
- * HTL Rennweg 
- * Rennweg 89b 
- * A-1030 Wien 
+ * @author David Thiessen, based on work by Mario Heindl and Mina Toma 
  *
  */
 public class Network implements Runnable, LogicListener {
